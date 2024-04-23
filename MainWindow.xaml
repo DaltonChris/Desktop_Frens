@@ -1,0 +1,26 @@
+﻿<Window x:Class="WPF_Desktop_Fren.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AnimatedSpriteWPF" 
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        Background="Transparent"
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        Height="{x:Static SystemParameters.PrimaryScreenHeight}"
+        WindowStartupLocation="Manual" 
+        Left="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Left}"
+        Top="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Top}">
+
+    <Canvas Name="MainCanvas" 
+            Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+            Height="150"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left">
+
+        <Image x:Name="animatedImage" 
+               Width="100" 
+               Height="100" 
+               Canvas.Left="0" 
+               Canvas.Top="10"/> <!--Adjust to suit Sprite Size / Y-axis pos-->
+    </Canvas>
+</Window>
