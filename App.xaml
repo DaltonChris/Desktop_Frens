@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:WPF_Desktop_Fren"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <BitmapImage x:Key="AppIcon" UriSource="slug_icon.ico" BaseUri="/slug_icon.ico"/>
+         
     </Application.Resources>
-
 </Application>
