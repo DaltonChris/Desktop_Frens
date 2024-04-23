@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,7 @@ namespace WPF_Desktop_Fren
     {
         private readonly DispatcherTimer timer;
         private int CurrentFrame = 0;
-        private readonly string FileDirct = @"F:\C#_Repos\WPF_Desktop_Fren\Sprites"; // Path to sprite folder
+        private readonly string FileDirct = "Sprites"; // Path to sprite folder
         private readonly string[] FramePaths;
         private readonly double MoveAmount = 8.5; // Movement speed
         private bool MoveRight = true; // Direction flag
@@ -24,15 +25,19 @@ namespace WPF_Desktop_Fren
                 InitializeComponent();
                 this.ShowInTaskbar = false; // Hide from taskbar and make always on top
                 this.Topmost = true;
+                var basePath = AppDomain.CurrentDomain.BaseDirectory;
+                var spriteDirPath = Path.Combine(basePath, FileDirct);
+
                 FramePaths = new string[] // Initialize the frame paths with the concatenated directory path
                 {
-                FileDirct + @"\Slug-1.png", // Sprite names
-                FileDirct + @"\Slug-2.png",
-                FileDirct + @"\Slug-3.png",
-                FileDirct + @"\Slug-4.png",
-                FileDirct + @"\Slug-3.png",
-                FileDirct + @"\Slug-2.png",
+                Path.Combine(spriteDirPath, "Slug-1.png"), // Sprite names
+                Path.Combine(spriteDirPath, "Slug-2.png"),
+                Path.Combine(spriteDirPath, "Slug-3.png"),
+                Path.Combine(spriteDirPath, "Slug-4.png"),
+                Path.Combine(spriteDirPath, "Slug-3.png"),
+                Path.Combine(spriteDirPath, "Slug-2.png"),
                 };
+
                 // Start the timer
                 timer = new DispatcherTimer();
                 timer.Interval = TimeSpan.FromMilliseconds(55); // animation speed
