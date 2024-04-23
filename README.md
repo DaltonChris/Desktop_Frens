@@ -12,3 +12,6 @@
 - Dope slug frend on the task bar, whats not to love
 - Do as you please with this.
 
+![Horribly_Compressed-Gif](https://github.com/DaltonChris/WPF_Desktop_Fren/assets/142439192/fadfa48a-4a40-4245-857a-c44fa66cf3af)
+
+![SlugExample_Pic](https://github.com/DaltonChris/WPF_Desktop_Fren/assets/142439192/52a93459-ce0c-4db3-8321-86c5a46601e3)
