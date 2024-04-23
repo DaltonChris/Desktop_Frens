@@ -5,6 +5,19 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icon\slug_icon.ico</ApplicationIcon>
+    <PackageIcon>Slug-1.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Icon\slug_icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Sprites\Slug-1.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
