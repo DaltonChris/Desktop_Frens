@@ -5,6 +5,37 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <PackageIcon>Slug-1.png</PackageIcon>
+
+    <UseWindowsForms>True</UseWindowsForms>
+
+    <ApplicationIcon>slug_icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\Release\net6.0-windows\**" />
+    <EmbeddedResource Remove="bin\Release\net6.0-windows\**" />
+    <None Remove="bin\Release\net6.0-windows\**" />
+    <Page Remove="bin\Release\net6.0-windows\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="slug_icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Sprites\Slug-1.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Release\Icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="slug_icon.ico" />
+  </ItemGroup>
 
 </Project>

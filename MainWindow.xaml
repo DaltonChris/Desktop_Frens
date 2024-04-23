@@ -9,7 +9,9 @@
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"
         WindowStartupLocation="Manual" 
         Left="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Left}"
-        Top="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Top}">
+        Top="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Top}"
+        Icon="slug_icon.ico">
+
 
     <Canvas Name="MainCanvas" 
             Width="{x:Static SystemParameters.PrimaryScreenWidth}"
@@ -21,6 +23,7 @@
                Width="100" 
                Height="100" 
                Canvas.Left="0" 
-               Canvas.Top="10"/> <!--Adjust to suit Sprite Size / Y-axis pos-->
+               Canvas.Top="10"/>
+        <!--Adjust to suit Sprite Size / Y-axis pos-->
     </Canvas>
 </Window>
