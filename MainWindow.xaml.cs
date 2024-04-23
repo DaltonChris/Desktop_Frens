@@ -1,115 +1,63 @@
-﻿using System.CodeDom;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Color = System.Drawing.Color;
-using Image = System.Windows.Controls.Image;
-//using Microsoft.Diagnostics.Tracing.AutomatedAnalysis;
 
-namespace Desktop_Frens
+namespace WPF_Desktop_Fren
 {
     public partial class MainWindow : Window
     {
-        readonly DispatcherTimer timer = new();
-        int CurrentFrame = 0;
-        readonly double MoveAmount = 8.5;
-        bool MoveRight = true;
-        readonly NotifyIcon TaskIcon = new();
-
-        readonly int SlugSpriteCount = 6;
-        readonly int DogSpriteCount = 6;
-        int CurrentSpriteCount;
-
-        bool isSlugFren = true;
-        bool isDogFren = false;
-
-        readonly Dictionary<string, BitmapImage> loadedImages = [];
-
-        FrenObject _Slug_Fren;
-        FrenObject _Dog_Fren;
-
-
-
+        private readonly DispatcherTimer timer;
+        private int CurrentFrame = 0;
+        private readonly string FileDirct = @"F:\C#_Repos\WPF_Desktop_Fren\Sprites"; // Path to sprite folder
+        private readonly string[] FramePaths;
+        private readonly double MoveAmount = 8.5; // Movement speed
+        private bool MoveRight = true; // Direction flag
 
         public MainWindow()
         {
             try
             {
-                
-                // Preload images
-                LoadAllImages();
-                // init main window
                 InitializeComponent();
-                LoadFrenObjects();
-                this.ShowInTaskbar = false;
+                this.ShowInTaskbar = false; // Hide from taskbar and make always on top
                 this.Topmost = true;
-                // Initialize NotifyIcon
-                if(TaskIcon != null)
+                FramePaths = new string[] // Initialize the frame paths with the concatenated directory path
                 {
-                    TaskIcon.Icon = ImageManager.GetIcon("slug_icon"); // Replace with your icon path
-                    TaskIcon.Visible = true;
-                    TaskIcon.Text = "Desktop Fren";
-                    TaskIcon.DoubleClick += (s, e) => Show();
-                    // Create context menu for NotifyIcon
-                    var settingsMenu = new SettingsMenu(this);
-                    // Assign the context menu to TaskIcon
-                    TaskIcon.ContextMenuStrip = settingsMenu._menuStrip;
-                }
-                // Start the timer if not null
-                if (timer != null)
-                {
-                    timer.Interval = TimeSpan.FromMilliseconds(55); // animation speed
-                    timer.Tick += TranslateFrenAnim;
-                    timer.Start();
-                }
+                FileDirct + @"\Slug-1.png", // Sprite names
+                FileDirct + @"\Slug-2.png",
+                FileDirct + @"\Slug-3.png",
+                FileDirct + @"\Slug-4.png",
+                FileDirct + @"\Slug-3.png",
+                FileDirct + @"\Slug-2.png",
+                };
+                // Start the timer
+                timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(55); // animation speed
+                timer.Tick += TranslateFrenAnim;
+                timer.Start();
                 // Flip the initial image (Comment these out if your sprites default is facing right)
                 ScaleTransform flipTransform = new(-1, 1);
                 animatedImage.RenderTransform = flipTransform;
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error loading image: {ex.Message}");
-            }
+                MessageBox.Show($"Error loading image: {ex.Message}");
+            }  
         }
 
-        void LoadFrenObjects()
-        {
-            _Slug_Fren = new("Slug", 6, this, 30, this._AnimatedImg_1,75,75,-15);
-            _Dog_Fren = new("Dog", 6, this, 40 , _AnimatedImg_2,100,125,-20);
-
-            SetFrenActive(_Dog_Fren);
-            SetFrenActive(_Slug_Fren);
-        }
-        void SetFrenActive(FrenObject fren)
-        {
-            if (fren != null)
-            {
-                fren.SetActive();
-            }
-        }
-
-        private void TranslateFrenAnim(object? sender, EventArgs e)
+        private async void TranslateFrenAnim(object sender, EventArgs e)
         {
             try
             {
-                var resourceName = "";
-                // Get the next frame from the preloaded images
-                if (isSlugFren)
-                {
-                    resourceName = $"Slug_{CurrentFrame + 1}";
-                    CurrentSpriteCount = SlugSpriteCount;
-                }
-                if (isDogFren)
-                {
-                    resourceName = $"Dog_{CurrentFrame + 1}";
-                    CurrentSpriteCount = DogSpriteCount;
-                }
-                var imageSource = loadedImages[resourceName];
+                // Load the next frame asynchronously
+                var framePath = FramePaths[CurrentFrame];
+                var imageSource = await LoadImageAsync(framePath);
                 animatedImage.Source = imageSource;
                 // Update the current frame index
-                CurrentFrame = (CurrentFrame + 1) % CurrentSpriteCount;
+                CurrentFrame = (CurrentFrame + 1) % FramePaths.Length;
                 // Get current position
                 double currentX = Canvas.GetLeft(animatedImage);
                 // Update position based on direction
@@ -126,62 +74,51 @@ namespace Desktop_Frens
                 else
                 {
                     currentX -= MoveAmount;
-                    if (currentX <= 10)
-                    { // Adjust if needed
+                    if (currentX <= 10) // Adjust if needed
+                    {
                         currentX = 0;
-                        MoveRight = true; // Change direction // Reset the image flip
-                        animatedImage.RenderTransformOrigin = new System.Windows.Point(0.5, 0.5);
+                        MoveRight = true; // Change direction
+                                          // Reset the image flip
+                        animatedImage.RenderTransformOrigin = new Point(0.5, 0.5);
                         ScaleTransform flipTransform = new(-1, 1);
                         animatedImage.RenderTransform = flipTransform;
                     }
                 }
+
                 // Apply new position
                 Canvas.SetLeft(animatedImage, currentX);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show($"Error loading image: {ex.Message}");
             }
         }
 
-        public void SetSlugFren()
-        {
-            // Handle Option 1 click
-            isDogFren = false;
-            isSlugFren = true;
-            animatedImage.Height = 75;
-            animatedImage.Width = 75;
-            Canvas.SetTop(animatedImage, -15);
-        }
-        public void SetDogFren()
-        {
-            // Handle Option 2 click
-            isSlugFren = false;
-            isDogFren = true;
-            animatedImage.Height = 100;
-            animatedImage.Width = 125;
-            Canvas.SetTop(animatedImage, -20);
-        }
 
 
-        private void LoadAllImages()
+        private static async Task<BitmapImage> LoadImageAsync(string path)
         {
-
-            string[] imageNames = ["Slug_1", "Slug_2", "Slug_3", "Slug_4", "Slug_5", "Slug_6"];
-            foreach (var name in imageNames)
+            try
             {
-                loadedImages[name] = ImageManager.GetBitmapImage(name);
+                BitmapImage bitmapImage = new();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(path);
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                await bitmapImage.Dispatcher.InvokeAsync(() =>
+                {
+                    bitmapImage.Freeze();
+                }, System.Windows.Threading.DispatcherPriority.Render);
+
+                return bitmapImage;
             }
-
-
-            string[] imageNamesDog = ["Dog_1", "Dog_2", "Dog_3", "Dog_4", "Dog_5", "Dog_6", "Dog_7"];
-            foreach (var name in imageNamesDog)
+            catch (Exception ex)
             {
-                loadedImages[name] = ImageManager.GetBitmapImage(name);
+                MessageBox.Show($"Error loading image: {ex.Message}");
+                return null;
             }
-
         }
 
     }
-
 }
