@@ -117,6 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Dog_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="slug-1" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -774,5 +796,8 @@
         dpJrGagtfvmgs6KIrdCzLNpFZ8l0OguKneRa/W31Kt5ticeIYie5loHa4pcPOiuK2Ao9y6JddJZMp7Og
         2Emu1d9Wr+Il9s03/xcWoVbgfwfSvAAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="slug_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net6.0-windows10.0.17763.0\Icons\slug_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

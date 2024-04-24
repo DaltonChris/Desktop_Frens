@@ -63,6 +63,76 @@ namespace WPF_Desktop_Fren.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Dog_1 {
+            get {
+                object obj = ResourceManager.GetObject("Dog_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dog_2 {
+            get {
+                object obj = ResourceManager.GetObject("Dog_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dog_3 {
+            get {
+                object obj = ResourceManager.GetObject("Dog_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dog_4 {
+            get {
+                object obj = ResourceManager.GetObject("Dog_4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dog_5 {
+            get {
+                object obj = ResourceManager.GetObject("Dog_5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dog_6 {
+            get {
+                object obj = ResourceManager.GetObject("Dog_6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dog_7 {
+            get {
+                object obj = ResourceManager.GetObject("Dog_7", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap slug_1 {
             get {
                 object obj = ResourceManager.GetObject("slug-1", resourceCulture);
@@ -97,6 +167,16 @@ namespace WPF_Desktop_Fren.Properties {
             get {
                 object obj = ResourceManager.GetObject("slug-4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon slug_icon {
+            get {
+                object obj = ResourceManager.GetObject("slug_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

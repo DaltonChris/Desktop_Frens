@@ -13,14 +13,14 @@
 
     <Canvas Name="MainCanvas" 
             Width="{x:Static SystemParameters.PrimaryScreenWidth}"
-            Height="150"
+            Height="100"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Left">
 
         <Image x:Name="animatedImage" 
-               Width="100" 
-               Height="100" 
+               Width="75" 
+               Height="75" 
                Canvas.Left="0" 
-               Canvas.Top="10"/> <!--Adjust to suit Sprite Size / Y-axis pos-->
+               Canvas.Top="-15"/> <!--Adjust to suit Sprite Size / Y-axis pos-->
     </Canvas>
 </Window>
