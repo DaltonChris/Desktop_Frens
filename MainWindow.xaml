@@ -9,7 +9,25 @@
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"
         WindowStartupLocation="Manual" 
         Left="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Left}"
-        Top="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Top}">
+        Top="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Top}"
+        >
+    <Window.Resources>
+        <!-- Custom ContextMenu ControlTemplate -->
+        <ControlTemplate x:Key="CustomContextMenuTemplate" TargetType="{x:Type ContextMenu}">
+            <Border BorderBrush="DarkRed" 
+                    BorderThickness="2">
+                <StackPanel Background="{TemplateBinding Background}">
+                    <ItemsPresenter Margin="0"/>
+                    <Separator Style="{StaticResource {x:Static MenuItem.SeparatorStyleKey}}"/>
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
+
+        <!-- Apply the custom ControlTemplate to the ContextMenu -->
+        <Style TargetType="{x:Type ContextMenu}">
+            <Setter Property="Template" Value="{StaticResource CustomContextMenuTemplate}"/>
+        </Style>
+    </Window.Resources>
 
     <Canvas Name="MainCanvas" 
             Width="{x:Static SystemParameters.PrimaryScreenWidth}"
@@ -21,6 +39,14 @@
                Width="75" 
                Height="75" 
                Canvas.Left="0" 
-               Canvas.Top="-15"/> <!--Y-axis pos-->
+               Canvas.Top="-15"/>
+        <!--Y-axis pos-->
     </Canvas>
+
+
+
 </Window>
+
+
+
+
