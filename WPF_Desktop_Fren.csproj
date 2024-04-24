@@ -10,6 +10,8 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\Icons\exit.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\Icons\settings.png" />
 		<Content Include="bin\Release\net6.0-windows10.0.17763.0\Icons\slug_icon.ico" />
 		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_7.png" />
 		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_6.png" />

@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
 using System.Collections.Generic;
+using Color = System.Drawing.Color;
+using System.Drawing;
 
 namespace WPF_Desktop_Fren
 {
@@ -24,11 +26,28 @@ namespace WPF_Desktop_Fren
         readonly int DogSpriteCount = 7;
         int CurrentSpriteCount;
 
+
         bool isSlugFren = true;
         bool isDogFren = false;
 
         readonly Dictionary<string, BitmapImage> loadedImages = new Dictionary<string, BitmapImage>();
-        ToolStripMenuItem settingsMenu;
+        readonly ContextMenuStrip MenuStrip = new()
+        {
+            BackColor = BackgroundColour, // Set background color
+            ForeColor = TextColour,     // Set text color
+            Width = 500,                  // Set menu width
+            Height = 500,            // Set menu height
+            DropShadowEnabled = true,
+            ShowImageMargin = false,
+        };
+
+
+        static ToolStripMenuItem SettingsMenu;
+        static ToolStripMenuItem ExitMenuItem;
+
+
+        static readonly Color BackgroundColour = Color.Black;
+        static readonly Color TextColour = Color.White;
 
         public MainWindow()
         {
@@ -36,6 +55,7 @@ namespace WPF_Desktop_Fren
             {
                 // Preload images
                 LoadAllImages();
+
                 InitializeComponent();
                 this.ShowInTaskbar = false;
                 this.Topmost = true;
@@ -96,7 +116,7 @@ namespace WPF_Desktop_Fren
                     if (currentX <= 10){ // Adjust if needed
                         currentX = 0;
                         MoveRight = true; // Change direction // Reset the image flip
-                        animatedImage.RenderTransformOrigin = new Point(0.5, 0.5);
+                        animatedImage.RenderTransformOrigin = new System.Windows.Point(0.5, 0.5);
                         ScaleTransform flipTransform = new(-1, 1);
                         animatedImage.RenderTransform = flipTransform;
                     }
@@ -112,29 +132,76 @@ namespace WPF_Desktop_Fren
 
         internal ContextMenuStrip CreateContextMenu()
         {
-            ContextMenuStrip menu = new ContextMenuStrip();
+            MenuStrip.Renderer = new MyRenderer();
+
             // Settings submenu
-            settingsMenu = new ToolStripMenuItem("Settings");
-            // Submenu Slug
-            ToolStripMenuItem option1MenuItem = new ToolStripMenuItem("Slug - Fren");
-            option1MenuItem.Click += SetSlugFren;
-            option1MenuItem.Checked = isSlugFren; // Set check box to checked
-            // Submenu Dog
-            ToolStripMenuItem option2MenuItem = new ToolStripMenuItem("Dog - Fren");
-            option2MenuItem.Click += SetDogFren;
-            option2MenuItem.Checked = isDogFren; // Set check box to unchecked
-            // Add submenu items to Settings
-            settingsMenu.DropDownItems.Add(option1MenuItem);
-            settingsMenu.DropDownItems.Add(option2MenuItem);
-            menu.Items.Add(settingsMenu);
-            // Separator
-            menu.Items.Add(new ToolStripSeparator());
+            SettingsMenu = new ToolStripMenuItem("Settings")
+            {
+                BackColor = BackgroundColour,   // Set background color
+                ForeColor = TextColour,         // Set text color
+                Image = Properties.Resources.settings,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit,  // No scaling
+                Padding = new Padding(-1),
+        };
+
+
             // Exit item
-            ToolStripMenuItem exitMenuItem = new ToolStripMenuItem("Exit");
-            exitMenuItem.Click += ExitMenuItem_Click;
-            menu.Items.Add(exitMenuItem);
-            return menu;
+            ExitMenuItem = new ToolStripMenuItem("Exit")
+            {
+                BackColor = BackgroundColour,     // Set background color
+                ForeColor = Color.Red,            // Set text color
+                Image = Properties.Resources.exit,
+                ImageScaling = ToolStripItemImageScaling.SizeToFit,  // No scaling,
+                Padding = new Padding(-1),
+        };
+            // Set ToolStrip LayoutStyle to Table
+            MenuStrip.LayoutStyle = ToolStripLayoutStyle.Table;
+
+            // Adjust the spacing between items
+            MenuStrip.GripStyle = ToolStripGripStyle.Hidden;
+            MenuStrip.Padding = new Padding(0);  // Remove any padding
+
+            // Submenu Slug
+            ToolStripMenuItem option1MenuItem = new("Slug - Fren");
+            option1MenuItem.Click += SetSlugFren;
+            option1MenuItem.Checked = isSlugFren;
+
+            // Customize submenu item appearance
+            option1MenuItem.BackColor = BackgroundColour;  // Set background color
+            option1MenuItem.ForeColor = TextColour;      // Set text color
+            option1MenuItem.BackgroundImageLayout = ImageLayout.None;
+            option1MenuItem.Margin = new Padding(0);  // Set the margin to zero
+
+            // Submenu Dog
+            ToolStripMenuItem option2MenuItem = new("Dog - Fren");
+            option2MenuItem.Click += SetDogFren;
+            option2MenuItem.Checked = isDogFren;
+
+            // Customize submenu item appearance
+            option2MenuItem.BackColor = BackgroundColour;  // Set background color
+            option2MenuItem.ForeColor = TextColour;      // Set text color
+            option2MenuItem.ImageTransparentColor = BackgroundColour;
+            option2MenuItem.Margin = new Padding(0);  // Set the margin to zero
+
+            // Add submenu items to Settings
+            SettingsMenu.DropDownItems.Add(option1MenuItem);
+            SettingsMenu.DropDownItems.Add(option2MenuItem);
+
+            MenuStrip.Items.Add(SettingsMenu);
+
+            // Separator
+            MenuStrip.Items.Add(new ToolStripSeparator());
+
+            // Exit item
+            ExitMenuItem.Click += ExitMenuItem_Click;
+
+            MenuStrip.Items.Add(ExitMenuItem);
+
+            return MenuStrip;
         }
+
+
+
         private void SetSlugFren(object sender, EventArgs e)
         {
             // Handle Option 1 click
@@ -163,7 +230,7 @@ namespace WPF_Desktop_Fren
         private void UpdateCheckboxes()
         {
             // Update checkboxes based on flags
-            foreach (ToolStripMenuItem item in settingsMenu.DropDownItems)
+            foreach (ToolStripMenuItem item in SettingsMenu.DropDownItems)
             {
                 if (item.Text == "Slug - Fren")
                 {
@@ -278,6 +345,50 @@ namespace WPF_Desktop_Fren
                 return null;
             }
         }
+        private class MyRenderer : ToolStripProfessionalRenderer
+        {
+            protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
+            {
+                // Fill background with black
+                e.Graphics.FillRectangle(System.Drawing.Brushes.Black, e.ImageRectangle);
+
+                // Draw the check mark
+                base.OnRenderItemCheck(e);
+            }
+
+            protected override void OnRenderItemImage(ToolStripItemImageRenderEventArgs e)
+            {
+                // Fill background with black
+                e.Graphics.FillRectangle(System.Drawing.Brushes.Black, e.ImageRectangle);
+
+                // Manually offset the image to cover the entire background
+                int offsetX = (e.Item.Bounds.Width - e.ImageRectangle.Width) / 2;
+                int offsetY = (e.Item.Bounds.Height - e.ImageRectangle.Height) / 2;
+                Rectangle imageRect = new Rectangle(e.ImageRectangle.X + offsetX, e.ImageRectangle.Y + offsetY, e.ImageRectangle.Width, e.ImageRectangle.Height);
+
+                // Draw the image
+                e.Graphics.DrawImage(e.Image, imageRect);
+
+                // Draw red overlay line when item is selected
+                if (e.Item.Selected)
+                {
+                    using (System.Drawing.Pen pen = new System.Drawing.Pen(Color.Red, 2))
+                    {
+                        e.Graphics.DrawLine(pen, imageRect.Left, imageRect.Top, imageRect.Right, imageRect.Bottom);
+                    }
+                }
+            }
+
+
+            protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+            {
+                // Prevent rendering the border to remove the white line
+            }
+        }
+
+
+
+
 
     }
 }
