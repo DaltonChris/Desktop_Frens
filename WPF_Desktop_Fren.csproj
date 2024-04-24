@@ -20,6 +20,7 @@
 		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_3.png" />
 		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_2.png" />
 		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_1.png" />
+		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.9" />
 		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-1.png" />
 		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-2.png" />
 		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-3.png" />
@@ -38,6 +39,19 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
+
+
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
 
 </Project>

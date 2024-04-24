@@ -11,6 +11,11 @@ using System.Drawing.Imaging;
 using System.Collections.Generic;
 using Color = System.Drawing.Color;
 using System.Drawing;
+using System.Windows.Interop;
+using System.Drawing.Drawing2D;
+using Point = System.Drawing.Point;
+using Image = System.Drawing.Image;
+using Microsoft.Diagnostics.Tracing.AutomatedAnalysis;
 
 namespace WPF_Desktop_Fren
 {
@@ -31,15 +36,7 @@ namespace WPF_Desktop_Fren
         bool isDogFren = false;
 
         readonly Dictionary<string, BitmapImage> loadedImages = new Dictionary<string, BitmapImage>();
-        readonly ContextMenuStrip MenuStrip = new()
-        {
-            BackColor = BackgroundColour, // Set background color
-            ForeColor = TextColour,     // Set text color
-            Width = 500,                  // Set menu width
-            Height = 500,            // Set menu height
-            DropShadowEnabled = true,
-            ShowImageMargin = false,
-        };
+        static ContextMenuStrip MenuStrip = new();
 
 
         static ToolStripMenuItem SettingsMenu;
@@ -47,7 +44,7 @@ namespace WPF_Desktop_Fren
 
 
         static readonly Color BackgroundColour = Color.Black;
-        static readonly Color TextColour = Color.White;
+        static readonly Color TextColour = Color.Red;
 
         public MainWindow()
         {
@@ -88,11 +85,13 @@ namespace WPF_Desktop_Fren
             {
                 var resourceName = "";
                 // Get the next frame from the preloaded images
-                if (isSlugFren) { 
+                if (isSlugFren)
+                {
                     resourceName = $"slug_{CurrentFrame + 1}";
                     CurrentSpriteCount = SlugSpriteCount;
                 }
-                if (isDogFren) { 
+                if (isDogFren)
+                {
                     resourceName = $"Dog_{CurrentFrame + 1}";
                     CurrentSpriteCount = DogSpriteCount;
                 }
@@ -103,7 +102,8 @@ namespace WPF_Desktop_Fren
                 // Get current position
                 double currentX = Canvas.GetLeft(animatedImage);
                 // Update position based on direction
-                if (MoveRight){
+                if (MoveRight)
+                {
                     currentX += MoveAmount;
                     if (currentX >= MainCanvas.Width)
                     {
@@ -111,9 +111,12 @@ namespace WPF_Desktop_Fren
                         MoveRight = false; // Change direction
                         animatedImage.RenderTransform = null; // flip 
                     }
-                }else{
+                }
+                else
+                {
                     currentX -= MoveAmount;
-                    if (currentX <= 10){ // Adjust if needed
+                    if (currentX <= 10)
+                    { // Adjust if needed
                         currentX = 0;
                         MoveRight = true; // Change direction // Reset the image flip
                         animatedImage.RenderTransformOrigin = new System.Windows.Point(0.5, 0.5);
@@ -132,28 +135,27 @@ namespace WPF_Desktop_Fren
 
         internal ContextMenuStrip CreateContextMenu()
         {
-            MenuStrip.Renderer = new MyRenderer();
-
+            MenuStrip.RenderMode = ToolStripRenderMode.Professional;
+            MenuStrip.Renderer = new ToolStripSystemRenderer();
             // Settings submenu
-            SettingsMenu = new ToolStripMenuItem("Settings")
-            {
-                BackColor = BackgroundColour,   // Set background color
-                ForeColor = TextColour,         // Set text color
+            SettingsMenu = new ToolStripMenuItem("Settings"){
+                BackColor = BackgroundColour,  // Set background color
+                ForeColor = TextColour,      // Set text color
                 Image = Properties.Resources.settings,
-                ImageScaling = ToolStripItemImageScaling.SizeToFit,  // No scaling
-                Padding = new Padding(-1),
-        };
-
-
+                ImageTransparentColor = BackgroundColour,
+                Padding = new Padding(0),
+                Margin = new Padding(0),
+            };
             // Exit item
-            ExitMenuItem = new ToolStripMenuItem("Exit")
-            {
-                BackColor = BackgroundColour,     // Set background color
-                ForeColor = Color.Red,            // Set text color
+            ExitMenuItem = new ToolStripMenuItem("Exit"){
+                BackColor = BackgroundColour,  // Set background color
+                ForeColor = TextColour,      // Set text color
                 Image = Properties.Resources.exit,
-                ImageScaling = ToolStripItemImageScaling.SizeToFit,  // No scaling,
-                Padding = new Padding(-1),
-        };
+                ImageTransparentColor = BackgroundColour,
+                Padding = new Padding(0),
+                Margin = new Padding(0),
+            };
+
             // Set ToolStrip LayoutStyle to Table
             MenuStrip.LayoutStyle = ToolStripLayoutStyle.Table;
 
@@ -162,7 +164,7 @@ namespace WPF_Desktop_Fren
             MenuStrip.Padding = new Padding(0);  // Remove any padding
 
             // Submenu Slug
-            ToolStripMenuItem option1MenuItem = new("Slug - Fren");
+            ToolStripMenuItem option1MenuItem = new ToolStripMenuItem("Slug - Fren");
             option1MenuItem.Click += SetSlugFren;
             option1MenuItem.Checked = isSlugFren;
 
@@ -173,7 +175,7 @@ namespace WPF_Desktop_Fren
             option1MenuItem.Margin = new Padding(0);  // Set the margin to zero
 
             // Submenu Dog
-            ToolStripMenuItem option2MenuItem = new("Dog - Fren");
+            ToolStripMenuItem option2MenuItem = new ToolStripMenuItem("Dog - Fren");
             option2MenuItem.Click += SetDogFren;
             option2MenuItem.Checked = isDogFren;
 
@@ -189,9 +191,6 @@ namespace WPF_Desktop_Fren
 
             MenuStrip.Items.Add(SettingsMenu);
 
-            // Separator
-            MenuStrip.Items.Add(new ToolStripSeparator());
-
             // Exit item
             ExitMenuItem.Click += ExitMenuItem_Click;
 
@@ -199,6 +198,7 @@ namespace WPF_Desktop_Fren
 
             return MenuStrip;
         }
+
 
 
 
@@ -251,14 +251,14 @@ namespace WPF_Desktop_Fren
             {
                 loadedImages[name] = LoadImage(name);
             }
-            
+
 
             string[] imageNamesDog = { "Dog_1", "Dog_2", "Dog_3", "Dog_4", "Dog_5", "Dog_6", "Dog_7" };
             foreach (var name in imageNamesDog)
             {
                 loadedImages[name] = LoadImage(name);
             }
-            
+
         }
 
         private BitmapImage LoadImage(string resourceName)
@@ -269,7 +269,8 @@ namespace WPF_Desktop_Fren
 
                 if (isSlugFren)
                 {
-                    switch (resourceName) { 
+                    switch (resourceName)
+                    {
                         case "slug_1":
                             bitmap = Properties.Resources.slug_1;
                             break;
@@ -292,7 +293,7 @@ namespace WPF_Desktop_Fren
                             return null;
                     }
                 }
-                
+
                 if (isDogFren)
                 {
                     switch (resourceName)
@@ -345,50 +346,38 @@ namespace WPF_Desktop_Fren
                 return null;
             }
         }
-        private class MyRenderer : ToolStripProfessionalRenderer
+
+        public class CustomColorTable : ProfessionalColorTable
         {
-            protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
-            {
-                // Fill background with black
-                e.Graphics.FillRectangle(System.Drawing.Brushes.Black, e.ImageRectangle);
+            //a bunch of other overrides...
 
-                // Draw the check mark
-                base.OnRenderItemCheck(e);
+            public override Color ToolStripBorder
+            {
+                get { return Color.FromArgb(100, 0, 0); }
             }
-
-            protected override void OnRenderItemImage(ToolStripItemImageRenderEventArgs e)
+            public override Color ToolStripDropDownBackground
             {
-                // Fill background with black
-                e.Graphics.FillRectangle(System.Drawing.Brushes.Black, e.ImageRectangle);
-
-                // Manually offset the image to cover the entire background
-                int offsetX = (e.Item.Bounds.Width - e.ImageRectangle.Width) / 2;
-                int offsetY = (e.Item.Bounds.Height - e.ImageRectangle.Height) / 2;
-                Rectangle imageRect = new Rectangle(e.ImageRectangle.X + offsetX, e.ImageRectangle.Y + offsetY, e.ImageRectangle.Width, e.ImageRectangle.Height);
-
-                // Draw the image
-                e.Graphics.DrawImage(e.Image, imageRect);
-
-                // Draw red overlay line when item is selected
-                if (e.Item.Selected)
-                {
-                    using (System.Drawing.Pen pen = new System.Drawing.Pen(Color.Red, 2))
-                    {
-                        e.Graphics.DrawLine(pen, imageRect.Left, imageRect.Top, imageRect.Right, imageRect.Bottom);
-                    }
-                }
+                get { return Color.FromArgb(64, 64, 64); }
             }
-
-
-            protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+            public override Color ToolStripGradientBegin
             {
-                // Prevent rendering the border to remove the white line
+                get { return Color.FromArgb(64, 64, 64); }
+            }
+            public override Color ToolStripGradientEnd
+            {
+                get { return Color.FromArgb(64, 64, 64); }
+            }
+            public override Color ToolStripGradientMiddle
+            {
+                get { return Color.FromArgb(64, 64, 64); }
+            }
+            public override Color MenuItemBorder
+            {
+                get { return Color.FromArgb(100, 0, 0); }
             }
         }
 
-
-
-
-
+        
     }
+
 }
