@@ -5,6 +5,30 @@
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>bin\Release\net6.0-windows10.0.17763.0\Icons\slug_icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="bin\Release\net6.0-windows10.0.17763.0\Icons\slug_icon.ico" />
+		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-1.png" />
+		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-2.png" />
+		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-3.png" />
+		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-4.png" />
+		<Resource Include="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</Resource>
+	</ItemGroup>
+
+
+	<ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
 </Project>

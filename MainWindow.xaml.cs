@@ -5,6 +5,10 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using System.Windows.Forms;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Collections.Generic;
 
 namespace WPF_Desktop_Fren
 {
@@ -12,27 +16,48 @@ namespace WPF_Desktop_Fren
     {
         private readonly DispatcherTimer timer;
         private int CurrentFrame = 0;
-        private readonly string FileDirct = @"F:\C#_Repos\WPF_Desktop_Fren\Sprites"; // Path to sprite folder
-        private readonly string[] FramePaths;
+        private readonly string FileDirct = @"Sprites\"; // Path to sprite folder
         private readonly double MoveAmount = 8.5; // Movement speed
         private bool MoveRight = true; // Direction flag
+        private NotifyIcon notifyIcon;
+
+        private Dictionary<string, BitmapImage> loadedImages = new Dictionary<string, BitmapImage>();
+
+
+        private readonly string[] FramePaths =
+        {
+        "pack://application:,,,/WPF_Desktop_Fren;component/Resources/slug-1.png",
+        "pack://application:,,,/WPF_Desktop_Fren;component/Resources/slug-2.png",
+        "pack://application:,,,/WPF_Desktop_Fren;component/Resources/slug-3.png",
+        "pack://application:,,,/WPF_Desktop_Fren;component/Resources/slug-4.png",
+        "pack://application:,,,/WPF_Desktop_Fren;component/Resources/slug-3.png",
+        "pack://application:,,,/WPF_Desktop_Fren;component/Resources/slug-2.png",
+        };
+
 
         public MainWindow()
         {
             try
             {
+                // Preload images
+                LoadAllImages();
                 InitializeComponent();
-                this.ShowInTaskbar = false; // Hide from taskbar and make always on top
+                this.ShowInTaskbar = false;
                 this.Topmost = true;
-                FramePaths = new string[] // Initialize the frame paths with the concatenated directory path
-                {
-                FileDirct + @"\Slug-1.png", // Sprite names
-                FileDirct + @"\Slug-2.png",
-                FileDirct + @"\Slug-3.png",
-                FileDirct + @"\Slug-4.png",
-                FileDirct + @"\Slug-3.png",
-                FileDirct + @"\Slug-2.png",
-                };
+
+                // Initialize NotifyIcon
+                notifyIcon = new NotifyIcon();
+                notifyIcon.Icon = new System.Drawing.Icon(@"Icons\slug_icon.ico"); // Replace with your icon path
+                notifyIcon.Visible = true;
+                notifyIcon.Text = "Desktop Fren";
+                notifyIcon.DoubleClick += (s, e) => Show();
+
+                // Create context menu for NotifyIcon
+                notifyIcon.ContextMenuStrip = CreateContextMenu();
+
+
+
+
                 // Start the timer
                 timer = new DispatcherTimer();
                 timer.Interval = TimeSpan.FromMilliseconds(55); // animation speed
@@ -44,22 +69,26 @@ namespace WPF_Desktop_Fren
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading image: {ex.Message}");
-            }  
+                System.Windows.MessageBox.Show($"Error loading image: {ex.Message}");
+            }
         }
 
-        private async void TranslateFrenAnim(object sender, EventArgs e)
+        private void TranslateFrenAnim(object sender, EventArgs e)
         {
             try
             {
-                // Load the next frame asynchronously
-                var framePath = FramePaths[CurrentFrame];
-                var imageSource = await LoadImageAsync(framePath);
+                // Get the next frame from the preloaded images
+                var resourceName = $"slug_{CurrentFrame + 1}";
+                var imageSource = LoadImage(resourceName);
+
                 animatedImage.Source = imageSource;
+
                 // Update the current frame index
                 CurrentFrame = (CurrentFrame + 1) % FramePaths.Length;
+
                 // Get current position
                 double currentX = Canvas.GetLeft(animatedImage);
+
                 // Update position based on direction
                 if (MoveRight)
                 {
@@ -90,35 +119,94 @@ namespace WPF_Desktop_Fren
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading image: {ex.Message}");
+                System.Windows.MessageBox.Show($"Error: {ex.Message}");
             }
+        }
+
+        internal ContextMenuStrip CreateContextMenu()
+        {
+            ContextMenuStrip menu = new ContextMenuStrip();
+            ToolStripMenuItem settingsMenuItem = new ToolStripMenuItem("Settings");
+            settingsMenuItem.Click += SettingsMenuItem_Click;
+            menu.Items.Add(settingsMenuItem);
+
+            return menu;
+        }
+
+        private void SettingsMenuItem_Click(object sender, EventArgs e)
+        {
+            // Open settings menu or window
+            // You can replace this with the actual settings window or menu logic
+            System.Windows.MessageBox.Show("Settings menu clicked!");
         }
 
 
 
-        private static async Task<BitmapImage> LoadImageAsync(string path)
+        private void LoadAllImages()
+        {
+            string[] imageNames = { "slug_1", "slug_2", "slug_3", "slug_4" };
+
+            foreach (var name in imageNames)
+            {
+                loadedImages[name] = LoadImage(name);
+            }
+        }
+
+        private BitmapImage LoadImage(string resourceName)
         {
             try
             {
-                BitmapImage bitmapImage = new();
-                bitmapImage.BeginInit();
-                bitmapImage.UriSource = new Uri(path);
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
+                System.Drawing.Bitmap bitmap = null;
 
-                await bitmapImage.Dispatcher.InvokeAsync(() =>
+                switch (resourceName)
                 {
-                    bitmapImage.Freeze();
-                }, System.Windows.Threading.DispatcherPriority.Render);
+                    case "slug_1":
+                        bitmap = Properties.Resources.slug_1;
+                        break;
+                    case "slug_2":
+                        bitmap = Properties.Resources.slug_2;
+                        break;
+                    case "slug_3":
+                        bitmap = Properties.Resources.slug_3;
+                        break;
+                    case "slug_4":
+                        bitmap = Properties.Resources.slug_4;
+                        break;
+                    case "slug_5":
+                        bitmap = Properties.Resources.slug_3;
+                        break;
+                    case "slug_6":
+                        bitmap = Properties.Resources.slug_2;
+                        break;
+                    default:
+                        return null;
+                }
+
+                BitmapImage bitmapImage = new BitmapImage();
+                using (MemoryStream memory = new MemoryStream())
+                {
+                    bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
+                    memory.Position = 0;
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = memory;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                }
+
+                bitmapImage.Freeze(); // Freeze the image to prevent further modifications
 
                 return bitmapImage;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading image: {ex.Message}");
+                System.Windows.MessageBox.Show($"Error loading image: {ex.Message}");
                 return null;
             }
         }
+
+
+
+
 
     }
 }
