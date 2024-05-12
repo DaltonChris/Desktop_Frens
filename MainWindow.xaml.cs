@@ -17,7 +17,7 @@ using Point = System.Drawing.Point;
 using Image = System.Drawing.Image;
 using Microsoft.Diagnostics.Tracing.AutomatedAnalysis;
 
-namespace WPF_Desktop_Fren
+namespace Desktop_Frens
 {
     public partial class MainWindow : Window
     {
@@ -138,16 +138,18 @@ namespace WPF_Desktop_Fren
             MenuStrip.RenderMode = ToolStripRenderMode.Professional;
             MenuStrip.Renderer = new ToolStripSystemRenderer();
             // Settings submenu
-            SettingsMenu = new ToolStripMenuItem("Settings"){
+            SettingsMenu = new ToolStripMenuItem("Settings")
+            {
                 BackColor = BackgroundColour,  // Set background color
                 ForeColor = TextColour,      // Set text color
-                Image = Properties.Resources.settings,
+                Image = Desktop_frens.Properties.Resources.settings,
                 ImageTransparentColor = BackgroundColour,
                 Padding = new Padding(0),
                 Margin = new Padding(0),
             };
             // Exit item
-            ExitMenuItem = new ToolStripMenuItem("Exit"){
+            ExitMenuItem = new ToolStripMenuItem("Exit")
+            {
                 BackColor = BackgroundColour,  // Set background color
                 ForeColor = TextColour,      // Set text color
                 Image = Properties.Resources.exit,
@@ -377,7 +379,7 @@ namespace WPF_Desktop_Fren
             }
         }
 
-        
+
     }
 
 }
