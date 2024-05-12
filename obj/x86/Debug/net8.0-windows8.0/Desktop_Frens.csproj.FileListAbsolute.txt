@@ -1,0 +1,2 @@
+F:\C#_Repos\_FRENS_DESKTOP\Desktop_Frens\obj\x86\Debug\net8.0-windows8.0\App.g.cs
+F:\C#_Repos\_FRENS_DESKTOP\Desktop_Frens\obj\x86\Debug\net8.0-windows8.0\Desktop_Frens_MarkupCompile.cache

@@ -15,7 +15,7 @@ using System.Windows.Interop;
 using System.Drawing.Drawing2D;
 using Point = System.Drawing.Point;
 using Image = System.Drawing.Image;
-using Microsoft.Diagnostics.Tracing.AutomatedAnalysis;
+//using Microsoft.Diagnostics.Tracing.AutomatedAnalysis;
 
 namespace Desktop_Frens
 {
@@ -50,15 +50,16 @@ namespace Desktop_Frens
         {
             try
             {
+                
                 // Preload images
                 LoadAllImages();
-
+                // init main window
                 InitializeComponent();
                 this.ShowInTaskbar = false;
                 this.Topmost = true;
                 // Initialize NotifyIcon
                 TaskIcon = new NotifyIcon();
-                TaskIcon.Icon = Properties.Resources.slug_icon; // Replace with your icon path
+                TaskIcon.Icon = ImageManager.Instance.GetIcon("slug_icon"); // Replace with your icon path
                 TaskIcon.Visible = true;
                 TaskIcon.Text = "Desktop Fren";
                 TaskIcon.DoubleClick += (s, e) => Show();
@@ -142,7 +143,7 @@ namespace Desktop_Frens
             {
                 BackColor = BackgroundColour,  // Set background color
                 ForeColor = TextColour,      // Set text color
-                Image = Desktop_frens.Properties.Resources.settings,
+                Image = ImageManager.Instance.GetImage("settings"),
                 ImageTransparentColor = BackgroundColour,
                 Padding = new Padding(0),
                 Margin = new Padding(0),
@@ -152,7 +153,7 @@ namespace Desktop_Frens
             {
                 BackColor = BackgroundColour,  // Set background color
                 ForeColor = TextColour,      // Set text color
-                Image = Properties.Resources.exit,
+                Image = ImageManager.Instance.GetImage("exit"),
                 ImageTransparentColor = BackgroundColour,
                 Padding = new Padding(0),
                 Margin = new Padding(0),
@@ -248,14 +249,14 @@ namespace Desktop_Frens
         private void LoadAllImages()
         {
 
-            string[] imageNames = { "slug_1", "slug_2", "slug_3", "slug_4" };
+            string[] imageNames = ["Slug_1", "Slug_2", "Slug_3", "Slug_4"];
             foreach (var name in imageNames)
             {
                 loadedImages[name] = LoadImage(name);
             }
 
 
-            string[] imageNamesDog = { "Dog_1", "Dog_2", "Dog_3", "Dog_4", "Dog_5", "Dog_6", "Dog_7" };
+            string[] imageNamesDog = ["Dog_1", "Dog_2", "Dog_3", "Dog_4", "Dog_5", "Dog_6", "Dog_7"];
             foreach (var name in imageNamesDog)
             {
                 loadedImages[name] = LoadImage(name);
@@ -267,66 +268,20 @@ namespace Desktop_Frens
         {
             try
             {
-                System.Drawing.Bitmap bitmap = null;
+                Image bitmap = null;
 
-                if (isSlugFren)
+                if (!isDogFren)
                 {
-                    switch (resourceName)
-                    {
-                        case "slug_1":
-                            bitmap = Properties.Resources.slug_1;
-                            break;
-                        case "slug_2":
-                            bitmap = Properties.Resources.slug_2;
-                            break;
-                        case "slug_3":
-                            bitmap = Properties.Resources.slug_3;
-                            break;
-                        case "slug_4":
-                            bitmap = Properties.Resources.slug_4;
-                            break;
-                        case "slug_5":
-                            bitmap = Properties.Resources.slug_3;
-                            break;
-                        case "slug_6":
-                            bitmap = Properties.Resources.slug_2;
-                            break;
-                        default:
-                            return null;
-                    }
+                    // Use ImageManager to get slug images
+                    bitmap = ImageManager.Instance.GetImage(resourceName);
+                }
+                else
+                {
+                    // Use ImageManager to get dog images
+                    bitmap = ImageManager.Instance.GetImage(resourceName);
                 }
 
-                if (isDogFren)
-                {
-                    switch (resourceName)
-                    {
-                        case "Dog_1":
-                            bitmap = Properties.Resources.Dog_1;
-                            break;
-                        case "Dog_2":
-                            bitmap = Properties.Resources.Dog_2;
-                            break;
-                        case "Dog_3":
-                            bitmap = Properties.Resources.Dog_3;
-                            break;
-                        case "Dog_4":
-                            bitmap = Properties.Resources.Dog_4;
-                            break;
-                        case "Dog_5":
-                            bitmap = Properties.Resources.Dog_5;
-                            break;
-                        case "Dog_6":
-                            bitmap = Properties.Resources.Dog_6;
-                            break;
-                        case "Dog_7":
-                            bitmap = Properties.Resources.Dog_7;
-                            break;
-                        default:
-                            return null;
-                    }
-                }
-
-
+                // Convert Image to BitmapImage
                 BitmapImage bitmapImage = new BitmapImage();
                 using (MemoryStream memory = new MemoryStream())
                 {
@@ -348,6 +303,7 @@ namespace Desktop_Frens
                 return null;
             }
         }
+
 
         public class CustomColorTable : ProfessionalColorTable
         {
