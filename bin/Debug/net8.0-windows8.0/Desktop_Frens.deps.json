@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Desktop_Frens/1.0.0": {
+        "runtime": {
+          "Desktop_Frens.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Desktop_Frens/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

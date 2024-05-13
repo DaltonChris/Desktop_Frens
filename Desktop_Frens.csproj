@@ -10,14 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Re_Source.resx" />
+    <None Remove="Sprites\Dog-1.png" />
   </ItemGroup>
+
+
 
   <ItemGroup>
     <Resource Include="Re_Source.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Re_Source.Designer.cs</LastGenOutput>
     </Resource>
+    <Resource Include="Sprites\Dog-1.png" />
   </ItemGroup>
 
 </Project>

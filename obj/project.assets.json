@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\C#_Repos\\WPF_Desktop_Fren\\WPF_Frens\\Desktop_Frens\\Desktop_Frens.csproj",
+      "projectUniqueName": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\Desktop_Frens.csproj",
       "projectName": "Desktop_Frens",
-      "projectPath": "F:\\C#_Repos\\WPF_Desktop_Fren\\WPF_Frens\\Desktop_Frens\\Desktop_Frens.csproj",
+      "projectPath": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\Desktop_Frens.csproj",
       "packagesPath": "C:\\Users\\dalto\\.nuget\\packages\\",
-      "outputPath": "F:\\C#_Repos\\WPF_Desktop_Fren\\WPF_Frens\\Desktop_Frens\\obj\\",
+      "outputPath": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
