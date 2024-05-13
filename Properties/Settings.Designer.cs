@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPF_Desktop_Fren.Properties {
+namespace Desktop_Frens.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
