@@ -6,12 +6,14 @@ namespace Desktop_Frens
     {
         private readonly Color _backgroundColour = Color.Black;
         private readonly Color _textColour = Color.Red;
-        private bool _isSlugFren = true;
+
+        public ContextMenuStrip _menuStrip;
+        readonly MainWindow _mainWindow;
+
+        private bool _isSlugFren = false;
         private bool _isDogFren = false;
         private bool _isSpookyFren = false;
         private bool _isFrogFren = false;
-        public ContextMenuStrip _menuStrip;
-        readonly MainWindow _mainWindow;
 
         public SettingsMenu(MainWindow mainWindow)
         {
@@ -103,26 +105,35 @@ namespace Desktop_Frens
 
         private void SetSlugFren()
         {
-            _isSlugFren = true;
-            _mainWindow.SetSlugFren();
+            if (_mainWindow._Slug_Fren == null) return;
+            if (_isSlugFren) _isSlugFren = false;
+            else _isSlugFren = true;
+            MainWindow.SetFrenActive(_mainWindow._Slug_Fren);
             UpdateCheckboxes();
         }
         private void SetDogFren()
         {
-            _isDogFren = true;
-            _mainWindow.SetDogFren();
+            
+            if (_mainWindow._Dog_Fren == null) return;
+            if(_isDogFren)_isDogFren = false;
+            else _isDogFren = true;
+            MainWindow.SetFrenActive(_mainWindow._Dog_Fren);
             UpdateCheckboxes();
         }
         private void SetSpookyFren()
         {
-            _isSpookyFren = true;
-            _mainWindow.SetSpookyFren();
+            if (_mainWindow._Spooky_Fren == null) return;
+            if (_isSpookyFren) _isSpookyFren = false;
+            else _isSpookyFren = true;
+            MainWindow.SetFrenActive(_mainWindow._Spooky_Fren);
             UpdateCheckboxes();
         }
         private void SetFrogFren()
         {
-            _isFrogFren = true;
-            _mainWindow.SetFrogFren();
+            if (_mainWindow._Frog_Fren == null) return;
+            if (_isFrogFren) _isFrogFren = false;
+            else _isFrogFren = true;
+            MainWindow.SetFrenActive(_mainWindow._Frog_Fren);
             UpdateCheckboxes();
         }
         private ToolStripMenuItem CreateSubMenuItem(string text, bool isChecked)

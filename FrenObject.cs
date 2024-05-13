@@ -58,13 +58,13 @@ namespace Desktop_Frens
 
         void LoadImages()
         {
-            List<string> imageNames = new List<string>();
+            List<string> imageNames = [];
             for (int i = 1; i <= _SpriteCount; i++)
             {
                 imageNames.Add($"{_Name}_{i}");
             }
 
-            string[] imageNamesArray = imageNames.ToArray();
+            string[] imageNamesArray = [.. imageNames];
 
             foreach (var name in imageNamesArray)
             {

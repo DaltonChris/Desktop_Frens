@@ -12,26 +12,12 @@ namespace Desktop_Frens
 {
     public partial class MainWindow : Window
     {
-        readonly DispatcherTimer timer = new();
-        int CurrentFrame = 0;
-        readonly double MoveAmount = 8.5;
-        bool MoveRight = true;
         readonly NotifyIcon TaskIcon = new();
-
-        readonly int SlugSpriteCount = 6;
-        readonly int DogSpriteCount = 6;
-        int CurrentSpriteCount;
-
-        bool isSlugFren = true;
-        bool isDogFren = false;
-
-        readonly Dictionary<string, BitmapImage> loadedImages = [];
 
         public FrenObject? _Slug_Fren;
         public FrenObject? _Dog_Fren;
         public FrenObject? _Spooky_Fren;
         public FrenObject? _Frog_Fren;
-
 
         public MainWindow()
         {
@@ -71,56 +57,15 @@ namespace Desktop_Frens
             _Dog_Fren = new("Dog", 6, this, 40 , _AnimatedImg_2,100,125,-20);
             _Spooky_Fren = new("Spooky", 8, this, 85, _AnimatedImg_3, 100, 125, -20);
             _Frog_Fren = new("Frog", 7, this, 155, _AnimatedImg_4, 100, 125, -10);
-
-            //SetFrenActive(_Dog_Fren);
-            //SetFrenActive(_Slug_Fren);
-            //SetFrenActive(_Spooky_Fren);
-            SetFrenActive(_Frog_Fren);
         }
 
-        static void SetFrenActive(FrenObject fren)
+        public static void SetFrenActive(FrenObject fren)
         {
-            fren?.SetActive();
-        }
-        public static void DisableFren(FrenObject fren)
-        {
-            fren?.Disable();
-        }
-
-        public void SetSlugFren()
-        {
-            if (_Slug_Fren.IsActive())
-            {
-                _Slug_Fren.Disable();
-            }
+            if (fren == null) return;
+            if (fren.IsActive())
+                fren.Disable();
             else
-                _Slug_Fren.SetActive();
-        }
-        public void SetDogFren()
-        {
-            if (_Dog_Fren.IsActive())
-            {
-                _Dog_Fren.Disable();
-            }else
-                _Dog_Fren.SetActive();
-        }
-        public void SetSpookyFren()
-        {
-            if (_Spooky_Fren.IsActive())
-            {
-                _Spooky_Fren.Disable();
-            }
-            else
-                _Spooky_Fren.SetActive();
-        }
-        public void SetFrogFren()
-        {
-            if (_Frog_Fren.IsActive())
-            {
-                _Frog_Fren.Disable();
-            }
-            else
-                _Frog_Fren.SetActive();
+                fren.SetActive();
         }
 
     }
