@@ -1,5 +1,8 @@
-﻿using System.Windows.Forms;
-
+﻿/* ############################################
+ * ### Dalton Christopher                   ###
+ * ### Desktop-Frens - Windows - .NET8.0    ###
+ * ### 05/2024                              ###
+ * ############################################*/
 namespace Desktop_Frens
 {
     public class SettingsMenu
@@ -10,6 +13,7 @@ namespace Desktop_Frens
         public ContextMenuStrip _menuStrip;
         readonly MainWindow _mainWindow;
 
+        bool _isAllFrens = false;
         private bool _isSlugFren = false;
         private bool _isDogFren = false;
         private bool _isSpookyFren = false;
@@ -33,10 +37,8 @@ namespace Desktop_Frens
                 RenderMode = ToolStripRenderMode.Professional,
                 Renderer = new ToolStripSystemRenderer()
             };
-
             var settingsMenu = CreateSettingsMenuItem();
             var exitMenuItem = CreateExitMenuItem();
-
             menuStrip.Items.Add(settingsMenu);
             menuStrip.Items.Add(exitMenuItem);
 
@@ -83,18 +85,20 @@ namespace Desktop_Frens
                 Padding = new Padding(0),
                 Margin = new Padding(0)
             };
-
+            var option0MenuItem = CreateSubMenuItem("All - Frens", _isAllFrens);
             var option1MenuItem = CreateSubMenuItem("Slug - Fren", _isSlugFren);
             var option2MenuItem = CreateSubMenuItem("Dog - Fren", _isDogFren);
             var option3MenuItem = CreateSubMenuItem("Spooky - Fren", _isSpookyFren);
             var option4MenuItem = CreateSubMenuItem("Frog - Fren", _isFrogFren);
 
+            settingsMenu.DropDownItems.Add(option0MenuItem);
             settingsMenu.DropDownItems.Add(option1MenuItem);
             settingsMenu.DropDownItems.Add(option2MenuItem);
             settingsMenu.DropDownItems.Add(option3MenuItem);
             settingsMenu.DropDownItems.Add(option4MenuItem);
 
             // Assign the click events
+            option0MenuItem.Click += (sender, e) => SetAllFrens();
             option1MenuItem.Click += (sender, e) => SetSlugFren();
             option2MenuItem.Click += (sender, e) => SetDogFren();
             option3MenuItem.Click += (sender, e) => SetSpookyFren();
@@ -102,7 +106,13 @@ namespace Desktop_Frens
 
             return settingsMenu;
         }
-
+        void SetAllFrens()
+        {
+            SetSlugFren();
+            SetDogFren();
+            SetSpookyFren();
+            SetFrogFren();
+        }
         private void SetSlugFren()
         {
             if (_mainWindow._Slug_Fren == null) return;
@@ -113,9 +123,9 @@ namespace Desktop_Frens
         }
         private void SetDogFren()
         {
-            
+
             if (_mainWindow._Dog_Fren == null) return;
-            if(_isDogFren)_isDogFren = false;
+            if (_isDogFren) _isDogFren = false;
             else _isDogFren = true;
             MainWindow.SetFrenActive(_mainWindow._Dog_Fren);
             UpdateCheckboxes();
@@ -157,12 +167,10 @@ namespace Desktop_Frens
                 Padding = new Padding(0),
                 Margin = new Padding(0)
             };
-
             exitMenuItem.Click += (sender, e) =>
             {
                 System.Windows.Application.Current.Shutdown();
             };
-
             return exitMenuItem;
         }
 
@@ -193,6 +201,6 @@ namespace Desktop_Frens
                 get { return Color.FromArgb(100, 0, 0); }
             }
         }
-        
+
     }
 }

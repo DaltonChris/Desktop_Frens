@@ -9,6 +9,7 @@
     <UseWindowsForms>True</UseWindowsForms>
     <StartupObject>Desktop_Frens.App</StartupObject>
     <ApplicationIcon>Icons\slug_icon.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

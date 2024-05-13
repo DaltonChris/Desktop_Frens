@@ -1,12 +1,9 @@
-﻿using System.CodeDom;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
-using Color = System.Drawing.Color;
-using Image = System.Windows.Controls.Image;
-//using Microsoft.Diagnostics.Tracing.AutomatedAnalysis;
+﻿using System.Windows;
+/* ############################################
+ * ### Dalton Christopher                   ###
+ * ### Desktop-Frens - Windows - .NET8.0    ###
+ * ### 05/2024                              ###
+ * ############################################*/
 
 namespace Desktop_Frens
 {
@@ -53,10 +50,10 @@ namespace Desktop_Frens
 
         void LoadFrenObjects()
         {
-            _Slug_Fren = new("Slug", 6, this, 65, this._AnimatedImg_1,75,75,-15);
-            _Dog_Fren = new("Dog", 6, this, 40 , _AnimatedImg_2,100,125,-20);
-            _Spooky_Fren = new("Spooky", 8, this, 85, _AnimatedImg_3, 100, 125, -20);
-            _Frog_Fren = new("Frog", 7, this, 155, _AnimatedImg_4, 100, 125, -10);
+            _Slug_Fren = new("Slug", 6 , this,5.8, 88, this._AnimatedImg_1,75,75,-15);
+            _Dog_Fren = new("Dog", 6 , this,8.0, 75 , _AnimatedImg_2,100,125,-20);
+            _Spooky_Fren = new("Spooky", 8 , this,7.5, 85, _AnimatedImg_3, 100, 125, -38);
+            _Frog_Fren = new("Frog", 7 , this,2.2, 120, _AnimatedImg_4, 100, 125, -10);
         }
 
         public static void SetFrenActive(FrenObject fren)

@@ -1,6 +1,10 @@
 ﻿using System.IO;
 using System.Windows.Media.Imaging;
-
+/* ############################################
+ * ### Dalton Christopher                   ###
+ * ### Desktop-Frens - Windows - .NET8.0    ###
+ * ### 05/2024                              ###
+ * ############################################*/
 namespace Desktop_Frens
 {
     public class ImageManager
@@ -59,7 +63,7 @@ namespace Desktop_Frens
                     "Frog_6" => Re_Source.Frog_6,
                     "Frog_7" => Re_Source.Frog_7,
                     _ => throw new ArgumentException($"Image '{imageName}' not found."),
-                } ;
+                };
 
 
                 // Convert byte array to Bitmap
@@ -129,8 +133,6 @@ namespace Desktop_Frens
                 throw new InvalidOperationException("Image data is null.");
             }
         }
-
-
 
         // Method to get an image based on the specified return type
         public static object GetImage(string imageName, Type returnType)
