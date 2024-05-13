@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|f:\\c#_repos\\_frens_desktop\\desktop_frens\\imagemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|solutionrelative:imagemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|f:\\c#_repos\\_frens_desktop\\desktop_frens\\settingsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|solutionrelative:settingsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8236539B-4E30-49C1-B9AD-0100138B5FA0}|Desktop_Frens.csproj|F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -32,7 +36,7 @@
               "RelativeDocumentMoniker": "SettingsMenu.cs",
               "ToolTip": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\SettingsMenu.cs",
               "RelativeToolTip": "SettingsMenu.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAJAAAA",
+              "ViewState": "AQIAABgAAAAAAAAAAAAowB4AAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-13T09:32:48.734Z",
               "EditorCaption": ""
@@ -41,11 +45,24 @@
         },
         {
           "DockedWidth": 311,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "ImageManager.cs",
+              "DocumentMoniker": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\ImageManager.cs",
+              "RelativeDocumentMoniker": "ImageManager.cs",
+              "ToolTip": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\ImageManager.cs",
+              "RelativeToolTip": "ImageManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-13T10:25:16.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
@@ -57,13 +74,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "F:\\C#_Repos\\_FRENS_DESKTOP\\Desktop_Frens\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAIEAAAAAAAAAAAAowBwAAAAAAAAA",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAmwCAAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-12T07:17:46.421Z",
               "EditorCaption": ""
