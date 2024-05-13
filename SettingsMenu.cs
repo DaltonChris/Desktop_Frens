@@ -5,31 +5,37 @@
  * ############################################*/
 namespace Desktop_Frens
 {
-    public class SettingsMenu
+    public class SettingsMenu // Menu for Setting the frens 
     {
+        // Colours
         private readonly Color _backgroundColour = Color.Black;
         private readonly Color _textColour = Color.Red;
 
+        //Menu Strip and reference to the _mainWindow
         public ContextMenuStrip _menuStrip;
         readonly MainWindow _mainWindow;
 
+        // flags for checked in menu
         bool _isAllFrens = false;
         private bool _isSlugFren = false;
         private bool _isDogFren = false;
         private bool _isSpookyFren = false;
         private bool _isFrogFren = false;
 
+        // Contructo
         public SettingsMenu(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
             _menuStrip = CreateContextMenu(); // Initialize the context menu strip
         }
-
+        
+        // MenuStrip getter
         public ContextMenuStrip GetMenuStrip()
         {
             return _menuStrip;
         }
 
+        // Method to build the inital Context Menu
         private ContextMenuStrip CreateContextMenu()
         {
             var menuStrip = new ContextMenuStrip
@@ -45,6 +51,7 @@ namespace Desktop_Frens
             return menuStrip;
         }
 
+        // update menu flags -> check boxy bois
         void UpdateCheckboxes()
         {
             // Update checkboxes based on flags
@@ -76,6 +83,7 @@ namespace Desktop_Frens
             }
         }
 
+        // Build the tool Strip items
         private ToolStripMenuItem CreateSettingsMenuItem()
         {
             var settingsMenu = new ToolStripMenuItem("Settings")
@@ -106,14 +114,14 @@ namespace Desktop_Frens
 
             return settingsMenu;
         }
-        void SetAllFrens()
+        void SetAllFrens() // call all Fren Setters 
         {
             SetSlugFren();
             SetDogFren();
             SetSpookyFren();
             SetFrogFren();
         }
-        private void SetSlugFren()
+        private void SetSlugFren() // SLug
         {
             if (_mainWindow._Slug_Fren == null) return;
             if (_isSlugFren) _isSlugFren = false;
@@ -121,7 +129,7 @@ namespace Desktop_Frens
             MainWindow.SetFrenActive(_mainWindow._Slug_Fren);
             UpdateCheckboxes();
         }
-        private void SetDogFren()
+        private void SetDogFren() // Dog
         {
 
             if (_mainWindow._Dog_Fren == null) return;
@@ -130,7 +138,7 @@ namespace Desktop_Frens
             MainWindow.SetFrenActive(_mainWindow._Dog_Fren);
             UpdateCheckboxes();
         }
-        private void SetSpookyFren()
+        private void SetSpookyFren() // Spooky
         {
             if (_mainWindow._Spooky_Fren == null) return;
             if (_isSpookyFren) _isSpookyFren = false;
@@ -138,7 +146,7 @@ namespace Desktop_Frens
             MainWindow.SetFrenActive(_mainWindow._Spooky_Fren);
             UpdateCheckboxes();
         }
-        private void SetFrogFren()
+        private void SetFrogFren() // Frog
         {
             if (_mainWindow._Frog_Fren == null) return;
             if (_isFrogFren) _isFrogFren = false;
@@ -146,6 +154,7 @@ namespace Desktop_Frens
             MainWindow.SetFrenActive(_mainWindow._Frog_Fren);
             UpdateCheckboxes();
         }
+        // Sub Menu builder
         private ToolStripMenuItem CreateSubMenuItem(string text, bool isChecked)
         {
             var menuItem = new ToolStripMenuItem(text)
@@ -158,6 +167,7 @@ namespace Desktop_Frens
 
             return menuItem;
         }
+        // Menu Item Builder
         private ToolStripMenuItem CreateExitMenuItem()
         {
             var exitMenuItem = new ToolStripMenuItem("Exit")
@@ -174,6 +184,7 @@ namespace Desktop_Frens
             return exitMenuItem;
         }
 
+        // Muh custim drippy colours lelmayo
         public class CustomColorTable : ProfessionalColorTable //Colour overrides..
         {
             public override Color ToolStripBorder

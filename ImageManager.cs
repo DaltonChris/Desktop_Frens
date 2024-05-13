@@ -7,13 +7,13 @@ using System.Windows.Media.Imaging;
  * ############################################*/
 namespace Desktop_Frens
 {
-    public class ImageManager
+    public class ImageManager // Manages Images innit bruv
     {
         // Singleton instance
         private static ImageManager? _instance;
         public static ImageManager Instance
         {
-            get
+            get // Single boi brrt
             {
                 _instance ??= new ImageManager();
                 return _instance;
@@ -25,6 +25,13 @@ namespace Desktop_Frens
             // No need to instantiate:  handled by Re_Source
         }
 
+        /// <summary>
+        /// Loads Bitmaps from .Resx
+        /// </summary>
+        /// <param name="imageName"> Name of Resource image to load </param>
+        /// <returns> Bitmap of the image </returns>
+        /// <exception cref="ArgumentException"> Not ideal </exception>
+        /// <exception cref="InvalidOperationException"> Not ideal 2 </exception>
         public static Bitmap GetImageData(string imageName)
         {
             try
@@ -154,6 +161,13 @@ namespace Desktop_Frens
                 throw new ArgumentException("Unsupported return type.");
             }
         }
+        
+        /// <summary>
+        /// Method to Get Icons form Resource .resx
+        /// </summary>
+        /// <param name="iconName"> Icon to get </param>
+        /// <returns> The icon what u think </returns>
+        /// <exception cref="ArgumentException"> Shes fooked </exception>
         public static Icon GetIcon(string iconName)
         {
             byte[] iconData = iconName switch

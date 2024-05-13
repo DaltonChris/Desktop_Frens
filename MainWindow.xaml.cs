@@ -11,25 +11,31 @@ namespace Desktop_Frens
     {
         readonly NotifyIcon TaskIcon = new();
 
+        // Fren Objects
         public FrenObject? _Slug_Fren;
         public FrenObject? _Dog_Fren;
         public FrenObject? _Spooky_Fren;
         public FrenObject? _Frog_Fren;
 
-        public MainWindow()
+        public MainWindow() // Main
         {
             try
             {
+                // ToolBar settings
+                this.ShowInTaskbar = false;
+                this.Topmost = true;
+
                 // init main window
                 InitializeComponent();
 
+                // Init Frens
                 LoadFrenObjects();
-                this.ShowInTaskbar = false;
-                this.Topmost = true;
+
 
                 // Initialize NotifyIcon
                 if(TaskIcon != null)
                 {
+                    //Icon and toolbar menu/display options
                     TaskIcon.Icon = ImageManager.GetIcon("slug_icon"); // Replace with your icon path
                     TaskIcon.Visible = true;
                     TaskIcon.Text = "Desktop Fren";
@@ -48,6 +54,9 @@ namespace Desktop_Frens
             }
         }
 
+        /// <summary>
+        /// Inits the Fren objects Using Fren Contructor
+        /// </summary>
         void LoadFrenObjects()
         {
             _Slug_Fren = new("Slug", 6 , this,5.8, 88, this._AnimatedImg_1,75,75,-15);
@@ -56,6 +65,10 @@ namespace Desktop_Frens
             _Frog_Fren = new("Frog", 7 , this,2.2, 120, _AnimatedImg_4, 100, 125, -10);
         }
 
+        /// <summary>
+        /// Set Fren Object On/Off via passed Fren
+        /// </summary>
+        /// <param name="fren"> The Fren to Update On/Off </param>
         public static void SetFrenActive(FrenObject fren)
         {
             if (fren == null) return;

@@ -112,7 +112,7 @@ namespace Desktop_Frens
                     {
                         IsHalted = true;
                         // Slow anim rate multiplier
-                        double animationInterval = _AnimationSpeed * 10;
+                        double animationInterval = _AnimationSpeed * 16;
                         _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
                         await Task.Delay(new Random().Next(2000, 5000));
                         IsHalted = false;
