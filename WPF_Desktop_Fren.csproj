@@ -1,0 +1,106 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>bin\Release\net6.0-windows10.0.17763.0\Icons\slug_icon.ico</ApplicationIcon>
+    <StartupObject>WPF_Desktop_Fren.App</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Releases_\**" />
+    <EmbeddedResource Remove="Releases_\**" />
+    <None Remove="Releases_\**" />
+    <Page Remove="Releases_\**" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\Icons\exit.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\Icons\settings.png" />
+		<Content Include="bin\Release\net6.0-windows10.0.17763.0\Icons\slug_icon.ico" />
+		<None Include="bin\Release\Sprites\spooky-8.png" />
+		<None Include="bin\Release\Sprites\spooky-7.png" />
+		<None Include="bin\Release\Sprites\spooky-6.png" />
+		<None Include="bin\Release\Sprites\spooky-5.png" />
+		<None Include="bin\Release\Sprites\spooky-4.png" />
+		<None Include="bin\Release\Sprites\spooky-3.png" />
+		<None Include="bin\Release\Sprites\spooky-2.png" />
+		<None Include="bin\Release\Sprites\spooky-1.png" />
+		<None Include="bin\Release\Sprites\Dog-7.png" />
+		<None Include="bin\Release\Sprites\Dog-6.png" />
+		<None Include="bin\Release\Sprites\Dog-5.png" />
+		<None Include="bin\Release\Sprites\Dog-4.png" />
+		<None Include="bin\Release\Sprites\Dog-3.png" />
+		<None Include="bin\Release\Sprites\Dog-2.png" />
+		<None Include="bin\Release\Sprites\Dog-1.png" />
+		<Content Include="bin\Release\Sprites\Dog_1.png" />
+		<Content Include="bin\Release\Sprites\Dog_2.png" />
+		<Content Include="bin\Release\Sprites\Dog_3.png" />
+		<Content Include="bin\Release\Sprites\Dog_4.png" />
+		<Content Include="bin\Release\Sprites\Dog_5.png" />
+		<Content Include="bin\Release\Sprites\Dog_6.png" />
+		<Content Include="bin\Release\Sprites\Dog_7.png" />
+		<Content Include="bin\Release\Sprites\frog-1.png" />
+		<Content Include="bin\Release\Sprites\frog-2.png" />
+		<Content Include="bin\Release\Sprites\frog-3.png" />
+		<Content Include="bin\Release\Sprites\frog-4.png" />
+		<Content Include="bin\Release\Sprites\frog-5.png" />
+		<Content Include="bin\Release\Sprites\frog-6.png" />
+		<Content Include="bin\Release\Sprites\frog-7.png" />
+		<Content Include="bin\Release\Sprites\Slug-1.png" />
+		<Content Include="bin\Release\Sprites\Slug-2.png" />
+		<Content Include="bin\Release\Sprites\Slug-3.png" />
+		<Content Include="bin\Release\Sprites\Slug-4.png" />
+		<Content Include="bin\Release\Sprites\spooky1.png" />
+		<Content Include="bin\Release\Sprites\spooky2.png" />
+		<Content Include="bin\Release\Sprites\spooky3.png" />
+		<Content Include="bin\Release\Sprites\spooky4.png" />
+		<Content Include="bin\Release\Sprites\spooky5.png" />
+		<Content Include="bin\Release\Sprites\spooky6.png" />
+		<Content Include="bin\Release\Sprites\spooky7.png" />
+		<Content Include="bin\Release\Sprites\spooky8.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_7.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_6.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_5.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_4.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_3.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_2.png" />
+		<None Include="bin\Release\net6.0-windows10.0.17763.0\sprites\Dog_1.png" />
+		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.9" />
+		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-1.png" />
+		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-2.png" />
+		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-3.png" />
+		<Resource Include="bin\Release\net6.0-windows10.0.17763.0\sprites\slug-4.png" />
+		<Resource Include="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</Resource>
+	</ItemGroup>
+
+
+	<ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
+
+</Project>

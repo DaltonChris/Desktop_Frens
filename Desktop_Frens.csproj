@@ -8,10 +8,15 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
     <StartupObject>Desktop_Frens.App</StartupObject>
+    <ApplicationIcon>slug_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Sprites\Dog-1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="slug_icon.ico" />
   </ItemGroup>
 
 
