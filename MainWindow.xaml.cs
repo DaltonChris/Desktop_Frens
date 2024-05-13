@@ -1,50 +1,33 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.CodeDom;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Windows.Forms;
-using System.IO;
-using System.Drawing.Imaging;
-using System.Collections.Generic;
 using Color = System.Drawing.Color;
-using System.Drawing;
-using System.Windows.Interop;
-using System.Drawing.Drawing2D;
-using Point = System.Drawing.Point;
-using Image = System.Drawing.Image;
 //using Microsoft.Diagnostics.Tracing.AutomatedAnalysis;
 
 namespace Desktop_Frens
 {
     public partial class MainWindow : Window
     {
-        readonly DispatcherTimer timer;
+        readonly DispatcherTimer timer = new();
         int CurrentFrame = 0;
         readonly double MoveAmount = 8.5;
         bool MoveRight = true;
-        readonly NotifyIcon TaskIcon;
+        readonly NotifyIcon TaskIcon = new();
 
         readonly int SlugSpriteCount = 6;
-        readonly int DogSpriteCount = 7;
+        readonly int DogSpriteCount = 6;
         int CurrentSpriteCount;
 
 
         bool isSlugFren = true;
         bool isDogFren = false;
 
-        readonly Dictionary<string, BitmapImage> loadedImages = new Dictionary<string, BitmapImage>();
-        static ContextMenuStrip MenuStrip = new();
+        readonly Dictionary<string, BitmapImage> loadedImages = [];
 
 
-        static ToolStripMenuItem SettingsMenu;
-        static ToolStripMenuItem ExitMenuItem;
-
-
-        static readonly Color BackgroundColour = Color.Black;
-        static readonly Color TextColour = Color.Red;
 
         public MainWindow()
         {
@@ -58,18 +41,24 @@ namespace Desktop_Frens
                 this.ShowInTaskbar = false;
                 this.Topmost = true;
                 // Initialize NotifyIcon
-                TaskIcon = new NotifyIcon();
-                TaskIcon.Icon = ImageManager.Instance.GetIcon("slug_icon"); // Replace with your icon path
-                TaskIcon.Visible = true;
-                TaskIcon.Text = "Desktop Fren";
-                TaskIcon.DoubleClick += (s, e) => Show();
-                // Create context menu for NotifyIcon
-                TaskIcon.ContextMenuStrip = CreateContextMenu();
-                // Start the timer
-                timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromMilliseconds(55); // animation speed
-                timer.Tick += TranslateFrenAnim;
-                timer.Start();
+                if(TaskIcon != null)
+                {
+                    TaskIcon.Icon = ImageManager.GetIcon("slug_icon"); // Replace with your icon path
+                    TaskIcon.Visible = true;
+                    TaskIcon.Text = "Desktop Fren";
+                    TaskIcon.DoubleClick += (s, e) => Show();
+                    // Create context menu for NotifyIcon
+                    var settingsMenu = new SettingsMenu(this);
+                    // Assign the context menu to TaskIcon
+                    TaskIcon.ContextMenuStrip = settingsMenu._menuStrip;
+                }
+                // Start the timer if not null
+                if (timer != null)
+                {
+                    timer.Interval = TimeSpan.FromMilliseconds(55); // animation speed
+                    timer.Tick += TranslateFrenAnim;
+                    timer.Start();
+                }
                 // Flip the initial image (Comment these out if your sprites default is facing right)
                 ScaleTransform flipTransform = new(-1, 1);
                 animatedImage.RenderTransform = flipTransform;
@@ -80,7 +69,7 @@ namespace Desktop_Frens
             }
         }
 
-        private void TranslateFrenAnim(object sender, EventArgs e)
+        private void TranslateFrenAnim(object? sender, EventArgs e)
         {
             try
             {
@@ -134,78 +123,7 @@ namespace Desktop_Frens
             }
         }
 
-        internal ContextMenuStrip CreateContextMenu()
-        {
-            MenuStrip.RenderMode = ToolStripRenderMode.Professional;
-            MenuStrip.Renderer = new ToolStripSystemRenderer();
-            // Settings submenu
-            SettingsMenu = new ToolStripMenuItem("Settings")
-            {
-                BackColor = BackgroundColour,  // Set background color
-                ForeColor = TextColour,      // Set text color
-                Image = ImageManager.Instance.GetSprite("settings"),
-                ImageTransparentColor = BackgroundColour,
-                Padding = new Padding(0),
-                Margin = new Padding(0),
-            };
-            // Exit item
-            ExitMenuItem = new ToolStripMenuItem("Exit")
-            {
-                BackColor = BackgroundColour,  // Set background color
-                ForeColor = TextColour,      // Set text color
-                Image = ImageManager.Instance.GetSprite("exit"),
-                ImageTransparentColor = BackgroundColour,
-                Padding = new Padding(0),
-                Margin = new Padding(0),
-            };
-
-            // Set ToolStrip LayoutStyle to Table
-            MenuStrip.LayoutStyle = ToolStripLayoutStyle.Table;
-
-            // Adjust the spacing between items
-            MenuStrip.GripStyle = ToolStripGripStyle.Hidden;
-            MenuStrip.Padding = new Padding(0);  // Remove any padding
-
-            // Submenu Slug
-            ToolStripMenuItem option1MenuItem = new ToolStripMenuItem("Slug - Fren");
-            option1MenuItem.Click += SetSlugFren;
-            option1MenuItem.Checked = isSlugFren;
-
-            // Customize submenu item appearance
-            option1MenuItem.BackColor = BackgroundColour;  // Set background color
-            option1MenuItem.ForeColor = TextColour;      // Set text color
-            option1MenuItem.BackgroundImageLayout = ImageLayout.None;
-            option1MenuItem.Margin = new Padding(0);  // Set the margin to zero
-
-            // Submenu Dog
-            ToolStripMenuItem option2MenuItem = new ToolStripMenuItem("Dog - Fren");
-            option2MenuItem.Click += SetDogFren;
-            option2MenuItem.Checked = isDogFren;
-
-            // Customize submenu item appearance
-            option2MenuItem.BackColor = BackgroundColour;  // Set background color
-            option2MenuItem.ForeColor = TextColour;      // Set text color
-            option2MenuItem.ImageTransparentColor = BackgroundColour;
-            option2MenuItem.Margin = new Padding(0);  // Set the margin to zero
-
-            // Add submenu items to Settings
-            SettingsMenu.DropDownItems.Add(option1MenuItem);
-            SettingsMenu.DropDownItems.Add(option2MenuItem);
-
-            MenuStrip.Items.Add(SettingsMenu);
-
-            // Exit item
-            ExitMenuItem.Click += ExitMenuItem_Click;
-
-            MenuStrip.Items.Add(ExitMenuItem);
-
-            return MenuStrip;
-        }
-
-
-
-
-        private void SetSlugFren(object sender, EventArgs e)
+        public void SetSlugFren()
         {
             // Handle Option 1 click
             isDogFren = false;
@@ -213,9 +131,8 @@ namespace Desktop_Frens
             animatedImage.Height = 75;
             animatedImage.Width = 75;
             Canvas.SetTop(animatedImage, -15);
-            UpdateCheckboxes();
         }
-        private void SetDogFren(object sender, EventArgs e)
+        public void SetDogFren()
         {
             // Handle Option 2 click
             isSlugFren = false;
@@ -223,28 +140,8 @@ namespace Desktop_Frens
             animatedImage.Height = 100;
             animatedImage.Width = 125;
             Canvas.SetTop(animatedImage, -20);
-            UpdateCheckboxes();
         }
-        private void ExitMenuItem_Click(object sender, EventArgs e)
-        {
-            // Handle Exit click
-            System.Windows.Application.Current.Shutdown();
-        }
-        private void UpdateCheckboxes()
-        {
-            // Update checkboxes based on flags
-            foreach (ToolStripMenuItem item in SettingsMenu.DropDownItems)
-            {
-                if (item.Text == "Slug - Fren")
-                {
-                    item.Checked = isSlugFren;
-                }
-                else if (item.Text == "Dog - Fren")
-                {
-                    item.Checked = isDogFren;
-                }
-            }
-        }
+
 
         private void LoadAllImages()
         {
@@ -252,51 +149,17 @@ namespace Desktop_Frens
             string[] imageNames = ["Slug_1", "Slug_2", "Slug_3", "Slug_4", "Slug_5", "Slug_6"];
             foreach (var name in imageNames)
             {
-                loadedImages[name] = ImageManager.Instance.LoadImage(name);
+                loadedImages[name] = ImageManager.GetBitmapImage(name);
             }
 
 
             string[] imageNamesDog = ["Dog_1", "Dog_2", "Dog_3", "Dog_4", "Dog_5", "Dog_6", "Dog_7"];
             foreach (var name in imageNamesDog)
             {
-                loadedImages[name] = ImageManager.Instance.LoadImage(name);
+                loadedImages[name] = ImageManager.GetBitmapImage(name);
             }
 
         }
-
-
-
-
-        public class CustomColorTable : ProfessionalColorTable
-        {
-            //a bunch of other overrides...
-
-            public override Color ToolStripBorder
-            {
-                get { return Color.FromArgb(100, 0, 0); }
-            }
-            public override Color ToolStripDropDownBackground
-            {
-                get { return Color.FromArgb(64, 64, 64); }
-            }
-            public override Color ToolStripGradientBegin
-            {
-                get { return Color.FromArgb(64, 64, 64); }
-            }
-            public override Color ToolStripGradientEnd
-            {
-                get { return Color.FromArgb(64, 64, 64); }
-            }
-            public override Color ToolStripGradientMiddle
-            {
-                get { return Color.FromArgb(64, 64, 64); }
-            }
-            public override Color MenuItemBorder
-            {
-                get { return Color.FromArgb(100, 0, 0); }
-            }
-        }
-
 
     }
 

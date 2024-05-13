@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Desktop_Frens")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+564207fb282e71da92a31d639c8d6d5e03da0022")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d697694512342caf96c737332c6313156e7b15d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Desktop_Frens")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Desktop_Frens")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

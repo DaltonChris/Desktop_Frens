@@ -1,8 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Resources;
-using System.Windows.Media;
+﻿using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace Desktop_Frens
@@ -10,13 +6,12 @@ namespace Desktop_Frens
     public class ImageManager
     {
         // Singleton instance
-        private static ImageManager _instance;
+        private static ImageManager? _instance;
         public static ImageManager Instance
         {
             get
             {
-                if (_instance == null)
-                    _instance = new ImageManager();
+                _instance ??= new ImageManager();
                 return _instance;
             }
         }
@@ -26,57 +21,30 @@ namespace Desktop_Frens
             // No need to instantiate ResourceManager here, as it's handled by Re_Source
         }
 
-        public byte[] GetImageData(string imageName)
+        public static byte[] GetImageData(string imageName)
         {
             try
             {
-                byte[] imageData = null;
+                byte[] imageData;
 
                 // Get the image data from Re_Source using the imageName
-                switch (imageName)
+                imageData = imageName switch
                 {
-                    case "Dog_1":
-                        imageData = Re_Source.Dog_1;
-                        break;
-                    case "Dog_2":
-                        imageData = Re_Source.Dog_2;
-                        break;
-                    case "Dog_3":
-                        imageData = Re_Source.Dog_3;
-                        break;
-                    case "Dog_4":
-                        imageData = Re_Source.Dog_4;
-                        break;
-                    case "Dog_5":
-                        imageData = Re_Source.Dog_5;
-                        break;
-                    case "Dog_6":
-                        imageData = Re_Source.Dog_6;
-                        break;
-                    case "Dog_7":
-                        imageData = Re_Source.Dog_7;
-                        break;
-                    case "Slug_1":
-                        imageData = Re_Source.Slug_1;
-                        break;
-                    case "Slug_2":
-                        imageData = Re_Source.Slug_2;
-                        break;
-                    case "Slug_3":
-                        imageData = Re_Source.Slug_3;
-                        break;
-                    case "Slug_4":
-                        imageData = Re_Source.Slug_4;
-                        break;
-                    case "Slug_5":
-                        imageData = Re_Source.Slug_3;
-                        break;
-                    case "Slug_6":
-                        imageData = Re_Source.Slug_2;
-                        break;
-                    default:
-                        throw new ArgumentException($"Image '{imageName}' not found.");
-                }
+                    "Dog_1" => Re_Source.Dog_1,
+                    "Dog_2" => Re_Source.Dog_2,
+                    "Dog_3" => Re_Source.Dog_3,
+                    "Dog_4" => Re_Source.Dog_4,
+                    "Dog_5" => Re_Source.Dog_5,
+                    "Dog_6" => Re_Source.Dog_6,
+                    "Dog_7" => Re_Source.Dog_7,
+                    "Slug_1" => Re_Source.Slug_1,
+                    "Slug_2" => Re_Source.Slug_2,
+                    "Slug_3" => Re_Source.Slug_3,
+                    "Slug_4" => Re_Source.Slug_4,
+                    "Slug_5" => Re_Source.Slug_3,
+                    "Slug_6" => Re_Source.Slug_2,
+                    _ => throw new ArgumentException($"Image '{imageName}' not found."),
+                };
 
 
                 // Convert byte array to Bitmap
@@ -94,151 +62,83 @@ namespace Desktop_Frens
             {
                 // Handle any exceptions that occur during image retrieval
                 Console.WriteLine($"Error loading image '{imageName}': {ex.Message}");
-                return null;
+                throw new InvalidOperationException("Image data unable to load > is null.");
             }
         }
 
-        public Image GetSprite(string imageName)
+        // Method to get a System.Drawing.Image
+        public static Image GetImage(string imageName)
         {
-            try
+            byte[] imageData = GetImageData(imageName);
+            if (imageData != null)
             {
-                byte[] imageData = null;
-
-                // Get the image data from Re_Source using the imageName
-                switch (imageName)
-                {
-                    case "Dog_1":
-                        imageData = Re_Source.Dog_1;
-                        break;
-                    case "Dog_2":
-                        imageData = Re_Source.Dog_2;
-                        break;
-                    case "Dog_3":
-                        imageData = Re_Source.Dog_3;
-                        break;
-                    case "Dog_4":
-                        imageData = Re_Source.Dog_4;
-                        break;
-                    case "Dog_5":
-                        imageData = Re_Source.Dog_5;
-                        break;
-                    case "Dog_6":
-                        imageData = Re_Source.Dog_6;
-                        break;
-                    case "Dog_7":
-                        imageData = Re_Source.Dog_7;
-                        break;
-                    case "Slug_1":
-                        imageData = Re_Source.Slug_1;
-                        break;
-                    case "Slug_2":
-                        imageData = Re_Source.Slug_2;
-                        break;
-                    case "Slug_3":
-                        imageData = Re_Source.Slug_3;
-                        break;
-                    case "Slug_4":
-                        imageData = Re_Source.Slug_4;
-                        break;
-                    default:
-                        throw new ArgumentException($"Image '{imageName}' not found.");
-                }
-
-                // Convert byte array to Image
-                if (imageData != null)
-                {
-                    using (var stream = new System.IO.MemoryStream(imageData))
-                    {
-                        return System.Drawing.Image.FromStream(stream);
-                    }
-                }
-                else
-                {
-                    // Handle case where imageData is null
-                    throw new InvalidOperationException("Image data is null.");
-                }
+                using MemoryStream stream = new(imageData);
+                return Image.FromStream(stream);
             }
-            catch (Exception ex)
+            else
             {
-                // Handle any exceptions that occur during image retrieval
-                Console.WriteLine($"Error loading image '{imageName}': {ex.Message}");
-                return null;
+                // Handle case where image data is null
+                throw new InvalidOperationException("Image data is null.");
             }
         }
 
-        public BitmapImage LoadImage(string resourceName)
+        // Method to get a BitmapImage
+        public static BitmapImage GetBitmapImage(string imageName)
         {
-            try
+            byte[] imageData = GetImageData(imageName);
+            if (imageData != null)
             {
-                byte[] imageData = GetImageData(resourceName);
-                if (imageData != null)
+                BitmapImage bitmapImage = new();
+                using (MemoryStream memory = new(imageData))
                 {
-                    BitmapImage bitmapImage = new BitmapImage();
-                    using (MemoryStream memory = new MemoryStream(imageData))
-                    {
-                        bitmapImage.BeginInit();
-                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmapImage.StreamSource = memory;
-                        bitmapImage.EndInit();
-                    }
-                    bitmapImage.Freeze(); // Freeze the image to prevent further modifications
-                    return bitmapImage;
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = memory;
+                    bitmapImage.EndInit();
                 }
-                else
-                {
-                    // Handle case where image data is null
-                    System.Windows.MessageBox.Show("Image data is null.");
-                    return null;
-                }
+                bitmapImage.Freeze(); // Freeze the image to prevent further modifications
+                return bitmapImage;
             }
-            catch (Exception ex)
+            else
             {
-                System.Windows.MessageBox.Show($"Error loading image: {ex.Message}");
-                return null;
+                // Handle case where image data is null
+                throw new InvalidOperationException("Image data is null.");
             }
         }
 
-        public Icon GetIcon(string iconName)
+
+        // Method to get an image based on the specified return type
+        public static object GetImage(string imageName, Type returnType)
         {
-            byte[] iconData = null;
-
-            switch (iconName)
+            if (returnType == typeof(Image))
             {
-                case "slug_icon":
-                    iconData = Re_Source.slug_icon;
-                    break;
-                // Add more cases for other icon names as needed
-                default:
-                    throw new ArgumentException($"Icon '{iconName}' not found.");
+                return GetImage(imageName);
             }
-
-            // Convert byte[] to Icon
-            using (MemoryStream ms = new MemoryStream(iconData))
+            else if (returnType == typeof(BitmapImage))
             {
-                return new Icon(ms);
+                return GetBitmapImage(imageName);
             }
-        }
-        public object GetImage(string imageName, Type returnType)
-        {
-            if (returnType == typeof(System.Drawing.Image))
+            else if (returnType == typeof(Icon))
             {
-                return GetSprite(imageName);
-            }
-            else if (returnType == typeof(System.Windows.Controls.Image))
-            {
-                // Load the image using BitmapImage
-                BitmapImage bitmapImage = (BitmapImage)LoadImage(imageName);
-
-                // Create a new instance of System.Windows.Controls.Image
-                System.Windows.Controls.Image wpfImage = new System.Windows.Controls.Image();
-                wpfImage.Source = bitmapImage;
-                return wpfImage;
+                return GetIcon(imageName);
             }
             else
             {
                 throw new ArgumentException("Unsupported return type.");
             }
         }
+        public static Icon GetIcon(string iconName)
+        {
+            byte[] iconData = iconName switch
+            {
+                "slug_icon" => Re_Source.slug_icon,
+                // Add more cases for other icon names as needed
+                _ => throw new ArgumentException($"Icon '{iconName}' not found."),
+            };
 
+            // Convert byte[] to Icon
+            using MemoryStream ms = new(iconData);
+            return new Icon(ms);
+        }
     }
 }
