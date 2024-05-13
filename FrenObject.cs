@@ -16,7 +16,8 @@ namespace Desktop_Frens
         readonly string _Name;
         readonly int _SpriteCount = 6;
         int _CurrentFrame = 0;
-        readonly double _MoveSpeed = 7.5;
+        double _MoveSpeed = 7.5;
+        readonly double _DefaultMove;
         bool _IsActive = false;
         bool MoveRight = false;
         bool IsHalted = false;
@@ -35,6 +36,7 @@ namespace Desktop_Frens
             _AnimationSpeed = animSpeed;
             _MoveSpeed = moveSpeed;
             InitFren(height, width, topOffset);
+            _DefaultMove = _MoveSpeed;
             LoadImages();
         }
 
@@ -89,8 +91,8 @@ namespace Desktop_Frens
             {
                 if (_IsActive)
                 {
-                    var haltChance = new Random().Next(0, 550);
-                    var FlipChance = new Random().Next(0, 750);
+                    var haltChance = new Random().Next(0, 650);
+                    var FlipChance = new Random().Next(0, 450);
                     if(FlipChance == 0)
                     {
                         ScaleTransform currentTransform = (ScaleTransform)_AnimatedSource.RenderTransform;
@@ -112,9 +114,9 @@ namespace Desktop_Frens
                     {
                         IsHalted = true;
                         // Slow anim rate multiplier
-                        double animationInterval = _AnimationSpeed * 16;
+                        double animationInterval = _AnimationSpeed * 9; // Slow anim at halt
                         _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
-                        await Task.Delay(new Random().Next(2000, 5000));
+                        await Task.Delay(new Random().Next(1500, 4800));
                         IsHalted = false;
                         _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
                     }
@@ -124,6 +126,15 @@ namespace Desktop_Frens
                     _AnimatedSource.Source = imageSource;
                     // Update the current frame index
                     _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount;
+
+                    if(_Name == "Frog" && (_CurrentFrame == 7 || _CurrentFrame <= 3))
+                    {
+                        _MoveSpeed = _DefaultMove * 4;
+                    }
+                    else
+                    {
+                        _MoveSpeed = _DefaultMove;
+                    }
 
                     // Get current position
                     double currentX = Canvas.GetLeft(_AnimatedSource);

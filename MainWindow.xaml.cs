@@ -59,10 +59,10 @@ namespace Desktop_Frens
         /// </summary>
         void LoadFrenObjects()
         {
-            _Slug_Fren = new("Slug", 6 , this,5.8, 88, this._AnimatedImg_1,75,75,-15);
-            _Dog_Fren = new("Dog", 6 , this,8.0, 75 , _AnimatedImg_2,100,125,-20);
-            _Spooky_Fren = new("Spooky", 8 , this,7.5, 85, _AnimatedImg_3, 100, 125, -38);
-            _Frog_Fren = new("Frog", 7 , this,2.2, 120, _AnimatedImg_4, 100, 125, -10);
+            _Slug_Fren = new("Slug", 6 , this,5.1, 88, this._AnimatedImg_1,60,60,-1);
+            _Dog_Fren = new("Dog", 6 , this,7.4, 75 , _AnimatedImg_2,75,85,5);
+            _Spooky_Fren = new("Spooky", 8 , this,6.5, 85, _AnimatedImg_3, 85, 100, -24);
+            _Frog_Fren = new("Frog", 7 , this,2.75, 125, _AnimatedImg_4, 75, 100, 10);
         }
 
         /// <summary>
