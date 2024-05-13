@@ -13,20 +13,32 @@ namespace Desktop_Frens
 {
     public class FrenObject
     {
-        readonly string _Name;
-        readonly int _SpriteCount = 6;
-        int _CurrentFrame = 0;
-        double _MoveSpeed = 7.5;
-        readonly double _DefaultMove;
-        bool _IsActive = false;
-        bool MoveRight = false;
-        bool IsHalted = false;
-        int _AnimationSpeed;
-        readonly Dictionary<string, BitmapImage> _Images = [];
-        readonly DispatcherTimer _Timer = new();
-        readonly MainWindow _MainWindow;
-        readonly Image _AnimatedSource;
+        readonly string _Name; // frens name
+        readonly int _SpriteCount = 6; // Amount of sprites in anim set
+        int _CurrentFrame = 0; // active image frame
+        double _MoveSpeed = 7.5; // move amount per tick
+        readonly double _DefaultMove; // Dupe to keep rate
+        bool _IsActive = false; // flag
+        bool MoveRight = false; // direction flag
+        bool IsHalted = false; // halt flag
+        int _AnimationSpeed; // anim rate (ms) tick time
+        readonly Dictionary<string, BitmapImage> _Images = []; // Image dict
+        readonly DispatcherTimer _Timer = new(); // timer
+        readonly MainWindow _MainWindow; 
+        readonly Image _AnimatedSource; // Canvas image source
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="spriteCount"></param>
+        /// <param name="mainWin"></param>
+        /// <param name="moveSpeed"></param>
+        /// <param name="animSpeed"></param>
+        /// <param name="image"></param>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        /// <param name="topOffset"></param>
         public FrenObject(string name, int spriteCount, MainWindow mainWin,double moveSpeed,int animSpeed ,Image image, int height, int width, int topOffset) 
         {
             _Name = name;
@@ -42,16 +54,18 @@ namespace Desktop_Frens
 
         public void SetActive()
         {
-            _IsActive = true;
+            _IsActive = true; // Set flag
             if (_Timer != null)
             {
-                _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
-                _Timer.Tick += TranslateFren;
-                _Timer.Start();
+                // animation speed (interval of calls) (movealso)
+                _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed);
+                _Timer.Tick += TranslateFren; // Call Translate fren each tick interval
+                _Timer.Start(); // start timer
             }
             
         }
 
+        // Init Fren objects image on cavas L/W/H
         void InitFren(int height, int width, int topOffset)
         {
             _AnimatedSource.Height = height;
@@ -59,27 +73,29 @@ namespace Desktop_Frens
             Canvas.SetTop(_AnimatedSource, topOffset);
         }
 
-        public void Disable()
+        // Disable fren method
+        public void Disable() 
         {
-            _IsActive = false;
-            _AnimatedSource.Source = null;
+            _IsActive = false; // set flag
+            _AnimatedSource.Source = null; // Null image
         }
 
-        void LoadImages()
+        void LoadImages() // Load the images for fren type
         {
-            List<string> imageNames = [];
+            List<string> imageNames = []; // List of image names
             for (int i = 1; i <= _SpriteCount; i++)
             {
-                imageNames.Add($"{_Name}_{i}");
+                imageNames.Add($"{_Name}_{i}"); // Add each name
             }
-
+            // To array
             string[] imageNamesArray = [.. imageNames];
 
             foreach (var name in imageNamesArray)
-            {
+            {   // use image manager to ge tthe bitmap Images
                 _Images[name] = ImageManager.GetBitmapImage(name);
             }
         }
+        // Public Active getter
         public bool IsActive()
         {
             return _IsActive;
@@ -89,57 +105,52 @@ namespace Desktop_Frens
         {
             try
             {
-                if (_IsActive)
+                if (_IsActive) // If Fren is set active
                 {
                     var haltChance = new Random().Next(0, 650);
                     var FlipChance = new Random().Next(0, 450);
-                    if(FlipChance == 0)
+                    if(FlipChance == 0) // If rolls a 0
                     {
+                        // set scale to opposite
                         ScaleTransform currentTransform = (ScaleTransform)_AnimatedSource.RenderTransform;
                         ScaleTransform scaleTransform = new(1, 1);
-                        if (currentTransform == scaleTransform)
-                        {
+                        if (currentTransform == scaleTransform){
                             MoveRight = true; // Change direction
                             ScaleTransform flipTransform = new(-1, 1);
                             _AnimatedSource.RenderTransform = flipTransform;
                         }
-                        else
-                        {
+                        else{
                             MoveRight = false; // Change direction
                             _AnimatedSource.RenderTransform = null;
                         }
                     }
-                    
-                    if (haltChance == 0)
+                    if (haltChance == 0) // If random halt chance = 0
                     {
-                        IsHalted = true;
+                        IsHalted = true; // Halted flag
                         // Slow anim rate multiplier
-                        double animationInterval = _AnimationSpeed * 9; // Slow anim at halt
+                        double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                         _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
-                        await Task.Delay(new Random().Next(1500, 4800));
-                        IsHalted = false;
+                        await Task.Delay(new Random().Next(1500, 3200)); // Delay range
+                        IsHalted = false; // Reset flag
                         _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
                     }
 
-                    string resourceName = $"{_Name}_{_CurrentFrame + 1}";
-                    var imageSource = _Images[resourceName];
-                    _AnimatedSource.Source = imageSource;
-                    // Update the current frame index
-                    _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount;
+                    string resourceName = $"{_Name}_{_CurrentFrame + 1}"; // Get image by name and fram
+                    var imageSource = _Images[resourceName]; // Retieve from array
+                    _AnimatedSource.Source = imageSource; // update image
+                    _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount; // Update current frame index
 
-                    if(_Name == "Frog" && (_CurrentFrame == 7 || _CurrentFrame <= 3))
-                    {
-                        _MoveSpeed = _DefaultMove * 4;
-                    }
+                    // (If is Frog and between 7,1,2,3 Speed up To simulate A hop
+                    if (_Name == "Frog" && (_CurrentFrame == 7 || _CurrentFrame <= 3))
+                        _MoveSpeed = _DefaultMove * 4; // Speed * 4~ 
                     else
-                    {
-                        _MoveSpeed = _DefaultMove;
-                    }
+                        _MoveSpeed = _DefaultMove; // Normal Move speed
 
                     // Get current position
                     double currentX = Canvas.GetLeft(_AnimatedSource);
-                    // Update position based on direction
-                    if (MoveRight && !IsHalted)
+
+                    // If is moving right and not halted
+                    if (MoveRight && !IsHalted)// Update position based on direction
                     {
                          currentX += _MoveSpeed; // Move Postition (positive)
                         if (currentX >= _MainWindow.Width + 125)
@@ -149,20 +160,19 @@ namespace Desktop_Frens
                             _AnimatedSource.RenderTransform = null; // flip 
                         }
                     }
-                    else if (!IsHalted)
+                    else if (!IsHalted) // else if not halted
                     {
                         currentX -= _MoveSpeed; // Move position (Negative)
                         if (currentX <= -50)
                         { // Adjust if needed
                             //currentX = 0;
                             MoveRight = true; // Change direction // Reset the image flip
-                            _AnimatedSource.RenderTransformOrigin = new System.Windows.Point(0, 0);
-                            ScaleTransform flipTransform = new(-1, 1);
-                            _AnimatedSource.RenderTransform = flipTransform;
+                            _AnimatedSource.RenderTransformOrigin = new System.Windows.Point(0, 0); // Set point
+                            ScaleTransform flipTransform = new(-1, 1); // Reverse scale (x)
+                            _AnimatedSource.RenderTransform = flipTransform; // Flip image using scale
                         }
                     }
-                    // Apply new position
-                    Canvas.SetLeft(_AnimatedSource, currentX);
+                    Canvas.SetLeft(_AnimatedSource, currentX);// Apply new position
                 }
             }
             catch (Exception ex)
