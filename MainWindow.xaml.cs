@@ -27,24 +27,23 @@ namespace Desktop_Frens
 
         readonly Dictionary<string, BitmapImage> loadedImages = [];
 
-        FrenObject _Slug_Fren;
-        FrenObject _Dog_Fren;
-
-
+        public FrenObject? _Slug_Fren;
+        public FrenObject? _Dog_Fren;
+        public FrenObject? _Spooky_Fren;
+        public FrenObject? _Frog_Fren;
 
 
         public MainWindow()
         {
             try
             {
-                
-                // Preload images
-                LoadAllImages();
                 // init main window
                 InitializeComponent();
+
                 LoadFrenObjects();
                 this.ShowInTaskbar = false;
                 this.Topmost = true;
+
                 // Initialize NotifyIcon
                 if(TaskIcon != null)
                 {
@@ -52,21 +51,13 @@ namespace Desktop_Frens
                     TaskIcon.Visible = true;
                     TaskIcon.Text = "Desktop Fren";
                     TaskIcon.DoubleClick += (s, e) => Show();
+
                     // Create context menu for NotifyIcon
                     var settingsMenu = new SettingsMenu(this);
+
                     // Assign the context menu to TaskIcon
                     TaskIcon.ContextMenuStrip = settingsMenu._menuStrip;
                 }
-                // Start the timer if not null
-                if (timer != null)
-                {
-                    timer.Interval = TimeSpan.FromMilliseconds(55); // animation speed
-                    timer.Tick += TranslateFrenAnim;
-                    timer.Start();
-                }
-                // Flip the initial image (Comment these out if your sprites default is facing right)
-                ScaleTransform flipTransform = new(-1, 1);
-                animatedImage.RenderTransform = flipTransform;
             }
             catch (Exception ex)
             {
@@ -76,110 +67,60 @@ namespace Desktop_Frens
 
         void LoadFrenObjects()
         {
-            _Slug_Fren = new("Slug", 6, this, 30, this._AnimatedImg_1,75,75,-15);
+            _Slug_Fren = new("Slug", 6, this, 65, this._AnimatedImg_1,75,75,-15);
             _Dog_Fren = new("Dog", 6, this, 40 , _AnimatedImg_2,100,125,-20);
+            _Spooky_Fren = new("Spooky", 8, this, 85, _AnimatedImg_3, 100, 125, -20);
+            _Frog_Fren = new("Frog", 7, this, 155, _AnimatedImg_4, 100, 125, -10);
 
-            SetFrenActive(_Dog_Fren);
-            SetFrenActive(_Slug_Fren);
-        }
-        void SetFrenActive(FrenObject fren)
-        {
-            if (fren != null)
-            {
-                fren.SetActive();
-            }
+            //SetFrenActive(_Dog_Fren);
+            //SetFrenActive(_Slug_Fren);
+            //SetFrenActive(_Spooky_Fren);
+            SetFrenActive(_Frog_Fren);
         }
 
-        private void TranslateFrenAnim(object? sender, EventArgs e)
+        static void SetFrenActive(FrenObject fren)
         {
-            try
-            {
-                var resourceName = "";
-                // Get the next frame from the preloaded images
-                if (isSlugFren)
-                {
-                    resourceName = $"Slug_{CurrentFrame + 1}";
-                    CurrentSpriteCount = SlugSpriteCount;
-                }
-                if (isDogFren)
-                {
-                    resourceName = $"Dog_{CurrentFrame + 1}";
-                    CurrentSpriteCount = DogSpriteCount;
-                }
-                var imageSource = loadedImages[resourceName];
-                animatedImage.Source = imageSource;
-                // Update the current frame index
-                CurrentFrame = (CurrentFrame + 1) % CurrentSpriteCount;
-                // Get current position
-                double currentX = Canvas.GetLeft(animatedImage);
-                // Update position based on direction
-                if (MoveRight)
-                {
-                    currentX += MoveAmount;
-                    if (currentX >= MainCanvas.Width)
-                    {
-                        currentX = MainCanvas.Width - animatedImage.ActualWidth;
-                        MoveRight = false; // Change direction
-                        animatedImage.RenderTransform = null; // flip 
-                    }
-                }
-                else
-                {
-                    currentX -= MoveAmount;
-                    if (currentX <= 10)
-                    { // Adjust if needed
-                        currentX = 0;
-                        MoveRight = true; // Change direction // Reset the image flip
-                        animatedImage.RenderTransformOrigin = new System.Windows.Point(0.5, 0.5);
-                        ScaleTransform flipTransform = new(-1, 1);
-                        animatedImage.RenderTransform = flipTransform;
-                    }
-                }
-                // Apply new position
-                Canvas.SetLeft(animatedImage, currentX);
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show($"Error: {ex.Message}");
-            }
+            fren?.SetActive();
+        }
+        public static void DisableFren(FrenObject fren)
+        {
+            fren?.Disable();
         }
 
         public void SetSlugFren()
         {
-            // Handle Option 1 click
-            isDogFren = false;
-            isSlugFren = true;
-            animatedImage.Height = 75;
-            animatedImage.Width = 75;
-            Canvas.SetTop(animatedImage, -15);
+            if (_Slug_Fren.IsActive())
+            {
+                _Slug_Fren.Disable();
+            }
+            else
+                _Slug_Fren.SetActive();
         }
         public void SetDogFren()
         {
-            // Handle Option 2 click
-            isSlugFren = false;
-            isDogFren = true;
-            animatedImage.Height = 100;
-            animatedImage.Width = 125;
-            Canvas.SetTop(animatedImage, -20);
+            if (_Dog_Fren.IsActive())
+            {
+                _Dog_Fren.Disable();
+            }else
+                _Dog_Fren.SetActive();
         }
-
-
-        private void LoadAllImages()
+        public void SetSpookyFren()
         {
-
-            string[] imageNames = ["Slug_1", "Slug_2", "Slug_3", "Slug_4", "Slug_5", "Slug_6"];
-            foreach (var name in imageNames)
+            if (_Spooky_Fren.IsActive())
             {
-                loadedImages[name] = ImageManager.GetBitmapImage(name);
+                _Spooky_Fren.Disable();
             }
-
-
-            string[] imageNamesDog = ["Dog_1", "Dog_2", "Dog_3", "Dog_4", "Dog_5", "Dog_6", "Dog_7"];
-            foreach (var name in imageNamesDog)
+            else
+                _Spooky_Fren.SetActive();
+        }
+        public void SetFrogFren()
+        {
+            if (_Frog_Fren.IsActive())
             {
-                loadedImages[name] = ImageManager.GetBitmapImage(name);
+                _Frog_Fren.Disable();
             }
-
+            else
+                _Frog_Fren.SetActive();
         }
 
     }

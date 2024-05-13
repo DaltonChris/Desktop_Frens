@@ -18,7 +18,7 @@ namespace Desktop_Frens
 
         private ImageManager()
         {
-            // No need to instantiate ResourceManager here, as it's handled by Re_Source
+            // No need to instantiate:  handled by Re_Source
         }
 
         public static Bitmap GetImageData(string imageName)

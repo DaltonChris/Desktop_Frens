@@ -6,19 +6,19 @@ using Image = System.Windows.Controls.Image;
 
 namespace Desktop_Frens
 {
-    internal class FrenObject
+    public class FrenObject
     {
         readonly string _Name;
         readonly int _SpriteCount = 6;
         int _CurrentFrame = 0;
         readonly double MoveAmount = 8.5;
         bool _IsActive = false;
-        bool MoveRight = true;
-        int _Speed;
+        bool MoveRight = false;
+        readonly int _Speed;
         readonly Dictionary<string, BitmapImage> _Images = [];
         readonly DispatcherTimer _Timer = new();
         readonly MainWindow _MainWindow;
-        Image _AnimatedSource;
+        readonly Image _AnimatedSource;
 
         public FrenObject(string name, int spriteCount, MainWindow mainWin, int speed ,Image image, int height, int width, int topOffset) 
         {
@@ -53,6 +53,7 @@ namespace Desktop_Frens
         public void Disable()
         {
             _IsActive = false;
+            _AnimatedSource.Source = null;
         }
 
         void LoadImages()
@@ -70,43 +71,50 @@ namespace Desktop_Frens
                 _Images[name] = ImageManager.GetBitmapImage(name);
             }
         }
+        public bool IsActive()
+        {
+            return _IsActive;
+        }
 
         void TranslateFren(object? sender, EventArgs e)
         {
             try
             {
-                string resourceName = $"{_Name}_{_CurrentFrame + 1}";
-                var imageSource = _Images[resourceName];
-                _AnimatedSource.Source = imageSource;
-                // Update the current frame index
-                _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount;
-                // Get current position
-                double currentX = Canvas.GetLeft(_AnimatedSource);
-                // Update position based on direction
-                if (MoveRight)
+                if (_IsActive)
                 {
-                    currentX += MoveAmount;
-                    if (currentX >= _MainWindow.Width)
+                    string resourceName = $"{_Name}_{_CurrentFrame + 1}";
+                    var imageSource = _Images[resourceName];
+                    _AnimatedSource.Source = imageSource;
+                    // Update the current frame index
+                    _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount;
+                    // Get current position
+                    double currentX = Canvas.GetLeft(_AnimatedSource);
+                    // Update position based on direction
+                    if (MoveRight)
                     {
-                        currentX = _MainWindow.Width - _AnimatedSource.ActualWidth;
-                        MoveRight = false; // Change direction
-                        _AnimatedSource.RenderTransform = null; // flip 
+                        currentX += MoveAmount;
+                        if (currentX >= _MainWindow.Width)
+                        {
+                            currentX = _MainWindow.Width - _AnimatedSource.ActualWidth;
+                            MoveRight = false; // Change direction
+                            _AnimatedSource.RenderTransform = null; // flip 
+                        }
                     }
-                }
-                else
-                {
-                    currentX -= MoveAmount;
-                    if (currentX <= 10)
-                    { // Adjust if needed
-                        currentX = 0;
-                        MoveRight = true; // Change direction // Reset the image flip
-                        _AnimatedSource.RenderTransformOrigin = new System.Windows.Point(0.5, 0.5);
-                        ScaleTransform flipTransform = new(-1, 1);
-                        _AnimatedSource.RenderTransform = flipTransform;
+                    else
+                    {
+                        currentX -= MoveAmount;
+                        if (currentX <= 10)
+                        { // Adjust if needed
+                            currentX = 0;
+                            MoveRight = true; // Change direction // Reset the image flip
+                            _AnimatedSource.RenderTransformOrigin = new System.Windows.Point(0.5, 0.5);
+                            ScaleTransform flipTransform = new(-1, 1);
+                            _AnimatedSource.RenderTransform = flipTransform;
+                        }
                     }
+                    // Apply new position
+                    Canvas.SetLeft(_AnimatedSource, currentX);
                 }
-                // Apply new position
-                Canvas.SetLeft(_AnimatedSource, currentX);
             }
             catch (Exception ex)
             {

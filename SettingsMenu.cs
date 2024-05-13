@@ -6,8 +6,10 @@ namespace Desktop_Frens
     {
         private readonly Color _backgroundColour = Color.Black;
         private readonly Color _textColour = Color.Red;
-        private bool _isSlugFren = true; // Example values, replace with your logic
-        private bool _isDogFren = false; // Example values, replace with your logic
+        private bool _isSlugFren = true;
+        private bool _isDogFren = false;
+        private bool _isSpookyFren = false;
+        private bool _isFrogFren = false;
         public ContextMenuStrip _menuStrip;
         readonly MainWindow _mainWindow;
 
@@ -56,6 +58,14 @@ namespace Desktop_Frens
                         {
                             subItem.Checked = _isDogFren;
                         }
+                        else if (subItem.Text == "Spooky - Fren")
+                        {
+                            subItem.Checked = _isSpookyFren;
+                        }
+                        else if (subItem.Text == "Frog - Fren")
+                        {
+                            subItem.Checked = _isFrogFren;
+                        }
                     }
                     break; // Exit the loop after updating settings submenu
                 }
@@ -74,13 +84,19 @@ namespace Desktop_Frens
 
             var option1MenuItem = CreateSubMenuItem("Slug - Fren", _isSlugFren);
             var option2MenuItem = CreateSubMenuItem("Dog - Fren", _isDogFren);
+            var option3MenuItem = CreateSubMenuItem("Spooky - Fren", _isSpookyFren);
+            var option4MenuItem = CreateSubMenuItem("Frog - Fren", _isFrogFren);
 
             settingsMenu.DropDownItems.Add(option1MenuItem);
             settingsMenu.DropDownItems.Add(option2MenuItem);
+            settingsMenu.DropDownItems.Add(option3MenuItem);
+            settingsMenu.DropDownItems.Add(option4MenuItem);
 
             // Assign the click events
             option1MenuItem.Click += (sender, e) => SetSlugFren();
             option2MenuItem.Click += (sender, e) => SetDogFren();
+            option3MenuItem.Click += (sender, e) => SetSpookyFren();
+            option4MenuItem.Click += (sender, e) => SetFrogFren();
 
             return settingsMenu;
         }
@@ -88,19 +104,27 @@ namespace Desktop_Frens
         private void SetSlugFren()
         {
             _isSlugFren = true;
-            _isDogFren = false;
             _mainWindow.SetSlugFren();
             UpdateCheckboxes();
         }
-
         private void SetDogFren()
         {
-            _isSlugFren = false;
             _isDogFren = true;
             _mainWindow.SetDogFren();
             UpdateCheckboxes();
         }
-
+        private void SetSpookyFren()
+        {
+            _isSpookyFren = true;
+            _mainWindow.SetSpookyFren();
+            UpdateCheckboxes();
+        }
+        private void SetFrogFren()
+        {
+            _isFrogFren = true;
+            _mainWindow.SetFrogFren();
+            UpdateCheckboxes();
+        }
         private ToolStripMenuItem CreateSubMenuItem(string text, bool isChecked)
         {
             var menuItem = new ToolStripMenuItem(text)
@@ -131,10 +155,8 @@ namespace Desktop_Frens
             return exitMenuItem;
         }
 
-        public class CustomColorTable : ProfessionalColorTable
+        public class CustomColorTable : ProfessionalColorTable //Colour overrides..
         {
-            //Colour overrides..
-
             public override Color ToolStripBorder
             {
                 get { return Color.FromArgb(100, 0, 0); }
