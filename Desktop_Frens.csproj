@@ -29,4 +29,14 @@
     <Resource Include="Sprites\Dog-1.png" />
   </ItemGroup>
 
+
+
+  <ItemGroup>
+    <Compile Update="Re_Source.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Re_Source.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Color = System.Drawing.Color;
+using Image = System.Windows.Controls.Image;
 //using Microsoft.Diagnostics.Tracing.AutomatedAnalysis;
 
 namespace Desktop_Frens
@@ -21,11 +22,14 @@ namespace Desktop_Frens
         readonly int DogSpriteCount = 6;
         int CurrentSpriteCount;
 
-
         bool isSlugFren = true;
         bool isDogFren = false;
 
         readonly Dictionary<string, BitmapImage> loadedImages = [];
+
+        FrenObject _Slug_Fren;
+        FrenObject _Dog_Fren;
+
 
 
 
@@ -33,11 +37,12 @@ namespace Desktop_Frens
         {
             try
             {
-
+                
                 // Preload images
                 LoadAllImages();
                 // init main window
                 InitializeComponent();
+                LoadFrenObjects();
                 this.ShowInTaskbar = false;
                 this.Topmost = true;
                 // Initialize NotifyIcon
@@ -66,6 +71,22 @@ namespace Desktop_Frens
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show($"Error loading image: {ex.Message}");
+            }
+        }
+
+        void LoadFrenObjects()
+        {
+            _Slug_Fren = new("Slug", 6, this, 30, this._AnimatedImg_1,75,75,-15);
+            _Dog_Fren = new("Dog", 6, this, 40 , _AnimatedImg_2,100,125,-20);
+
+            SetFrenActive(_Dog_Fren);
+            SetFrenActive(_Slug_Fren);
+        }
+        void SetFrenActive(FrenObject fren)
+        {
+            if (fren != null)
+            {
+                fren.SetActive();
             }
         }
 

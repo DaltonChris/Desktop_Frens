@@ -61,72 +61,72 @@ namespace Desktop_Frens {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Dog_1 {
+        internal static System.Drawing.Bitmap Dog_1 {
             get {
                 object obj = ResourceManager.GetObject("Dog_1", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Dog_2 {
+        internal static System.Drawing.Bitmap Dog_2 {
             get {
                 object obj = ResourceManager.GetObject("Dog_2", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Dog_3 {
+        internal static System.Drawing.Bitmap Dog_3 {
             get {
                 object obj = ResourceManager.GetObject("Dog_3", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Dog_4 {
+        internal static System.Drawing.Bitmap Dog_4 {
             get {
                 object obj = ResourceManager.GetObject("Dog_4", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Dog_5 {
+        internal static System.Drawing.Bitmap Dog_5 {
             get {
                 object obj = ResourceManager.GetObject("Dog_5", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Dog_6 {
+        internal static System.Drawing.Bitmap Dog_6 {
             get {
                 object obj = ResourceManager.GetObject("Dog_6", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Dog_7 {
+        internal static System.Drawing.Bitmap Dog_7 {
             get {
                 object obj = ResourceManager.GetObject("Dog_7", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -141,72 +141,72 @@ namespace Desktop_Frens {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] frog_1 {
+        internal static System.Drawing.Bitmap Frog_1 {
             get {
-                object obj = ResourceManager.GetObject("frog_1", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Frog_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] frog_2 {
+        internal static System.Drawing.Bitmap Frog_2 {
             get {
-                object obj = ResourceManager.GetObject("frog_2", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Frog_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] frog_3 {
+        internal static System.Drawing.Bitmap Frog_3 {
             get {
-                object obj = ResourceManager.GetObject("frog_3", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Frog_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] frog_4 {
+        internal static System.Drawing.Bitmap Frog_4 {
             get {
-                object obj = ResourceManager.GetObject("frog_4", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Frog_4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] frog_5 {
+        internal static System.Drawing.Bitmap Frog_5 {
             get {
-                object obj = ResourceManager.GetObject("frog_5", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Frog_5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] frog_6 {
+        internal static System.Drawing.Bitmap Frog_6 {
             get {
-                object obj = ResourceManager.GetObject("frog_6", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Frog_6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] frog_7 {
+        internal static System.Drawing.Bitmap Frog_7 {
             get {
-                object obj = ResourceManager.GetObject("frog_7", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Frog_7", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -221,42 +221,42 @@ namespace Desktop_Frens {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Slug_1 {
+        internal static System.Drawing.Bitmap Slug_1 {
             get {
                 object obj = ResourceManager.GetObject("Slug_1", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Slug_2 {
+        internal static System.Drawing.Bitmap Slug_2 {
             get {
                 object obj = ResourceManager.GetObject("Slug_2", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Slug_3 {
+        internal static System.Drawing.Bitmap Slug_3 {
             get {
                 object obj = ResourceManager.GetObject("Slug_3", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Slug_4 {
+        internal static System.Drawing.Bitmap Slug_4 {
             get {
                 object obj = ResourceManager.GetObject("Slug_4", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -271,82 +271,82 @@ namespace Desktop_Frens {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] spooky_1 {
+        internal static System.Drawing.Bitmap Spooky__1 {
             get {
-                object obj = ResourceManager.GetObject("spooky_1", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Spooky__1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] spooky_2 {
+        internal static System.Drawing.Bitmap Spooky__2 {
             get {
-                object obj = ResourceManager.GetObject("spooky_2", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Spooky__2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] spooky_3 {
+        internal static System.Drawing.Bitmap Spooky__3 {
             get {
-                object obj = ResourceManager.GetObject("spooky_3", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Spooky__3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] spooky_4 {
+        internal static System.Drawing.Bitmap Spooky__4 {
             get {
-                object obj = ResourceManager.GetObject("spooky_4", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Spooky__4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] spooky_5 {
+        internal static System.Drawing.Bitmap Spooky__5 {
             get {
-                object obj = ResourceManager.GetObject("spooky_5", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Spooky__5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] spooky_6 {
+        internal static System.Drawing.Bitmap Spooky__6 {
             get {
-                object obj = ResourceManager.GetObject("spooky_6", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Spooky__6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] spooky_7 {
+        internal static System.Drawing.Bitmap Spooky__7 {
             get {
-                object obj = ResourceManager.GetObject("spooky_7", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Spooky__7", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] spooky_8 {
+        internal static System.Drawing.Bitmap Spooky__8 {
             get {
-                object obj = ResourceManager.GetObject("spooky_8", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Spooky__8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

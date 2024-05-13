@@ -119,90 +119,90 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Dog_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Dog-1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Dog-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dog_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Dog-2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Dog-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dog_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Dog-3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Dog-3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dog_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Dog-4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Dog-4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dog_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Dog-5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Dog-5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dog_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Dog-6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Dog-6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dog_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Dog-7.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Dog-7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons\exit.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="frog_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\frog-1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Frog_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Frog-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frog_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\frog-2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Frog_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Frog-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frog_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\frog-3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Frog_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Frog-3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frog_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\frog-4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Frog_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Frog-4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frog_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\frog-5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Frog_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Frog-5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frog_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\frog-6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Frog_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Frog-6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frog_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\frog-7.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Frog_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Frog-7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons\settings.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Slug_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Slug-1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Slug-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Slug_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Slug-2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Slug-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Slug_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Slug-3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Slug-3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Slug_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\Slug-4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sprites\Slug-4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="slug_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons\slug_icon.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="spooky_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\spooky-1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Spooky__1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Spooky- 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spooky_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\spooky-2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Spooky__2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Spooky- 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spooky_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\spooky-3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Spooky__3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Spooky- 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spooky_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\spooky-4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Spooky__4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Spooky- 4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spooky_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\spooky-5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Spooky__5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Spooky- 5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spooky_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\spooky-6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Spooky__6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Spooky- 6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spooky_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\spooky-7.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Spooky__7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Spooky- 7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spooky_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Sprites\spooky-8.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Spooky__8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Spooky- 8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
