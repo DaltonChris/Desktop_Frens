@@ -62,9 +62,9 @@ namespace Desktop_Frens
         {
             _Slug_Fren = new("Slug", 6 , this,3.95, 88, this._AnimatedImg_1,60,60,-1);
             _Dog_Fren = new("Dog", 7 , this,7.4, 75 , _AnimatedImg_2,85,95,-5);
-            _Spooky_Fren = new("Spooky", 8 , this,5.9, 85, _AnimatedImg_3, 110, 110, -52);
-            _Frog_Fren = new("Frog", 7 , this,1.95, 135, _AnimatedImg_4, 75, 100, 10);
-            _Frog_B_Fren = new("Frog_B", 7, this, 2.85, 135, _AnimatedImg_5, 95, 115, -5);
+            _Spooky_Fren = new("Spooky", 8 , this,5.9, 85, _AnimatedImg_3, 110, 110, -7); // -52
+            _Frog_Fren = new("Frog", 7 , this,1.95, 135, _AnimatedImg_4, 75, 100, 48); //10
+            _Frog_B_Fren = new("Frog_B", 7, this, 2.85, 135, _AnimatedImg_5, 95, 115, 33); // -5
         }
 
         /// <summary>

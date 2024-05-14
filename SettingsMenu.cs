@@ -124,7 +124,7 @@ namespace Desktop_Frens
         }
         public void AllEnabled()
         {
-            SetAllFrens();
+            //SetAllFrens();
         }
         async void SetAllFrens() // call all Fren Setters 
         {
