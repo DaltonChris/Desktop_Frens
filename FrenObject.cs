@@ -152,10 +152,11 @@ namespace Desktop_Frens
                     if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
                     else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame();
                     else UpdateFrenFrame();
-
+                    var frogMulti = new Random().Next(0, 5);
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
-                    if (_Name == "Frog" && (_CurrentFrame == 7 || _CurrentFrame <= 3))
-                        _MoveSpeed = _DefaultMove * 4; // Speed * 4~ 
+                    if ((_Name == "Frog" || _Name == "Frog_B") && (_CurrentFrame == 7 || _CurrentFrame <= 2))
+                        if(frogMulti == 0) _MoveSpeed = _DefaultMove * 6; // Speed * 7~ 
+                        else _MoveSpeed = _DefaultMove * frogMulti + 3; // Speed * 4~ 
                     else if (_Name == "Dog" && IsRun) _MoveSpeed = _DefaultMove * 3;
                     else
                         _MoveSpeed = _DefaultMove; // Normal Move speed

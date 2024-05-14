@@ -90,6 +90,14 @@ namespace Desktop_Frens
                     "Frog_5" => Re_Source.Frog_5,
                     "Frog_6" => Re_Source.Frog_6,
                     "Frog_7" => Re_Source.Frog_7,
+                    "Frog_B_1" => Re_Source.Frog_B_1,
+                    "Frog_B_2" => Re_Source.Frog_B_2,
+                    "Frog_B_3" => Re_Source.Frog_B_3,
+                    "Frog_B_4" => Re_Source.Frog_B_4,
+                    "Frog_B_5" => Re_Source.Frog_B_5,
+                    "Frog_B_6" => Re_Source.Frog_B_6,
+                    "Frog_B_7" => Re_Source.Frog_B_7,
+
                     #endregion
                     _ => throw new ArgumentException($"Image '{imageName}' not found."),
                 };

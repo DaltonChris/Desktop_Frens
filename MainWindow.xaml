@@ -71,6 +71,18 @@
                Height="75" 
                Canvas.Left="0" 
                Canvas.Top="-15"/>
+
+        <Image x:Name="_AnimatedImg_6" 
+               Width="75" 
+               Height="75" 
+               Canvas.Left="0" 
+               Canvas.Top="-15"/>
+
+        <Image x:Name="_AnimatedImg_7" 
+               Width="75" 
+               Height="75" 
+               Canvas.Left="0" 
+               Canvas.Top="-15"/>
     </Canvas>
 
 

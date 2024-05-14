@@ -21,6 +21,7 @@ namespace Desktop_Frens
         private bool _isDogFren = false;
         private bool _isSpookyFren = false;
         private bool _isFrogFren = false;
+        private bool _isBlueFrogFren = false;
 
         // Contructo
         public SettingsMenu(MainWindow mainWindow)
@@ -73,9 +74,13 @@ namespace Desktop_Frens
                         {
                             subItem.Checked = _isSpookyFren;
                         }
-                        else if (subItem.Text == "Frog - Fren")
+                        else if (subItem.Text == "Frog Pink - Fren")
                         {
                             subItem.Checked = _isFrogFren;
+                        }
+                        else if (subItem.Text == "Frog Blue - Fren")
+                        {
+                            subItem.Checked = _isBlueFrogFren;
                         }
                     }
                     break; // Exit the loop after updating settings submenu
@@ -97,13 +102,15 @@ namespace Desktop_Frens
             var option1MenuItem = CreateSubMenuItem("Slug - Fren", _isSlugFren);
             var option2MenuItem = CreateSubMenuItem("Dog - Fren", _isDogFren);
             var option3MenuItem = CreateSubMenuItem("Spooky - Fren", _isSpookyFren);
-            var option4MenuItem = CreateSubMenuItem("Frog - Fren", _isFrogFren);
+            var option4MenuItem = CreateSubMenuItem("Frog Pink - Fren", _isFrogFren);
+            var option5MenuItem = CreateSubMenuItem("Frog Blue - Fren", _isBlueFrogFren);
 
             settingsMenu.DropDownItems.Add(option0MenuItem);
             settingsMenu.DropDownItems.Add(option1MenuItem);
             settingsMenu.DropDownItems.Add(option2MenuItem);
             settingsMenu.DropDownItems.Add(option3MenuItem);
             settingsMenu.DropDownItems.Add(option4MenuItem);
+            settingsMenu.DropDownItems.Add(option5MenuItem);
 
             // Assign the click events
             option0MenuItem.Click += (sender, e) => SetAllFrens();
@@ -111,15 +118,25 @@ namespace Desktop_Frens
             option2MenuItem.Click += (sender, e) => SetDogFren();
             option3MenuItem.Click += (sender, e) => SetSpookyFren();
             option4MenuItem.Click += (sender, e) => SetFrogFren();
+            option5MenuItem.Click += (sender, e) => SetBlueFrogFren();
 
             return settingsMenu;
         }
-        void SetAllFrens() // call all Fren Setters 
+        public void AllEnabled()
+        {
+            SetAllFrens();
+        }
+        async void SetAllFrens() // call all Fren Setters 
         {
             SetSlugFren();
+            await Task.Delay(85);
             SetDogFren();
+            await Task.Delay(185);
             SetSpookyFren();
+            await Task.Delay(165);
             SetFrogFren();
+            await Task.Delay(285);
+            SetBlueFrogFren();
         }
         private void SetSlugFren() // SLug
         {
@@ -152,6 +169,14 @@ namespace Desktop_Frens
             if (_isFrogFren) _isFrogFren = false;
             else _isFrogFren = true;
             MainWindow.SetFrenActive(_mainWindow._Frog_Fren);
+            UpdateCheckboxes();
+        }
+        private void SetBlueFrogFren() // Frog
+        {
+            if (_mainWindow._Frog_B_Fren == null) return;
+            if (_isBlueFrogFren) _isBlueFrogFren = false;
+            else _isBlueFrogFren = true;
+            MainWindow.SetFrenActive(_mainWindow._Frog_B_Fren);
             UpdateCheckboxes();
         }
         // Sub Menu builder
