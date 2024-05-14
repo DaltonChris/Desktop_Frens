@@ -96,6 +96,13 @@ namespace Desktop_Frens
                     imageNames.Add($"{_Name}_Sit_{i}"); // Add each name
                 }
             }
+            if (_Name == "Dog")
+            {
+                for (int i = 1; i <= 8; i++)
+                {
+                    imageNames.Add($"{_Name}_Run_{i}"); // Add each name
+                }
+            }
             // To array
             string[] imageNamesArray = [.. imageNames];
 
@@ -134,10 +141,14 @@ namespace Desktop_Frens
                 {
                     var haltChance = new Random().Next(0, 550);
                     var FlipChance = new Random().Next(0, 450);
+                    var RunChance = new Random().Next(0, 50);
+
                     // If rolls a 0
                     if (FlipChance == 0) FlipFren();
 
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
+
+                    if(_Name == "Dog" && RunChance == 0) RunFren();
 
                     if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
                     else UpdateFrenFrame();
@@ -148,12 +159,10 @@ namespace Desktop_Frens
                     else
                         _MoveSpeed = _DefaultMove; // Normal Move speed
 
-                    // Get current position
-                    double currentX = Canvas.GetLeft(_AnimatedSource);
-                    // If is moving right and not halted
-                    if (MoveRight && !IsHalted) currentX = MoveFrenRight(currentX);
-                    else if (!IsHalted) currentX = MoveFrenLeft(currentX); // else if not halted
 
+                    // If is moving right and not halted
+
+                    double currentX = Translate();
                     Canvas.SetLeft(_AnimatedSource, currentX);// Apply new position
                 }
             }
@@ -163,13 +172,27 @@ namespace Desktop_Frens
             }
         }
 
+        double Translate()
+        {                    // Get current position
+            double currentX = Canvas.GetLeft(_AnimatedSource);
+            if (MoveRight && !IsHalted) currentX = MoveFrenRight(currentX);
+            else if (!IsHalted) currentX = MoveFrenLeft(currentX); // else if not halted
+            return currentX;
+        }
+
+        async void RunFren()
+        {
+            _MoveSpeed = _DefaultMove * 4;
+            RunUpdateFrenFrame();
+            Translate();
+            await Task.Delay(new Random().Next(2500, 7500)); // Delay range
+            _MoveSpeed = _DefaultMove;
+        }
+
         async void HaltFren()
         {
             IsHalted = true; // Halted flag
-                             // Slow anim rate multiplier
-
-            if (_Name != "Dog")
-            {
+            if (_Name != "Dog"){
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
             }
@@ -177,6 +200,14 @@ namespace Desktop_Frens
             await Task.Delay(new Random().Next(3500, 6200)); // Delay range
             IsHalted = false; // Reset flag
             _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
+        }
+
+        void RunUpdateFrenFrame()
+        {
+            string haltName = $"{_Name}_Run_{_CurrentFrame + 1}"; // Get image by name and fram
+            var imageSource_ = _Images[haltName]; // Retieve from array
+            _AnimatedSource.Source = imageSource_; // update image
+            _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount + 1); // Update current frame index
         }
 
         void HaltedUpdateFrenFrame()

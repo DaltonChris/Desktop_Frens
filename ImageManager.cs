@@ -41,6 +41,7 @@ namespace Desktop_Frens
                 // Get the image data from Re_Source using the imageName
                 imageData = imageName switch
                 {
+                    #region Dog
                     "Dog_1" => Re_Source.Dog_1,
                     "Dog_2" => Re_Source.Dog_2,
                     "Dog_3" => Re_Source.Dog_3,
@@ -54,12 +55,24 @@ namespace Desktop_Frens
                     "Dog_Sit_4" => Re_Source.Dog_Sit_4,
                     "Dog_Sit_5" => Re_Source.Dog_Sit_5,
                     "Dog_Sit_6" => Re_Source.Dog_Sit_6,
+                    "Dog_Run_1" => Re_Source.Dog_Run_1,
+                    "Dog_Run_2" => Re_Source.Dog_Run_2,
+                    "Dog_Run_3" => Re_Source.Dog_Run_3,
+                    "Dog_Run_4" => Re_Source.Dog_Run_4,
+                    "Dog_Run_5" => Re_Source.Dog_Run_5,
+                    "Dog_Run_6" => Re_Source.Dog_Run_6,
+                    "Dog_Run_7" => Re_Source.Dog_Run_7,
+                    "Dog_Run_8" => Re_Source.Dog_Run_8,
+                    #endregion
+                    #region Slug
                     "Slug_1" => Re_Source.Slug_1,
                     "Slug_2" => Re_Source.Slug_2,
                     "Slug_3" => Re_Source.Slug_3,
                     "Slug_4" => Re_Source.Slug_4,
                     "Slug_5" => Re_Source.Slug_3,
                     "Slug_6" => Re_Source.Slug_2,
+                    #endregion
+                    #region Spooky
                     "Spooky_1" => Re_Source.Spooky__1,
                     "Spooky_2" => Re_Source.Spooky__2,
                     "Spooky_3" => Re_Source.Spooky__3,
@@ -68,6 +81,8 @@ namespace Desktop_Frens
                     "Spooky_6" => Re_Source.Spooky__6,
                     "Spooky_7" => Re_Source.Spooky__7,
                     "Spooky_8" => Re_Source.Spooky__8,
+                    #endregion
+                    #region Frog
                     "Frog_1" => Re_Source.Frog_1,
                     "Frog_2" => Re_Source.Frog_2,
                     "Frog_3" => Re_Source.Frog_3,
@@ -75,6 +90,7 @@ namespace Desktop_Frens
                     "Frog_5" => Re_Source.Frog_5,
                     "Frog_6" => Re_Source.Frog_6,
                     "Frog_7" => Re_Source.Frog_7,
+                    #endregion
                     _ => throw new ArgumentException($"Image '{imageName}' not found."),
                 };
 
