@@ -116,6 +116,7 @@ namespace Desktop_Frens
                 {
                     var haltChance = new Random().Next(0, 550);
                     var FlipChance = new Random().Next(0, 450);
+
                     if(FlipChance == 0) // If rolls a 0
                     {
                         // set scale to opposite
@@ -131,6 +132,7 @@ namespace Desktop_Frens
                             _AnimatedSource.RenderTransform = null;
                         }
                     }
+
                     if (haltChance == 0) // If random halt chance = 0
                     {
                         IsHalted = true; // Halted flag
@@ -142,14 +144,15 @@ namespace Desktop_Frens
                             _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
                         }
                         // Delay / Wait
-                        await Task.Delay(new Random().Next(1500, 5200)); // Delay range
+                        await Task.Delay(new Random().Next(3500, 6200)); // Delay range
                         IsHalted = false; // Reset flag
                         _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
                     }
+
                     if (_Name == "Dog" && IsHalted)
                     {
-                        string DogHaltName = $"{_Name}_Sit_{_CurrentFrame + 1}"; // Get image by name and fram
-                        var imageSource_ = _Images[DogHaltName]; // Retieve from array
+                        string haltName = $"{_Name}_Sit_{_CurrentFrame + 1}"; // Get image by name and fram
+                        var imageSource_ = _Images[haltName]; // Retieve from array
                         _AnimatedSource.Source = imageSource_; // update image
                         _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount - 1); // Update current frame index
                     }
