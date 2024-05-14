@@ -96,7 +96,8 @@ namespace Desktop_Frens
                 BackColor = _backgroundColour,
                 ForeColor = _textColour,
                 Padding = new Padding(0),
-                Margin = new Padding(0)
+                Margin = new Padding(0),
+                Image = ImageManager.GetImage("Settings")
             };
             var option0MenuItem = CreateSubMenuItem("All - Frens", _isAllFrens);
             var option1MenuItem = CreateSubMenuItem("Slug - Fren", _isSlugFren);
@@ -188,6 +189,7 @@ namespace Desktop_Frens
                 ForeColor = _textColour,
                 Checked = isChecked,
                 Margin = new Padding(0)
+
             };
 
             return menuItem;
@@ -200,7 +202,8 @@ namespace Desktop_Frens
                 BackColor = _backgroundColour,
                 ForeColor = _textColour,
                 Padding = new Padding(0),
-                Margin = new Padding(0)
+                Margin = new Padding(0),
+                Image = ImageManager.GetImage("Exit")
             };
             exitMenuItem.Click += (sender, e) =>
             {

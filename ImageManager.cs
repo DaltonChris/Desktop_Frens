@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Desktop_Frens.Properties;
+using System.IO;
 using System.Windows.Media.Imaging;
 /* ############################################
  * ### Dalton Christopher                   ###
@@ -81,6 +82,15 @@ namespace Desktop_Frens
                     "Spooky_6" => Re_Source.Spooky_6,
                     "Spooky_7" => Re_Source.Spooky_7,
                     "Spooky_8" => Re_Source.Spooky_8,
+                    "Spooky_Idle_1" => Re_Source.Spooky_Idle_1,
+                    "Spooky_Idle_2" => Re_Source.Spooky_Idle_2,
+                    "Spooky_Idle_3" => Re_Source.Spooky_Idle_3,
+                    "Spooky_Idle_4" => Re_Source.Spooky_Idle_4,
+                    "Spooky_Idle_5" => Re_Source.Spooky_Idle_5,
+                    "Spooky_Idle_6" => Re_Source.Spooky_Idle_6,
+                    "Spooky_Idle_7" => Re_Source.Spooky_Idle_7,
+                    "Spooky_Idle_8" => Re_Source.Spooky_Idle_8,
+
                     #endregion
                     #region Frog
                     "Frog_1" => Re_Source.Frog_1,
@@ -97,8 +107,9 @@ namespace Desktop_Frens
                     "Frog_B_5" => Re_Source.Frog_B_5,
                     "Frog_B_6" => Re_Source.Frog_B_6,
                     "Frog_B_7" => Re_Source.Frog_B_7,
-
                     #endregion
+                    "Exit" => Re_Source.exit1,
+                    "Settings" => Re_Source.settings1,
                     _ => throw new ArgumentException($"Image '{imageName}' not found."),
                 };
 

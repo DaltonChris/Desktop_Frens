@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -104,6 +105,13 @@ namespace Desktop_Frens
                     imageNames.Add($"{_Name}_Run_{i}"); // Add each name
                 }
             }
+            if (_Name == "Spooky")
+            {
+                for (int i = 1; i <= 8; i++)
+                {
+                    imageNames.Add($"{_Name}_Idle_{i}"); // Add each name
+                }
+            }
             // To array
             string[] imageNamesArray = [.. imageNames];
 
@@ -140,21 +148,25 @@ namespace Desktop_Frens
             {
                 if (_IsActive) // If Fren is set active
                 {
-                    var runChance = new Random().Next(0, 100);
-                    var haltChance = new Random().Next(0, 550);
-                    var FlipChance = new Random().Next(0, 450);
+                    var runChance = new Random().Next(0, 225);
+                    var haltChance = new Random().Next(0, 125);
+                    var FlipChance = new Random().Next(0, 350);
                     
                     // If rolls a 0
                     if (runChance == 0) RunFren();
                     if (FlipChance == 0) FlipFren();
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
+                    
+
                     if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
                     else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame();
+                    else if (_Name == "Spooky" && IsHalted) HaltedUpdateIdleFrenFrame();
                     else UpdateFrenFrame();
+
                     var frogMulti = new Random().Next(0, 5);
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
-                    if ((_Name == "Frog" || _Name == "Frog_B") && (_CurrentFrame <= 4))
+                    if ((_Name == "Frog" || _Name == "Frog_B") && (_CurrentFrame == 7 || _CurrentFrame <= 2))
                         if(frogMulti == 0) _MoveSpeed = _DefaultMove * 6; // Speed * 7~ 
                         else _MoveSpeed = _DefaultMove * frogMulti + 2; // Speed * 4~ 
                     else if (_Name == "Dog" && IsRun) _MoveSpeed = _DefaultMove * 3;
@@ -195,12 +207,12 @@ namespace Desktop_Frens
         {
             IsHalted = true; // Halted flag
             _CurrentFrame = 0; // Reset the frame index
-            if (_Name != "Dog"){
+            if (_Name != "Dog" || _Name != "Spooky"){
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
             }
             // Delay / Wait
-            await Task.Delay(new Random().Next(3500, 6200)); // Delay range
+            await Task.Delay(new Random().Next(3500, 8750)); // Delay range
             IsHalted = false; // Reset flag
             _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
         }
@@ -220,7 +232,15 @@ namespace Desktop_Frens
             _AnimatedSource.Source = imageSource_; // update image
             _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount - 1); // Update current frame index
         }
-
+        void HaltedUpdateIdleFrenFrame()
+        {
+            Debug.WriteLine("IDLEENTERED");
+            string haltName = $"{_Name}_Idle_{_CurrentFrame + 1}"; // Get image by name and fram
+            Debug.WriteLine($"{haltName}");
+            var imageSource_ = _Images[haltName]; // Retieve from array
+            _AnimatedSource.Source = imageSource_; // update image
+            _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount); // Update current frame index
+        }
         void UpdateFrenFrame()
         {
             string resourceName = $"{_Name}_{_CurrentFrame + 1}"; // Get image by name and fram
