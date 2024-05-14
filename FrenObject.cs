@@ -87,6 +87,13 @@ namespace Desktop_Frens
             {
                 imageNames.Add($"{_Name}_{i}"); // Add each name
             }
+            if(_Name == "Dog")
+            {
+                for (int i = 1; i <= 6; i++)
+                {
+                    imageNames.Add($"{_Name}_Sit_{i}"); // Add each name
+                }
+            }
             // To array
             string[] imageNamesArray = [.. imageNames];
 
@@ -107,7 +114,7 @@ namespace Desktop_Frens
             {
                 if (_IsActive) // If Fren is set active
                 {
-                    var haltChance = new Random().Next(0, 650);
+                    var haltChance = new Random().Next(0, 550);
                     var FlipChance = new Random().Next(0, 450);
                     if(FlipChance == 0) // If rolls a 0
                     {
@@ -128,17 +135,32 @@ namespace Desktop_Frens
                     {
                         IsHalted = true; // Halted flag
                         // Slow anim rate multiplier
-                        double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
-                        _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
-                        await Task.Delay(new Random().Next(1500, 3200)); // Delay range
+
+                        if(_Name != "Dog")
+                        {
+                            double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
+                            _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
+                        }
+                        // Delay / Wait
+                        await Task.Delay(new Random().Next(1500, 5200)); // Delay range
                         IsHalted = false; // Reset flag
                         _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
                     }
-
-                    string resourceName = $"{_Name}_{_CurrentFrame + 1}"; // Get image by name and fram
-                    var imageSource = _Images[resourceName]; // Retieve from array
-                    _AnimatedSource.Source = imageSource; // update image
-                    _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount; // Update current frame index
+                    if (_Name == "Dog" && IsHalted)
+                    {
+                        string DogHaltName = $"{_Name}_Sit_{_CurrentFrame + 1}"; // Get image by name and fram
+                        var imageSource_ = _Images[DogHaltName]; // Retieve from array
+                        _AnimatedSource.Source = imageSource_; // update image
+                        _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount - 1); // Update current frame index
+                    }
+                    else
+                    {
+                        string resourceName = $"{_Name}_{_CurrentFrame + 1}"; // Get image by name and fram
+                        var imageSource = _Images[resourceName]; // Retieve from array
+                        _AnimatedSource.Source = imageSource; // update image
+                        _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount; // Update current frame index
+                    }
+                    
 
                     // (If is Frog and between 7,1,2,3 Speed up To simulate A hop
                     if (_Name == "Frog" && (_CurrentFrame == 7 || _CurrentFrame <= 3))
