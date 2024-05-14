@@ -21,6 +21,7 @@ namespace Desktop_Frens
         bool _IsActive = false; // flag
         bool MoveRight = true; // direction flag
         bool IsHalted = false; // halt flag
+        bool IsRun = false; // Run flag
         int _AnimationSpeed; // anim rate (ms) tick time
         readonly Dictionary<string, BitmapImage> _Images = []; // Image dict
         readonly DispatcherTimer _Timer = new(); // timer
@@ -139,29 +140,27 @@ namespace Desktop_Frens
             {
                 if (_IsActive) // If Fren is set active
                 {
+                    var runChance = new Random().Next(0, 100);
                     var haltChance = new Random().Next(0, 550);
                     var FlipChance = new Random().Next(0, 450);
-                    var RunChance = new Random().Next(0, 50);
-
+                    
                     // If rolls a 0
+                    if (runChance == 0) RunFren();
                     if (FlipChance == 0) FlipFren();
-
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
-                    if(_Name == "Dog" && RunChance == 0) RunFren();
-
                     if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
+                    else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame();
                     else UpdateFrenFrame();
 
-                    // (If is Frog and between 7,1,2,3 Speed up To simulate A hop
+                    // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
                     if (_Name == "Frog" && (_CurrentFrame == 7 || _CurrentFrame <= 3))
                         _MoveSpeed = _DefaultMove * 4; // Speed * 4~ 
+                    else if (_Name == "Dog" && IsRun) _MoveSpeed = _DefaultMove * 3;
                     else
                         _MoveSpeed = _DefaultMove; // Normal Move speed
 
-
-                    // If is moving right and not halted
-
+                    // Move the Fren
                     double currentX = Translate();
                     Canvas.SetLeft(_AnimatedSource, currentX);// Apply new position
                 }
@@ -182,16 +181,19 @@ namespace Desktop_Frens
 
         async void RunFren()
         {
-            _MoveSpeed = _DefaultMove * 4;
-            RunUpdateFrenFrame();
-            Translate();
-            await Task.Delay(new Random().Next(2500, 7500)); // Delay range
-            _MoveSpeed = _DefaultMove;
+            IsRun = true;
+            _MoveSpeed = _DefaultMove * 20; // Set the faster speed for running
+            _CurrentFrame = 0; // Reset the frame index
+            await Task.Delay(new Random().Next(2500, 7500)); // Delay range for running
+            IsRun = false;
+            _MoveSpeed = _DefaultMove; // Revert to the original move speed
         }
+
 
         async void HaltFren()
         {
             IsHalted = true; // Halted flag
+            _CurrentFrame = 0; // Reset the frame index
             if (_Name != "Dog"){
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
@@ -204,10 +206,10 @@ namespace Desktop_Frens
 
         void RunUpdateFrenFrame()
         {
-            string haltName = $"{_Name}_Run_{_CurrentFrame + 1}"; // Get image by name and fram
-            var imageSource_ = _Images[haltName]; // Retieve from array
+            string runName = $"{_Name}_Run_{_CurrentFrame + 1}"; // Get image by name and fram
+            var imageSource_ = _Images[runName]; // Retieve from array
             _AnimatedSource.Source = imageSource_; // update image
-            _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount + 1); // Update current frame index
+            _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount); // Update current frame index
         }
 
         void HaltedUpdateFrenFrame()

@@ -413,9 +413,9 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Spooky__1 {
+        internal static System.Drawing.Bitmap Spooky_1 {
             get {
-                object obj = ResourceManager.GetObject("Spooky__1", resourceCulture);
+                object obj = ResourceManager.GetObject("Spooky_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -423,9 +423,9 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Spooky__2 {
+        internal static System.Drawing.Bitmap Spooky_2 {
             get {
-                object obj = ResourceManager.GetObject("Spooky__2", resourceCulture);
+                object obj = ResourceManager.GetObject("Spooky_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -433,9 +433,9 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Spooky__3 {
+        internal static System.Drawing.Bitmap Spooky_3 {
             get {
-                object obj = ResourceManager.GetObject("Spooky__3", resourceCulture);
+                object obj = ResourceManager.GetObject("Spooky_3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -443,9 +443,9 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Spooky__4 {
+        internal static System.Drawing.Bitmap Spooky_4 {
             get {
-                object obj = ResourceManager.GetObject("Spooky__4", resourceCulture);
+                object obj = ResourceManager.GetObject("Spooky_4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -453,9 +453,9 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Spooky__5 {
+        internal static System.Drawing.Bitmap Spooky_5 {
             get {
-                object obj = ResourceManager.GetObject("Spooky__5", resourceCulture);
+                object obj = ResourceManager.GetObject("Spooky_5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -463,9 +463,9 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Spooky__6 {
+        internal static System.Drawing.Bitmap Spooky_6 {
             get {
-                object obj = ResourceManager.GetObject("Spooky__6", resourceCulture);
+                object obj = ResourceManager.GetObject("Spooky_6", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -473,9 +473,9 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Spooky__7 {
+        internal static System.Drawing.Bitmap Spooky_7 {
             get {
-                object obj = ResourceManager.GetObject("Spooky__7", resourceCulture);
+                object obj = ResourceManager.GetObject("Spooky_7", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -483,9 +483,9 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Spooky__8 {
+        internal static System.Drawing.Bitmap Spooky_8 {
             get {
-                object obj = ResourceManager.GetObject("Spooky__8", resourceCulture);
+                object obj = ResourceManager.GetObject("Spooky_8", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

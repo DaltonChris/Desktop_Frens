@@ -73,14 +73,14 @@ namespace Desktop_Frens
                     "Slug_6" => Re_Source.Slug_2,
                     #endregion
                     #region Spooky
-                    "Spooky_1" => Re_Source.Spooky__1,
-                    "Spooky_2" => Re_Source.Spooky__2,
-                    "Spooky_3" => Re_Source.Spooky__3,
-                    "Spooky_4" => Re_Source.Spooky__4,
-                    "Spooky_5" => Re_Source.Spooky__5,
-                    "Spooky_6" => Re_Source.Spooky__6,
-                    "Spooky_7" => Re_Source.Spooky__7,
-                    "Spooky_8" => Re_Source.Spooky__8,
+                    "Spooky_1" => Re_Source.Spooky_1,
+                    "Spooky_2" => Re_Source.Spooky_2,
+                    "Spooky_3" => Re_Source.Spooky_3,
+                    "Spooky_4" => Re_Source.Spooky_4,
+                    "Spooky_5" => Re_Source.Spooky_5,
+                    "Spooky_6" => Re_Source.Spooky_6,
+                    "Spooky_7" => Re_Source.Spooky_7,
+                    "Spooky_8" => Re_Source.Spooky_8,
                     #endregion
                     #region Frog
                     "Frog_1" => Re_Source.Frog_1,
