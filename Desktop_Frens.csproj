@@ -10,6 +10,7 @@
     <StartupObject>Desktop_Frens.App</StartupObject>
     <ApplicationIcon>Icons\slug_icon.ico</ApplicationIcon>
     <Platforms>AnyCPU;x86</Platforms>
+    <Configurations>Debug;Release;_DeBug</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
