@@ -108,8 +108,8 @@ namespace Desktop_Frens
                     "Frog_B_6" => Re_Source.Frog_B_6,
                     "Frog_B_7" => Re_Source.Frog_B_7,
                     #endregion
-                    "Exit" => Re_Source.exit1,
-                    "Settings" => Re_Source.settings1,
+                    "Exit" => Re_Source.Exit,
+                    "Settings" => Re_Source.Settings,
                     _ => throw new ArgumentException($"Image '{imageName}' not found."),
                 };
 

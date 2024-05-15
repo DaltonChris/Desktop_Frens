@@ -64,7 +64,7 @@ namespace Desktop_Frens
             _Dog_Fren = new("Dog", 7 , this,7.4, 75 , _AnimatedImg_2,85,95,35); // -5
             _Spooky_Fren = new("Spooky", 8 , this,5.9, 85, _AnimatedImg_3, 110, 110, -7); // -52
             _Frog_Fren = new("Frog", 7 , this,1.3, 135, _AnimatedImg_4, 75, 100, 48); //10
-            _Frog_B_Fren = new("Frog_B", 7, this, 1.5, 135, _AnimatedImg_5, 95, 115, 35); // -5
+            _Frog_B_Fren = new("Frog_B", 7, this, 2, 135, _AnimatedImg_5, 95, 115, 35); // -5
         }
 
         /// <summary>

@@ -271,21 +271,11 @@ namespace Desktop_Frens {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] exit {
-            get {
-                object obj = ResourceManager.GetObject("exit", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap exit1 {
+        internal static System.Drawing.Bitmap Exit {
             get {
-                object obj = ResourceManager.GetObject("exit1", resourceCulture);
+                object obj = ResourceManager.GetObject("Exit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -431,21 +421,11 @@ namespace Desktop_Frens {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] settings {
-            get {
-                object obj = ResourceManager.GetObject("settings", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap settings1 {
+        internal static System.Drawing.Bitmap Settings {
             get {
-                object obj = ResourceManager.GetObject("settings1", resourceCulture);
+                object obj = ResourceManager.GetObject("Settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

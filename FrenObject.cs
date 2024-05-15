@@ -23,10 +23,10 @@ namespace Desktop_Frens
         bool MoveRight = true; // direction flag
         bool IsHalted = false; // halt flag
         bool IsRun = false; // Run flag
-        int _AnimationSpeed; // anim rate (ms) tick time
+        readonly int _AnimationSpeed; // anim rate (ms) tick time
         readonly Dictionary<string, BitmapImage> _Images = []; // Image dict
         readonly DispatcherTimer _Timer = new(); // timer
-        readonly MainWindow _MainWindow; 
+        readonly MainWindow _MainWindow;
         readonly Image _AnimatedSource; // Canvas image source
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Desktop_Frens
         /// <param name="height"></param>
         /// <param name="width"></param>
         /// <param name="topOffset"></param>
-        public FrenObject(string name, int spriteCount, MainWindow mainWin,double moveSpeed,int animSpeed ,Image image, int height, int width, int topOffset) 
+        public FrenObject(string name, int spriteCount, MainWindow mainWin, double moveSpeed, int animSpeed, Image image, int height, int width, int topOffset)
         {
             _Name = name;
             _SpriteCount = spriteCount;
@@ -49,8 +49,8 @@ namespace Desktop_Frens
             _AnimatedSource = image;
             _AnimationSpeed = animSpeed;
             _MoveSpeed = moveSpeed;
-            InitFren(height, width, topOffset);
             _DefaultMove = _MoveSpeed;
+            InitFren(height, width, topOffset);
             LoadImages();
         }
 
@@ -61,10 +61,10 @@ namespace Desktop_Frens
             {
                 // animation speed (interval of calls) (movealso)
                 _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed);
-                _Timer.Tick += TranslateFren; // Call Translate fren each tick interval
+                _Timer.Tick += UpdateFren; // Call Translate fren each tick interval
                 _Timer.Start(); // start timer
             }
-            
+
         }
 
         // Init Fren objects image on cavas L/W/H
@@ -78,7 +78,7 @@ namespace Desktop_Frens
         }
 
         // Disable fren method
-        public void Disable() 
+        public void Disable()
         {
             _IsActive = false; // set flag
             _AnimatedSource.Source = null; // Null image
@@ -91,7 +91,7 @@ namespace Desktop_Frens
             {
                 imageNames.Add($"{_Name}_{i}"); // Add each name
             }
-            if(_Name == "Dog")
+            if (_Name == "Dog")
             {
                 for (int i = 1; i <= 6; i++)
                 {
@@ -139,19 +139,21 @@ namespace Desktop_Frens
                 _AnimatedSource.RenderTransform = null;
             }
         }
-        void TranslateFren(object? sender, EventArgs e)
+        void UpdateFren(object? sender, EventArgs e)
         {
             try
             {
                 if (_IsActive) // If Fren is set active
                 {
-                    var runChance = new Random().Next(0, 225);
-                    var haltChance = new Random().Next(0, 125);
-                    var FlipChance = new Random().Next(0, 350);
-                    
+                    int FlipChance;
+                    int runChance = new Random().Next(0, 225);
+                    int haltChance = new Random().Next(0, 275);
+                    if (!IsHalted) { 
+                        FlipChance = new Random().Next(0, 350);
+                        if (FlipChance == 0) FlipFren();
+                    }
                     // If rolls a 0
                     if (runChance == 0) RunFren();
-                    if (FlipChance == 0) FlipFren();
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
                     // Hault | Run/Idle Alt cycles
@@ -160,10 +162,10 @@ namespace Desktop_Frens
                     else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame(); // Run
                     else UpdateFrenFrame(); // Normal
 
-                    var frogMulti = new Random().Next(0, 5);
+                    int frogMulti = new Random().Next(0, 5);
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
                     if ((_Name == "Frog" || _Name == "Frog_B") && (_CurrentFrame == 7 || _CurrentFrame <= 2))
-                        if(frogMulti == 0) _MoveSpeed = _DefaultMove * 6; // Speed * 7~ 
+                        if (frogMulti == 0) _MoveSpeed = _DefaultMove * 6; // Speed * 7~ 
                         else _MoveSpeed = _DefaultMove * frogMulti + 2; // Speed * 4~ 
                     else if (_Name == "Dog" && IsRun) _MoveSpeed = _DefaultMove * 3;
                     else
@@ -180,13 +182,7 @@ namespace Desktop_Frens
             }
         }
 
-        double Translate()
-        {                    // Get current position
-            double currentX = Canvas.GetLeft(_AnimatedSource);
-            if (MoveRight && !IsHalted) currentX = MoveFrenRight(currentX);
-            else if (!IsHalted) currentX = MoveFrenLeft(currentX); // else if not halted
-            return currentX;
-        }
+
 
         async void RunFren()
         {
@@ -197,17 +193,19 @@ namespace Desktop_Frens
             IsRun = false;
             _MoveSpeed = _DefaultMove; // Revert to the original move speed
         }
-
-
         async void HaltFren()
         {
             IsHalted = true; // Halted flag
             _CurrentFrame = 0; // Reset the frame index
-            if (_Name != "Dog" && _Name != "Spooky"){
+            if (_Name != "Dog" && _Name != "Spooky") {
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
             }
-            // Delay / Wait
+            else if(_Name == "Spooky")
+            {
+                double animationInterval = _AnimationSpeed * 2; // Slow anim at halt
+                _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
+            }
             await Task.Delay(new Random().Next(3500, 8750)); // Delay range
             IsHalted = false; // Reset flag
             _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
@@ -220,7 +218,6 @@ namespace Desktop_Frens
             _AnimatedSource.Source = imageSource_; // update image
             _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount; // Update current frame index
         }
-
         void HaltedUpdateFrenFrame()
         {
             string haltName = $"{_Name}_Sit_{_CurrentFrame + 1}"; // Get image by name and fram
@@ -243,24 +240,29 @@ namespace Desktop_Frens
             _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount; // Update current frame index
         }
 
+        #region Move Fren (Translate)
+        double Translate()
+        {                    // Get current position
+            double currentX = Canvas.GetLeft(_AnimatedSource);
+            if (MoveRight && !IsHalted) currentX = MoveFrenRight(currentX);
+            else if (!IsHalted) currentX = MoveFrenLeft(currentX); // else if not halted
+            return currentX;
+        }
         double MoveFrenRight(double currentX)
         {
             currentX += _MoveSpeed; // Move Postition (positive)
             if (currentX >= _MainWindow.Width + 150)
             {
-                //currentX = _MainWindow.Width - _AnimatedSource.ActualWidth; // Move position
                 MoveRight = false; // Change direction
                 _AnimatedSource.RenderTransform = null; // flip 
             }
             return currentX;
         }
-
         double MoveFrenLeft(double currentX)
         {
             currentX -= _MoveSpeed; // Move position (Negative)
             if (currentX <= -50)
-            { // Adjust if needed
-              //currentX = 0;
+            {
                 MoveRight = true; // Change direction // Reset the image flip
                 _AnimatedSource.RenderTransformOrigin = new System.Windows.Point(0, 0); // Set point
                 ScaleTransform flipTransform = new(-1, 1); // Reverse scale (x)
@@ -268,6 +270,7 @@ namespace Desktop_Frens
             }
             return currentX;
         }
+        #endregion
     }
-
 }
+
