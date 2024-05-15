@@ -3,6 +3,8 @@
  * ### Desktop-Frens - Windows - .NET8.0    ###
  * ### 05/2024                              ###
  * ############################################*/
+using System.Windows.Media.Imaging;
+
 namespace Desktop_Frens
 {
     public class SettingsMenu // Menu for Setting the frens 
@@ -97,7 +99,7 @@ namespace Desktop_Frens
                 ForeColor = _textColour,
                 Padding = new Padding(0),
                 Margin = new Padding(0),
-                Image = ImageManager.GetImage("Settings")
+                Image = (Image)ImageManager.GetImage("Settings", typeof(Image))
             };
             var option0MenuItem = CreateSubMenuItem("All - Frens", _isAllFrens);
             var option1MenuItem = CreateSubMenuItem("Slug - Fren", _isSlugFren);
@@ -203,7 +205,7 @@ namespace Desktop_Frens
                 ForeColor = _textColour,
                 Padding = new Padding(0),
                 Margin = new Padding(0),
-                Image = ImageManager.GetImage("Exit")
+                Image = (Image)ImageManager.GetImage("Exit", typeof(Image))
             };
             exitMenuItem.Click += (sender, e) =>
             {

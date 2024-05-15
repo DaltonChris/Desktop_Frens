@@ -36,7 +36,7 @@ namespace Desktop_Frens
                 if(TaskIcon != null)
                 {
                     //Icon and toolbar menu/display options
-                    TaskIcon.Icon = ImageManager.GetIcon("slug_icon"); // Replace with your icon path
+                    TaskIcon.Icon = (Icon)ImageManager.GetImage("slug_icon", typeof(Icon)); // Replace with your icon path
                     TaskIcon.Visible = true;
                     TaskIcon.Text = "Desktop Fren";
                     TaskIcon.DoubleClick += (s, e) => Show();

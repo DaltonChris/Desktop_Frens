@@ -13,26 +13,43 @@ namespace Desktop_Frens
     {
         // Singleton instance
         private static ImageManager? _instance;
-        public static ImageManager Instance
-        {
-            get // Single boi brrt
-            {
+        public static ImageManager Instance{
+            get{ // Single boi brrt
                 _instance ??= new ImageManager();
                 return _instance;
             }
         }
-
         private ImageManager()
         {
             // No need to instantiate:  handled by Re_Source
         }
 
+        // Method to get an image based on the specified return type
+        public static object GetImage(string imageName, Type returnType)
+        {
+            if (returnType == typeof(Image))
+            {
+                return GetImg(imageName);
+            }
+            else if (returnType == typeof(BitmapImage))
+            {
+                return GetImgBitmap(imageName);
+            }
+            else if (returnType == typeof(Icon))
+            {
+                return GetIcon(imageName);
+            }
+            else
+            {
+                throw new ArgumentException("Unsupported return type.");
+            }
+        }
         /// <summary>
         /// Loads Bitmaps from .Resx
         /// </summary>
         /// <param name="imageName"> Name of Resource-image to load </param>
         /// <returns> Bitmap of the image </returns>
-        public static Bitmap GetImageData(string imageName)
+        private static Bitmap GetImgBitmapData(string imageName)
         {
             // Get the Type object of the Re_Source class
             Type type = typeof(Re_Source);
@@ -55,9 +72,9 @@ namespace Desktop_Frens
         }
 
         // Method to get a System.Drawing.Image
-        public static Image GetImage(string imageName)
+        private static Image GetImg(string imageName)
         {
-            Bitmap imageData = GetImageData(imageName);
+            Bitmap imageData = GetImgBitmapData(imageName);
             if (imageData != null)
             {
                 using MemoryStream stream = new();
@@ -74,9 +91,9 @@ namespace Desktop_Frens
 
 
         // Method to get a BitmapImage
-        public static BitmapImage GetBitmapImage(string imageName)
+        private static BitmapImage GetImgBitmap(string imageName)
         {
-            Bitmap imageData = GetImageData(imageName);
+            Bitmap imageData = GetImgBitmapData(imageName);
             if (imageData != null)
             {
                 // Convert Bitmap to byte array
@@ -102,35 +119,13 @@ namespace Desktop_Frens
                 throw new InvalidOperationException("Image data is null.");
             }
         }
-
-        // Method to get an image based on the specified return type
-        public static object GetImage(string imageName, Type returnType)
-        {
-            if (returnType == typeof(Image))
-            {
-                return GetImage(imageName);
-            }
-            else if (returnType == typeof(BitmapImage))
-            {
-                return GetBitmapImage(imageName);
-            }
-            else if (returnType == typeof(Icon))
-            {
-                return GetIcon(imageName);
-            }
-            else
-            {
-                throw new ArgumentException("Unsupported return type.");
-            }
-        }
-        
         /// <summary>
         /// Method to Get Icons form Resource .resx
         /// </summary>
         /// <param name="iconName"> Icon to get </param>
         /// <returns> The icon what u think </returns>
         /// <exception cref="ArgumentException"> Shes fooked </exception>
-        public static Icon GetIcon(string iconName)
+        private static Icon GetIcon(string iconName)
         {
             byte[] iconData = iconName switch
             {
@@ -138,7 +133,6 @@ namespace Desktop_Frens
                 // Add more cases for other icon names as needed
                 _ => throw new ArgumentException($"Icon '{iconName}' not found."),
             };
-
             // Convert byte[] to Icon
             using MemoryStream ms = new(iconData);
             return new Icon(ms);

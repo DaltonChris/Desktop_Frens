@@ -114,7 +114,7 @@ namespace Desktop_Frens
 
             foreach (var name in imageNamesArray)
             {   // use image manager to ge tthe bitmap Images
-                _Images[name] = ImageManager.GetBitmapImage(name);
+                _Images[name] = (BitmapImage)ImageManager.GetImage(name, typeof(BitmapImage));
             }
         }
         // Public Active getter
