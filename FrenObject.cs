@@ -154,14 +154,11 @@ namespace Desktop_Frens
                     if (FlipChance == 0) FlipFren();
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
-                    // Hault
+                    // Hault | Run/Idle Alt cycles
                     if (_Name == "Spooky" && IsHalted) HaltedUpdateIdleFrenFrame();
-                    if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
-
-                    // Run
-                    else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame();
-                    
-                    else UpdateFrenFrame();
+                    else if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
+                    else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame(); // Run
+                    else UpdateFrenFrame(); // Normal
 
                     var frogMulti = new Random().Next(0, 5);
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
