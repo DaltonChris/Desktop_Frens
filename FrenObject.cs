@@ -97,17 +97,14 @@ namespace Desktop_Frens
                 {
                     imageNames.Add($"{_Name}_Sit_{i}"); // Add each name
                 }
-            }
-            if (_Name == "Dog")
-            {
                 for (int i = 1; i <= 8; i++)
                 {
                     imageNames.Add($"{_Name}_Run_{i}"); // Add each name
                 }
             }
-            if (_Name == "Spooky")
+            else if (_Name == "Spooky")
             {
-                for (int i = 1; i <= 8; i++)
+                for (int i = 1; i <= _SpriteCount; i++)
                 {
                     imageNames.Add($"{_Name}_Idle_{i}"); // Add each name
                 }
@@ -157,11 +154,13 @@ namespace Desktop_Frens
                     if (FlipChance == 0) FlipFren();
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
-                    
-
+                    // Hault
+                    if (_Name == "Spooky" && IsHalted) HaltedUpdateIdleFrenFrame();
                     if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
+
+                    // Run
                     else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame();
-                    else if (_Name == "Spooky" && IsHalted) HaltedUpdateIdleFrenFrame();
+                    
                     else UpdateFrenFrame();
 
                     var frogMulti = new Random().Next(0, 5);
@@ -207,7 +206,7 @@ namespace Desktop_Frens
         {
             IsHalted = true; // Halted flag
             _CurrentFrame = 0; // Reset the frame index
-            if (_Name != "Dog" || _Name != "Spooky"){
+            if (_Name != "Dog" && _Name != "Spooky"){
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
             }
@@ -222,7 +221,7 @@ namespace Desktop_Frens
             string runName = $"{_Name}_Run_{_CurrentFrame + 1}"; // Get image by name and fram
             var imageSource_ = _Images[runName]; // Retieve from array
             _AnimatedSource.Source = imageSource_; // update image
-            _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount); // Update current frame index
+            _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount; // Update current frame index
         }
 
         void HaltedUpdateFrenFrame()
@@ -234,12 +233,10 @@ namespace Desktop_Frens
         }
         void HaltedUpdateIdleFrenFrame()
         {
-            Debug.WriteLine("IDLEENTERED");
             string haltName = $"{_Name}_Idle_{_CurrentFrame + 1}"; // Get image by name and fram
-            Debug.WriteLine($"{haltName}");
             var imageSource_ = _Images[haltName]; // Retieve from array
             _AnimatedSource.Source = imageSource_; // update image
-            _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount); // Update current frame index
+            _CurrentFrame = (_CurrentFrame + 1) % _SpriteCount; // Update current frame index
         }
         void UpdateFrenFrame()
         {
