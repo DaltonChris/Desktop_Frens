@@ -44,12 +44,9 @@ namespace Desktop_Frens
                 throw new ArgumentException("Unsupported return type.");
             }
         }
-        /// <summary>
-        /// Loads Bitmaps from .Resx
-        /// </summary>
-        /// <param name="imageName"> Name of Resource-image to load </param>
-        /// <returns> Bitmap of the image </returns>
-        private static Bitmap GetImgBitmapData(string imageName)
+
+        // 
+        private static Bitmap GetImgData(string imageName)
         {
             // Get the Type object of the Re_Source class
             Type type = typeof(Re_Source);
@@ -74,7 +71,7 @@ namespace Desktop_Frens
         // Method to get a System.Drawing.Image
         private static Image GetImg(string imageName)
         {
-            Bitmap imageData = GetImgBitmapData(imageName);
+            Bitmap imageData = GetImgData(imageName);
             if (imageData != null)
             {
                 using MemoryStream stream = new();
@@ -93,7 +90,7 @@ namespace Desktop_Frens
         // Method to get a BitmapImage
         private static BitmapImage GetImgBitmap(string imageName)
         {
-            Bitmap imageData = GetImgBitmapData(imageName);
+            Bitmap imageData = GetImgData(imageName);
             if (imageData != null)
             {
                 // Convert Bitmap to byte array
@@ -119,12 +116,8 @@ namespace Desktop_Frens
                 throw new InvalidOperationException("Image data is null.");
             }
         }
-        /// <summary>
-        /// Method to Get Icons form Resource .resx
-        /// </summary>
-        /// <param name="iconName"> Icon to get </param>
-        /// <returns> The icon what u think </returns>
-        /// <exception cref="ArgumentException"> Shes fooked </exception>
+
+        // Gets the Icon
         private static Icon GetIcon(string iconName)
         {
             byte[] iconData = iconName switch

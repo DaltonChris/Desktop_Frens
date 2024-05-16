@@ -53,7 +53,17 @@ namespace Desktop_Frens
             InitFren(height, width, topOffset);
             LoadImages();
         }
-
+        // Public Active getter
+        public bool IsActive()
+        {
+            return _IsActive;
+        }
+        // Disable fren method
+        public void Disable()
+        {
+            _IsActive = false; // set flag
+            _AnimatedSource.Source = null; // Null image
+        }
         public void SetActive()
         {
             _IsActive = true; // Set flag
@@ -66,7 +76,6 @@ namespace Desktop_Frens
             }
 
         }
-
         // Init Fren objects image on cavas L/W/H
         void InitFren(int height, int width, int topOffset)
         {
@@ -76,36 +85,24 @@ namespace Desktop_Frens
             ScaleTransform flipTransform = new(-1, 1); // Reverse scale (x)
             _AnimatedSource.RenderTransform = flipTransform; // Flip image using scale
         }
-
-        // Disable fren method
-        public void Disable()
-        {
-            _IsActive = false; // set flag
-            _AnimatedSource.Source = null; // Null image
-        }
-
         void LoadImages() // Load the images for fren type
         {
             List<string> imageNames = []; // List of image names
-            for (int i = 1; i <= _SpriteCount; i++)
-            {
+            for (int i = 1; i <= _SpriteCount; i++){
                 imageNames.Add($"{_Name}_{i}"); // Add each name
-            }
-            if (_Name == "Dog")
-            {
-                for (int i = 1; i <= 6; i++)
-                {
-                    imageNames.Add($"{_Name}_Sit_{i}"); // Add each name
+
+                if (_Name == "Dog" && i <= 7){
+                    imageNames.Add($"{_Name}_Sit_{i}"); // Add Sit name
+                    imageNames.Add($"{_Name}_Run_{i}"); // Add Run name
                 }
-                for (int i = 1; i <= 8; i++)
+                if (_Name == "Frog_B" || _Name == "Frog" || _Name == "Spooky")
                 {
-                    imageNames.Add($"{_Name}_Run_{i}"); // Add each name
+                    imageNames.Add($"{_Name}_Idle_{i}"); // Idles
                 }
             }
-            else if (_Name == "Spooky")
+            if(_Name == "Frog_B" || _Name == "Frog" || _Name == "Spooky")
             {
-                for (int i = 1; i <= _SpriteCount; i++)
-                {
+                for (int i = 1; i <= _SpriteCount; i++){
                     imageNames.Add($"{_Name}_Idle_{i}"); // Add each name
                 }
             }
@@ -117,24 +114,18 @@ namespace Desktop_Frens
                 _Images[name] = (BitmapImage)ImageManager.GetImage(name, typeof(BitmapImage));
             }
         }
-        // Public Active getter
-        public bool IsActive()
-        {
-            return _IsActive;
-        }
+
         void FlipFren()
         {
             // set scale to opposite
             ScaleTransform currentTransform = (ScaleTransform)_AnimatedSource.RenderTransform;
             ScaleTransform scaleTransform = new(1, 1);
-            if (currentTransform == scaleTransform)
-            {
+            if (currentTransform == scaleTransform){
                 MoveRight = true; // Change direction
                 ScaleTransform flipTransform = new(-1, 1);
                 _AnimatedSource.RenderTransform = flipTransform;
             }
-            else
-            {
+            else{
                 MoveRight = false; // Change direction
                 _AnimatedSource.RenderTransform = null;
             }
@@ -157,16 +148,15 @@ namespace Desktop_Frens
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
                     // Hault | Run/Idle Alt cycles
-                    if (_Name == "Spooky" && IsHalted) HaltedUpdateIdleFrenFrame();
+                    if ((_Name == "Spooky" || _Name == "Frog_B" || _Name == "Frog") 
+                        && IsHalted) IdleFrenFrames();
                     else if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
                     else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame(); // Run
                     else UpdateFrenFrame(); // Normal
 
-                    int frogMulti = new Random().Next(0, 5);
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
                     if ((_Name == "Frog" || _Name == "Frog_B") && (_CurrentFrame == 7 || _CurrentFrame <= 2))
-                        if (frogMulti == 0) _MoveSpeed = _DefaultMove * 6; // Speed * 7~ 
-                        else _MoveSpeed = _DefaultMove * frogMulti + 2; // Speed * 4~ 
+                        _MoveSpeed = _DefaultMove * 40; // Speed * 7~ 
                     else if (_Name == "Dog" && IsRun) _MoveSpeed = _DefaultMove * 3;
                     else
                         _MoveSpeed = _DefaultMove; // Normal Move speed
@@ -197,13 +187,8 @@ namespace Desktop_Frens
         {
             IsHalted = true; // Halted flag
             _CurrentFrame = 0; // Reset the frame index
-            if (_Name != "Dog" && _Name != "Spooky") {
+            if (_Name == "Slug") {
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
-                _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
-            }
-            else if(_Name == "Spooky")
-            {
-                double animationInterval = _AnimationSpeed * 2; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
             }
             await Task.Delay(new Random().Next(3500, 8750)); // Delay range
@@ -225,7 +210,7 @@ namespace Desktop_Frens
             _AnimatedSource.Source = imageSource_; // update image
             _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount - 1); // Update current frame index
         }
-        void HaltedUpdateIdleFrenFrame()
+        void IdleFrenFrames()
         {
             string haltName = $"{_Name}_Idle_{_CurrentFrame + 1}"; // Get image by name and fram
             var imageSource_ = _Images[haltName]; // Retieve from array
