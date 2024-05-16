@@ -1,12 +1,13 @@
-﻿using Desktop_Frens.Properties;
-using System.IO;
-using System.Reflection;
-using System.Windows.Media.Imaging;
-/* ############################################
+﻿/* ############################################
  * ### Dalton Christopher                   ###
  * ### Desktop-Frens - Windows - .NET8.0    ###
  * ### 05/2024                              ###
  * ############################################*/
+
+using System.IO;
+using System.Reflection;
+using System.Windows.Media.Imaging;
+
 namespace Desktop_Frens
 {
     public class ImageManager // Manages Images innit bruv
@@ -19,10 +20,7 @@ namespace Desktop_Frens
                 return _instance;
             }
         }
-        private ImageManager()
-        {
-            // No need to instantiate:  handled by Re_Source
-        }
+        private ImageManager(){}
 
         // Method to get an image based on the specified return type
         public static object GetImage(string imageName, Type returnType)

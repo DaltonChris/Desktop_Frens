@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="All" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Icons\all.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Dog_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Sprites\Dog-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -138,6 +141,27 @@
   </data>
   <data name="Dog_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Sprites\Dog-7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_Idle_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Dog_Idle_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_Idle_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Dog_Idle_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_Idle_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Dog_Idle_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_Idle_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Dog_Idle_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_Idle_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Dog_Idle_5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_Idle_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Dog_Idle_6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dog_Idle_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sprites\Dog_Idle_61.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dog_Run_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Sprites\Dog_Run_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -271,6 +295,9 @@
   <data name="Frog_Idle_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Sprites\Frog-Idle-7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Screen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Icons\desktop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Sprites\settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -345,5 +372,8 @@
   </data>
   <data name="Spooky_Idle_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Sprites\Spooky_Idle_8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Switch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Icons\switch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

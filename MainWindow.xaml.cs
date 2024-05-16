@@ -1,11 +1,12 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Input;
-/* ############################################
+﻿/* ############################################
  * ### Dalton Christopher                   ###
  * ### Desktop-Frens - Windows - .NET8.0    ###
  * ### 05/2024                              ###
  * ############################################*/
+
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Desktop_Frens
 {
@@ -63,11 +64,11 @@ namespace Desktop_Frens
 
         void LoadFrenObjects()
         {
-            _Slug_Fren = new("Slug", 6, this, 3.95, 88, this._AnimatedImg_1, 60, 60, -1); // -1
-            _Dog_Fren = new("Dog", 7, this, 7.4, 75, _AnimatedImg_2, 85, 95, -5); // -5
-            _Spooky_Fren = new("Spooky", 8, this, 5.9, 85, _AnimatedImg_3, 110, 110, -52); // -52
-            _Frog_Fren = new("Frog", 7, this, 0.3, 135, _AnimatedImg_4, 75, 100, 10); //10  move-1.3
-            _Frog_B_Fren = new("Frog_B", 7, this, 0.3, 135, _AnimatedImg_5, 95, 115, -5); // -5 move-2
+            _Slug_Fren = new(ID.Slug, 6, this, 0.4, 95, this._AnimatedImg_1, 50, 50, 11); // -1
+            _Dog_Fren = new(ID.Dog, 7, this, 7.4, 75, _AnimatedImg_2, 85, 95, -5); // -5
+            _Spooky_Fren = new(ID.Spooky, 8, this, 5.9, 85, _AnimatedImg_3, 110, 110, -50); // -52
+            _Frog_Fren = new(ID.Frog, 7, this, 0.3, 135, _AnimatedImg_4, 75, 100, 10); //10  move-1.3
+            _Frog_B_Fren = new(ID.Frog_B, 7, this, 0.3, 135, _AnimatedImg_5, 95, 115, -5); // -5 move-2
         }
 
         /// <summary>
@@ -101,6 +102,39 @@ namespace Desktop_Frens
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
         }
 
+        public void ChangeScreen(string screenName)
+        {
+            // Get the names of all screens
+            string allScreenNames = string.Join("\n", Screen.AllScreens.Select(screen => screen.DeviceName));
+
+            // Show a message box with the screen names
+            //System.Windows.MessageBox.Show("Screen Names:\n" + allScreenNames);
+
+            // Check if the specified screen name exists
+            var targetScreen = Screen.AllScreens.FirstOrDefault(screen => screen.DeviceName.EndsWith(screenName));
+            if (targetScreen != null)
+            {
+
+                this.Left = targetScreen.Bounds.Left - 25;
+                if(screenName == "DISPLAY3")this.Top = targetScreen.Bounds.Top + 25;
+                else if (screenName == "DISPLAY2") this.Top = targetScreen.Bounds.Top + 15;
+                else if (screenName == "DISPLAY1") this.Top = targetScreen.Bounds.Top + 15;
+
+                this.Width = targetScreen.WorkingArea.Width;
+                this.Height = targetScreen.WorkingArea.Height;
+
+                // Position the canvas at the bottom corner
+                MainCanvas.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                MainCanvas.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
+                Canvas.SetLeft(MainCanvas, 0);
+                Canvas.SetTop(MainCanvas, 0);
+            }
+            else
+            {
+                // Display a message indicating that the specified screen was not found
+                System.Windows.MessageBox.Show($"Screen '{screenName}' not found.");
+            }
+        }
 
     }
 

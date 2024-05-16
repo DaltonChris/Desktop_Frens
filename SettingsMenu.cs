@@ -3,7 +3,6 @@
  * ### Desktop-Frens - Windows - .NET8.0    ###
  * ### 05/2024                              ###
  * ############################################*/
-using System.Windows.Media.Imaging;
 
 namespace Desktop_Frens
 {
@@ -33,7 +32,7 @@ namespace Desktop_Frens
             _mainWindow = mainWindow;
             _menuStrip = CreateContextMenu(); // Initialize the context menu strip
         }
-        
+
         // MenuStrip getter
         public ContextMenuStrip GetMenuStrip()
         {
@@ -61,19 +60,28 @@ namespace Desktop_Frens
                 BackColor = Color.DarkRed,
                 ForeColor = _textColour,
                 Font = _Font,
-                Opacity = 0.8f,
+                Opacity = 0.75f,
                 ShowItemToolTips = true,
-                
+
             };
             var settingsMenu = CreateSettingsMenuItem();
             var flipperMenu = CreateFlipItem();
-
+            var changeScreenMenuItem = CreateChangeScreenMenuItem();
             var exitMenuItem = CreateExitMenuItem();
-            
+
             menuStrip.Items.Add(settingsMenu);
+            menuStrip.Items.Add(changeScreenMenuItem);
             menuStrip.Items.Add(flipperMenu);
             menuStrip.Items.Add(exitMenuItem);
-
+            foreach (var item in 
+                menuStrip.Items.OfType<ToolStripMenuItem>().Where(x => x.HasDropDown))
+            {
+                if (item.DropDown is ToolStripDropDownMenu toolStrip)
+                {
+                    toolStrip.AllowTransparency = true;
+                    toolStrip.Opacity = 0.75;
+                }
+            }
             return menuStrip;
         }
 
@@ -122,7 +130,7 @@ namespace Desktop_Frens
                 Padding = new Padding(2),
                 Margin = new Padding(1),
                 Font = _Font,
-                //Image = (Image)ImageManager.GetImage("Settings", typeof(Image))
+                Image = (Image)ImageManager.GetImage("Switch", typeof(Image))
             };
             flipAllItem.Click += (sender, e) =>
             {
@@ -143,7 +151,7 @@ namespace Desktop_Frens
                 Image = (Image)ImageManager.GetImage("Settings", typeof(Image)),
                 Font = _Font,
             };
-            var option0MenuItem = CreateSubMenuItem("All - Frens", _isAllFrens, "Settings");
+            var option0MenuItem = CreateSubMenuItem("All - Frens", _isAllFrens, "All");
             var option1MenuItem = CreateSubMenuItem("Slug - Fren", _isSlugFren, "Slug_3");
             var option2MenuItem = CreateSubMenuItem("Dog - Fren", _isDogFren, "Dog_1");
             var option3MenuItem = CreateSubMenuItem("Spooky - Fren", _isSpookyFren, "Spooky_Icon");
@@ -168,7 +176,7 @@ namespace Desktop_Frens
         }
         public void AllEnabled()
         {
-            //SetAllFrens();
+            SetAllFrens();
         }
         async void SetAllFrens() // call all Fren Setters 
         {
@@ -233,7 +241,7 @@ namespace Desktop_Frens
                 Checked = isChecked,
                 Margin = new Padding(1),
                 Image = (Image)ImageManager.GetImage(image, typeof(Image)),
-                
+
             };
 
             return menuItem;
@@ -256,6 +264,52 @@ namespace Desktop_Frens
             };
             return exitMenuItem;
         }
+        private ToolStripMenuItem CreateChangeScreenMenuItem()
+        {
+            var changeScreenMenuItem = new ToolStripMenuItem("Change Screen")
+            {
+                BackColor = _backgroundColour,
+                ForeColor = _textColour,
+                Padding = new Padding(2),
+                Margin = new Padding(1),
+                Font = _Font,
+                Image = (Image)ImageManager.GetImage("Screen", typeof(Image)),
+            };
+
+            // Add submenu items for changing to each screen
+            var screen1MenuItem = CreateScreenChangeSubMenuItem("Display - 1", "DISPLAY3");
+            var screen2MenuItem = CreateScreenChangeSubMenuItem("Display - 2", "DISPLAY2");
+            var screen3MenuItem = CreateScreenChangeSubMenuItem("Display - 3", "DISPLAY1");
+
+            // Add submenu items to the main change screen menu item
+            changeScreenMenuItem.DropDownItems.Add(screen1MenuItem);
+            changeScreenMenuItem.DropDownItems.Add(screen2MenuItem);
+            changeScreenMenuItem.DropDownItems.Add(screen3MenuItem);
+
+            return changeScreenMenuItem;
+        }
+
+        private ToolStripMenuItem CreateScreenChangeSubMenuItem(string text, string screenName)
+        {
+            var menuItem = new ToolStripMenuItem(text)
+            {
+                BackColor = _backgroundColour,
+                ForeColor = _textColour,
+                Padding = new Padding(2),
+                Margin = new Padding(1),
+                Font = _Font,
+                Image = (Image)ImageManager.GetImage("Screen", typeof(Image)),
+                //CheckOnClick = true,
+            };
+
+            menuItem.Click += (sender, e) =>
+            {
+                _mainWindow.ChangeScreen(screenName);
+            };
+
+            return menuItem;
+        }
+
 
 
 
@@ -267,113 +321,35 @@ namespace Desktop_Frens
         {
             UseSystemColors = false;
         }
-        public override Color ImageMarginGradientBegin
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ImageMarginGradientMiddle
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ImageMarginGradientEnd
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripBorder
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color StatusStripBorder
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color MenuBorder
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color MenuItemBorder
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color MenuItemSelected
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color MenuItemSelectedGradientBegin
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color MenuItemSelectedGradientEnd
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color MenuStripGradientBegin
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color MenuStripGradientEnd
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripContentPanelGradientEnd
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripContentPanelGradientBegin
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripGradientBegin
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripGradientMiddle
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripGradientEnd
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripPanelGradientBegin
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripPanelGradientEnd
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ToolStripDropDownBackground
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ButtonCheckedHighlightBorder
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ImageMarginRevealedGradientBegin
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ImageMarginRevealedGradientMiddle
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ImageMarginRevealedGradientEnd
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color CheckSelectedBackground
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color CheckBackground
-        {
-            get { return Color.DarkRed; }
-        }
-        public override Color ButtonCheckedHighlight
-        {
-            get { return Color.DarkRed; }
-        }
+
+        public override Color ImageMarginGradientBegin => Color.DarkRed;
+        public override Color ImageMarginGradientMiddle => Color.DarkRed;
+        public override Color ImageMarginGradientEnd => Color.DarkRed;
+        public override Color ToolStripBorder => Color.DarkRed;
+        public override Color StatusStripBorder => Color.DarkRed;
+        public override Color MenuBorder => Color.DarkRed;
+        public override Color MenuItemBorder => Color.DarkRed;
+        public override Color MenuItemSelected => Color.DarkRed;
+        public override Color MenuItemSelectedGradientBegin => Color.DarkRed;
+        public override Color MenuItemSelectedGradientEnd => Color.DarkRed;
+        public override Color MenuStripGradientBegin => Color.DarkRed;
+        public override Color MenuStripGradientEnd => Color.DarkRed;
+        public override Color ToolStripContentPanelGradientEnd => Color.DarkRed;
+        public override Color ToolStripContentPanelGradientBegin => Color.DarkRed;
+        public override Color ToolStripGradientBegin => Color.DarkRed;
+        public override Color ToolStripGradientMiddle => Color.DarkRed;
+        public override Color ToolStripGradientEnd => Color.DarkRed;
+        public override Color ToolStripPanelGradientBegin => Color.DarkRed;
+        public override Color ToolStripPanelGradientEnd => Color.DarkRed;
+        public override Color ToolStripDropDownBackground => Color.DarkRed;
+        public override Color ButtonCheckedHighlightBorder => Color.DarkRed;
+        public override Color ImageMarginRevealedGradientBegin => Color.DarkRed;
+        public override Color ImageMarginRevealedGradientMiddle => Color.DarkRed;
+        public override Color ImageMarginRevealedGradientEnd => Color.DarkRed;
+        public override Color CheckSelectedBackground => Color.DarkRed;
+        public override Color CheckBackground => Color.DarkRed;
+        public override Color ButtonCheckedHighlight => Color.DarkRed;
     }
+
+
 }
