@@ -1,5 +1,6 @@
 ﻿using Desktop_Frens.Properties;
 using System.IO;
+using System.Reflection;
 using System.Windows.Media.Imaging;
 /* ############################################
  * ### Dalton Christopher                   ###
@@ -12,131 +13,65 @@ namespace Desktop_Frens
     {
         // Singleton instance
         private static ImageManager? _instance;
-        public static ImageManager Instance
-        {
-            get // Single boi brrt
-            {
+        public static ImageManager Instance{
+            get{ // Single boi brrt
                 _instance ??= new ImageManager();
                 return _instance;
             }
         }
-
         private ImageManager()
         {
             // No need to instantiate:  handled by Re_Source
         }
 
-        /// <summary>
-        /// Loads Bitmaps from .Resx
-        /// </summary>
-        /// <param name="imageName"> Name of Resource image to load </param>
-        /// <returns> Bitmap of the image </returns>
-        /// <exception cref="ArgumentException"> Not ideal </exception>
-        /// <exception cref="InvalidOperationException"> Not ideal 2 </exception>
-        public static Bitmap GetImageData(string imageName)
+        // Method to get an image based on the specified return type
+        public static object GetImage(string imageName, Type returnType)
         {
-            try
+            if (returnType == typeof(Image))
             {
-                Bitmap imageData;
+                return GetImg(imageName);
+            }
+            else if (returnType == typeof(BitmapImage))
+            {
+                return GetImgBitmap(imageName);
+            }
+            else if (returnType == typeof(Icon))
+            {
+                return GetIcon(imageName);
+            }
+            else
+            {
+                throw new ArgumentException("Unsupported return type.");
+            }
+        }
 
-                // Get the image data from Re_Source using the imageName
-                imageData = imageName switch
-                {
-                    #region Dog
-                    "Dog_1" => Re_Source.Dog_1,
-                    "Dog_2" => Re_Source.Dog_2,
-                    "Dog_3" => Re_Source.Dog_3,
-                    "Dog_4" => Re_Source.Dog_4,
-                    "Dog_5" => Re_Source.Dog_5,
-                    "Dog_6" => Re_Source.Dog_6,
-                    "Dog_7" => Re_Source.Dog_7,
-                    "Dog_Sit_1" => Re_Source.Dog_Sit_1,
-                    "Dog_Sit_2" => Re_Source.Dog_Sit_2,
-                    "Dog_Sit_3" => Re_Source.Dog_Sit_3,
-                    "Dog_Sit_4" => Re_Source.Dog_Sit_4,
-                    "Dog_Sit_5" => Re_Source.Dog_Sit_5,
-                    "Dog_Sit_6" => Re_Source.Dog_Sit_6,
-                    "Dog_Run_1" => Re_Source.Dog_Run_1,
-                    "Dog_Run_2" => Re_Source.Dog_Run_2,
-                    "Dog_Run_3" => Re_Source.Dog_Run_3,
-                    "Dog_Run_4" => Re_Source.Dog_Run_4,
-                    "Dog_Run_5" => Re_Source.Dog_Run_5,
-                    "Dog_Run_6" => Re_Source.Dog_Run_6,
-                    "Dog_Run_7" => Re_Source.Dog_Run_7,
-                    "Dog_Run_8" => Re_Source.Dog_Run_8,
-                    #endregion
-                    #region Slug
-                    "Slug_1" => Re_Source.Slug_1,
-                    "Slug_2" => Re_Source.Slug_2,
-                    "Slug_3" => Re_Source.Slug_3,
-                    "Slug_4" => Re_Source.Slug_4,
-                    "Slug_5" => Re_Source.Slug_3,
-                    "Slug_6" => Re_Source.Slug_2,
-                    #endregion
-                    #region Spooky
-                    "Spooky_1" => Re_Source.Spooky_1,
-                    "Spooky_2" => Re_Source.Spooky_2,
-                    "Spooky_3" => Re_Source.Spooky_3,
-                    "Spooky_4" => Re_Source.Spooky_4,
-                    "Spooky_5" => Re_Source.Spooky_5,
-                    "Spooky_6" => Re_Source.Spooky_6,
-                    "Spooky_7" => Re_Source.Spooky_7,
-                    "Spooky_8" => Re_Source.Spooky_8,
-                    "Spooky_Idle_1" => Re_Source.Spooky_Idle_1,
-                    "Spooky_Idle_2" => Re_Source.Spooky_Idle_2,
-                    "Spooky_Idle_3" => Re_Source.Spooky_Idle_3,
-                    "Spooky_Idle_4" => Re_Source.Spooky_Idle_4,
-                    "Spooky_Idle_5" => Re_Source.Spooky_Idle_5,
-                    "Spooky_Idle_6" => Re_Source.Spooky_Idle_6,
-                    "Spooky_Idle_7" => Re_Source.Spooky_Idle_7,
-                    "Spooky_Idle_8" => Re_Source.Spooky_Idle_8,
+        // 
+        private static Bitmap GetImgData(string imageName)
+        {
+            // Get the Type object of the Re_Source class
+            Type type = typeof(Re_Source);
 
-                    #endregion
-                    #region Frog
-                    "Frog_1" => Re_Source.Frog_1,
-                    "Frog_2" => Re_Source.Frog_2,
-                    "Frog_3" => Re_Source.Frog_3,
-                    "Frog_4" => Re_Source.Frog_4,
-                    "Frog_5" => Re_Source.Frog_5,
-                    "Frog_6" => Re_Source.Frog_6,
-                    "Frog_7" => Re_Source.Frog_7,
-                    "Frog_B_1" => Re_Source.Frog_B_1,
-                    "Frog_B_2" => Re_Source.Frog_B_2,
-                    "Frog_B_3" => Re_Source.Frog_B_3,
-                    "Frog_B_4" => Re_Source.Frog_B_4,
-                    "Frog_B_5" => Re_Source.Frog_B_5,
-                    "Frog_B_6" => Re_Source.Frog_B_6,
-                    "Frog_B_7" => Re_Source.Frog_B_7,
-                    #endregion
-                    "Exit" => Re_Source.Exit,
-                    "Settings" => Re_Source.Settings,
-                    _ => throw new ArgumentException($"Image '{imageName}' not found."),
-                };
+            // Get the PropertyInfo obj from Re_Source."NAME"
+            PropertyInfo? propertyInfo = type.GetProperty(imageName, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
 
-
-                // Convert byte array to Bitmap
+            if (propertyInfo != null)
+            {
+                // Get the bitmap 
+                Bitmap? imageData = (Bitmap?)propertyInfo.GetValue(null, null);
                 if (imageData != null)
                 {
                     return imageData;
                 }
-                else
-                {
-                    // Handle case where imageData is null
-                    throw new InvalidOperationException("Image data is null.");
-                }
             }
-            catch (Exception ex)
-            {
-                // Handle any exceptions that occur during image retrieval
-                Console.WriteLine($"Error loading image '{imageName}': {ex.Message}");
-                throw new InvalidOperationException("Image data unable to load > is null.");
-            }
+            // Shes cooked
+            Console.WriteLine($"Property '{imageName}' not found in class '{type.FullName}'.");
+            throw new InvalidOperationException($"Image data is null or property not found. Property '{imageName}' not found in class '{type.FullName}'.");
         }
 
         // Method to get a System.Drawing.Image
-        public static Image GetImage(string imageName)
+        private static Image GetImg(string imageName)
         {
-            Bitmap imageData = GetImageData(imageName);
+            Bitmap imageData = GetImgData(imageName);
             if (imageData != null)
             {
                 using MemoryStream stream = new();
@@ -153,9 +88,9 @@ namespace Desktop_Frens
 
 
         // Method to get a BitmapImage
-        public static BitmapImage GetBitmapImage(string imageName)
+        private static BitmapImage GetImgBitmap(string imageName)
         {
-            Bitmap imageData = GetImageData(imageName);
+            Bitmap imageData = GetImgData(imageName);
             if (imageData != null)
             {
                 // Convert Bitmap to byte array
@@ -182,34 +117,8 @@ namespace Desktop_Frens
             }
         }
 
-        // Method to get an image based on the specified return type
-        public static object GetImage(string imageName, Type returnType)
-        {
-            if (returnType == typeof(Image))
-            {
-                return GetImage(imageName);
-            }
-            else if (returnType == typeof(BitmapImage))
-            {
-                return GetBitmapImage(imageName);
-            }
-            else if (returnType == typeof(Icon))
-            {
-                return GetIcon(imageName);
-            }
-            else
-            {
-                throw new ArgumentException("Unsupported return type.");
-            }
-        }
-        
-        /// <summary>
-        /// Method to Get Icons form Resource .resx
-        /// </summary>
-        /// <param name="iconName"> Icon to get </param>
-        /// <returns> The icon what u think </returns>
-        /// <exception cref="ArgumentException"> Shes fooked </exception>
-        public static Icon GetIcon(string iconName)
+        // Gets the Icon
+        private static Icon GetIcon(string iconName)
         {
             byte[] iconData = iconName switch
             {
@@ -217,7 +126,6 @@ namespace Desktop_Frens
                 // Add more cases for other icon names as needed
                 _ => throw new ArgumentException($"Icon '{iconName}' not found."),
             };
-
             // Convert byte[] to Icon
             using MemoryStream ms = new(iconData);
             return new Icon(ms);

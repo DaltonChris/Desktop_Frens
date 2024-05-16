@@ -20,9 +20,10 @@ namespace Desktop_Frens
         double _MoveSpeed = 7.5; // move amount per tick
         readonly double _DefaultMove; // Dupe to keep rate
         bool _IsActive = false; // flag
-        bool MoveRight = true; // direction flag
-        bool IsHalted = false; // halt flag
-        bool IsRun = false; // Run flag
+        bool _MoveRight = true; // direction flag
+        bool _IsHalted = false; // halt flag
+        bool _IsRun = false; // Run flag
+        int _FlipOffset;
         readonly int _AnimationSpeed; // anim rate (ms) tick time
         readonly Dictionary<string, BitmapImage> _Images = []; // Image dict
         readonly DispatcherTimer _Timer = new(); // timer
@@ -53,7 +54,17 @@ namespace Desktop_Frens
             InitFren(height, width, topOffset);
             LoadImages();
         }
-
+        // Public Active getter
+        public bool IsActive()
+        {
+            return _IsActive;
+        }
+        // Disable fren method
+        public void Disable()
+        {
+            _IsActive = false; // set flag
+            _AnimatedSource.Source = null; // Null image
+        }
         public void SetActive()
         {
             _IsActive = true; // Set flag
@@ -66,7 +77,6 @@ namespace Desktop_Frens
             }
 
         }
-
         // Init Fren objects image on cavas L/W/H
         void InitFren(int height, int width, int topOffset)
         {
@@ -76,36 +86,24 @@ namespace Desktop_Frens
             ScaleTransform flipTransform = new(-1, 1); // Reverse scale (x)
             _AnimatedSource.RenderTransform = flipTransform; // Flip image using scale
         }
-
-        // Disable fren method
-        public void Disable()
-        {
-            _IsActive = false; // set flag
-            _AnimatedSource.Source = null; // Null image
-        }
-
         void LoadImages() // Load the images for fren type
         {
             List<string> imageNames = []; // List of image names
-            for (int i = 1; i <= _SpriteCount; i++)
-            {
+            for (int i = 1; i <= _SpriteCount; i++){
                 imageNames.Add($"{_Name}_{i}"); // Add each name
-            }
-            if (_Name == "Dog")
-            {
-                for (int i = 1; i <= 6; i++)
-                {
-                    imageNames.Add($"{_Name}_Sit_{i}"); // Add each name
+
+                if (_Name == "Dog" && i <= 7){
+                    imageNames.Add($"{_Name}_Sit_{i}"); // Add Sit name
+                    imageNames.Add($"{_Name}_Run_{i}"); // Add Run name
                 }
-                for (int i = 1; i <= 8; i++)
+                if (_Name == "Frog_B" || _Name == "Frog" || _Name == "Spooky")
                 {
-                    imageNames.Add($"{_Name}_Run_{i}"); // Add each name
+                    imageNames.Add($"{_Name}_Idle_{i}"); // Idles
                 }
             }
-            else if (_Name == "Spooky")
+            if(_Name == "Frog_B" || _Name == "Frog" || _Name == "Spooky")
             {
-                for (int i = 1; i <= _SpriteCount; i++)
-                {
+                for (int i = 1; i <= _SpriteCount; i++){
                     imageNames.Add($"{_Name}_Idle_{i}"); // Add each name
                 }
             }
@@ -114,28 +112,27 @@ namespace Desktop_Frens
 
             foreach (var name in imageNamesArray)
             {   // use image manager to ge tthe bitmap Images
-                _Images[name] = ImageManager.GetBitmapImage(name);
+                _Images[name] = (BitmapImage)ImageManager.GetImage(name, typeof(BitmapImage));
             }
         }
-        // Public Active getter
-        public bool IsActive()
+
+        public void PublicFlip()
         {
-            return _IsActive;
+            FlipFren();
         }
+
         void FlipFren()
         {
             // set scale to opposite
             ScaleTransform currentTransform = (ScaleTransform)_AnimatedSource.RenderTransform;
             ScaleTransform scaleTransform = new(1, 1);
-            if (currentTransform == scaleTransform)
-            {
-                MoveRight = true; // Change direction
+            if (currentTransform == scaleTransform){
+                _MoveRight = true; // Change direction
                 ScaleTransform flipTransform = new(-1, 1);
                 _AnimatedSource.RenderTransform = flipTransform;
             }
-            else
-            {
-                MoveRight = false; // Change direction
+            else{
+                _MoveRight = false; // Change direction
                 _AnimatedSource.RenderTransform = null;
             }
         }
@@ -148,7 +145,7 @@ namespace Desktop_Frens
                     int FlipChance;
                     int runChance = new Random().Next(0, 225);
                     int haltChance = new Random().Next(0, 275);
-                    if (!IsHalted) { 
+                    if (!_IsHalted) { 
                         FlipChance = new Random().Next(0, 350);
                         if (FlipChance == 0) FlipFren();
                     }
@@ -157,17 +154,16 @@ namespace Desktop_Frens
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
                     // Hault | Run/Idle Alt cycles
-                    if (_Name == "Spooky" && IsHalted) HaltedUpdateIdleFrenFrame();
-                    else if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
-                    else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame(); // Run
+                    if ((_Name == "Spooky" || _Name == "Frog_B" || _Name == "Frog") 
+                        && _IsHalted) IdleFrenFrames();
+                    else if (_Name == "Dog" && _IsHalted) HaltedUpdateFrenFrame();
+                    else if (_Name == "Dog" && _IsRun) RunUpdateFrenFrame(); // Run
                     else UpdateFrenFrame(); // Normal
 
-                    int frogMulti = new Random().Next(0, 5);
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
                     if ((_Name == "Frog" || _Name == "Frog_B") && (_CurrentFrame == 7 || _CurrentFrame <= 2))
-                        if (frogMulti == 0) _MoveSpeed = _DefaultMove * 6; // Speed * 7~ 
-                        else _MoveSpeed = _DefaultMove * frogMulti + 2; // Speed * 4~ 
-                    else if (_Name == "Dog" && IsRun) _MoveSpeed = _DefaultMove * 3;
+                        _MoveSpeed = _DefaultMove * 40; // Speed * 7~ 
+                    else if (_Name == "Dog" && _IsRun) _MoveSpeed = _DefaultMove * 3;
                     else
                         _MoveSpeed = _DefaultMove; // Normal Move speed
 
@@ -186,28 +182,23 @@ namespace Desktop_Frens
 
         async void RunFren()
         {
-            IsRun = true;
+            _IsRun = true;
             _MoveSpeed = _DefaultMove * 20; // Set the faster speed for running
             _CurrentFrame = 0; // Reset the frame index
             await Task.Delay(new Random().Next(2500, 7500)); // Delay range for running
-            IsRun = false;
+            _IsRun = false;
             _MoveSpeed = _DefaultMove; // Revert to the original move speed
         }
         async void HaltFren()
         {
-            IsHalted = true; // Halted flag
+            _IsHalted = true; // Halted flag
             _CurrentFrame = 0; // Reset the frame index
-            if (_Name != "Dog" && _Name != "Spooky") {
+            if (_Name == "Slug") {
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
             }
-            else if(_Name == "Spooky")
-            {
-                double animationInterval = _AnimationSpeed * 2; // Slow anim at halt
-                _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
-            }
             await Task.Delay(new Random().Next(3500, 8750)); // Delay range
-            IsHalted = false; // Reset flag
+            _IsHalted = false; // Reset flag
             _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
         }
 
@@ -225,7 +216,7 @@ namespace Desktop_Frens
             _AnimatedSource.Source = imageSource_; // update image
             _CurrentFrame = (_CurrentFrame + 1) % (_SpriteCount - 1); // Update current frame index
         }
-        void HaltedUpdateIdleFrenFrame()
+        void IdleFrenFrames()
         {
             string haltName = $"{_Name}_Idle_{_CurrentFrame + 1}"; // Get image by name and fram
             var imageSource_ = _Images[haltName]; // Retieve from array
@@ -244,8 +235,8 @@ namespace Desktop_Frens
         double Translate()
         {                    // Get current position
             double currentX = Canvas.GetLeft(_AnimatedSource);
-            if (MoveRight && !IsHalted) currentX = MoveFrenRight(currentX);
-            else if (!IsHalted) currentX = MoveFrenLeft(currentX); // else if not halted
+            if (_MoveRight && !_IsHalted) currentX = MoveFrenRight(currentX);
+            else if (!_IsHalted) currentX = MoveFrenLeft(currentX); // else if not halted
             return currentX;
         }
         double MoveFrenRight(double currentX)
@@ -253,7 +244,7 @@ namespace Desktop_Frens
             currentX += _MoveSpeed; // Move Postition (positive)
             if (currentX >= _MainWindow.Width + 150)
             {
-                MoveRight = false; // Change direction
+                _MoveRight = false; // Change direction
                 _AnimatedSource.RenderTransform = null; // flip 
             }
             return currentX;
@@ -263,7 +254,7 @@ namespace Desktop_Frens
             currentX -= _MoveSpeed; // Move position (Negative)
             if (currentX <= -50)
             {
-                MoveRight = true; // Change direction // Reset the image flip
+                _MoveRight = true; // Change direction // Reset the image flip
                 _AnimatedSource.RenderTransformOrigin = new System.Windows.Point(0, 0); // Set point
                 ScaleTransform flipTransform = new(-1, 1); // Reverse scale (x)
                 _AnimatedSource.RenderTransform = flipTransform; // Flip image using scale
