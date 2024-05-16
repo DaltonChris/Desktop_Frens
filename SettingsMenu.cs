@@ -22,6 +22,7 @@ namespace Desktop_Frens
         private bool _isSpookyFren = false;
         private bool _isFrogFren = false;
         private bool _isBlueFrogFren = false;
+        private bool _isGreenFrogFren = false;
 
         // Contructo
         public SettingsMenu(MainWindow mainWindow)
@@ -107,6 +108,10 @@ namespace Desktop_Frens
                         {
                             subItem.Checked = _isBlueFrogFren;
                         }
+                        else if (subItem.Text == "Frog Green - Fren")
+                        {
+                            subItem.Checked = _isGreenFrogFren;
+                        }
                     }
                     break; // Exit the loop after updating settings submenu
                 }
@@ -148,6 +153,7 @@ namespace Desktop_Frens
             var option3MenuItem = CreateSubMenuItem("Spooky - Fren", _isSpookyFren, "Spooky_Icon");
             var option4MenuItem = CreateSubMenuItem("Frog Pink - Fren", _isFrogFren, "Frog_5");
             var option5MenuItem = CreateSubMenuItem("Frog Blue - Fren", _isBlueFrogFren, "Frog_B_5");
+            var option6MenuItem = CreateSubMenuItem("Frog Green - Fren", _isGreenFrogFren, "Frog_G_5");
 
             settingsMenu.DropDownItems.Add(option0MenuItem);
             settingsMenu.DropDownItems.Add(option1MenuItem);
@@ -155,6 +161,7 @@ namespace Desktop_Frens
             settingsMenu.DropDownItems.Add(option3MenuItem);
             settingsMenu.DropDownItems.Add(option4MenuItem);
             settingsMenu.DropDownItems.Add(option5MenuItem);
+            settingsMenu.DropDownItems.Add(option6MenuItem);
 
             // Assign the click events
             option0MenuItem.Click += (sender, e) => SetAllFrens();
@@ -163,6 +170,7 @@ namespace Desktop_Frens
             option3MenuItem.Click += (sender, e) => SetSpookyFren();
             option4MenuItem.Click += (sender, e) => SetFrogFren();
             option5MenuItem.Click += (sender, e) => SetBlueFrogFren();
+            option5MenuItem.Click += (sender, e) => SetGreenFrogFren();
             return settingsMenu;
         }
         public void AllEnabled()
@@ -180,6 +188,8 @@ namespace Desktop_Frens
             SetFrogFren();
             await Task.Delay(285);
             SetBlueFrogFren();
+            await Task.Delay(85);
+            SetGreenFrogFren();
         }
         private void SetSlugFren() // SLug
         {
@@ -220,6 +230,14 @@ namespace Desktop_Frens
             if (_isBlueFrogFren) _isBlueFrogFren = false;
             else _isBlueFrogFren = true;
             MainWindow.SetFrenActive(_mainWindow._Frog_B_Fren);
+            UpdateCheckboxes();
+        }
+        private void SetGreenFrogFren() // Frog
+        {
+            if (_mainWindow._Frog_G_Fren == null) return;
+            if (_isGreenFrogFren) _isGreenFrogFren = false;
+            else _isGreenFrogFren = true;
+            MainWindow.SetFrenActive(_mainWindow._Frog_G_Fren);
             UpdateCheckboxes();
         }
         // Sub Menu builder

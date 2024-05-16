@@ -24,6 +24,7 @@ namespace Desktop_Frens
         public FrenObject? _Spooky_Fren;
         public FrenObject? _Frog_Fren;
         public FrenObject? _Frog_B_Fren;
+        public FrenObject? _Frog_G_Fren;
 
 
         public MainWindow() // Main
@@ -69,6 +70,7 @@ namespace Desktop_Frens
             _Spooky_Fren = new(ID.Spooky, 8, this, 5.9, 85, _AnimatedImg_3, 110, 110, -50); // -52
             _Frog_Fren = new(ID.Frog, 7, this, 0.3, 135, _AnimatedImg_4, 75, 100, 10); //10  move-1.3
             _Frog_B_Fren = new(ID.Frog_B, 7, this, 0.3, 135, _AnimatedImg_5, 95, 115, -5); // -5 move-2
+            _Frog_G_Fren = new(ID.Frog_G, 7, this, 0.3, 135, _AnimatedImg_6, 85, 105, 5); // -5 move-2
         }
 
         /// <summary>
@@ -92,6 +94,7 @@ namespace Desktop_Frens
             _Frog_B_Fren.PublicFlip();
             _Frog_Fren.PublicFlip();
             _Spooky_Fren.PublicFlip();
+            _Frog_G_Fren.PublicFlip();
         }
 
         static void MenuClick()

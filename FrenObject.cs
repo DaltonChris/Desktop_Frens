@@ -20,6 +20,7 @@ namespace Desktop_Frens
         Dog,
         Frog,
         Frog_B,
+        Frog_G,
     }
 
     public class FrenObject
@@ -108,6 +109,7 @@ namespace Desktop_Frens
                         imageNames.Add($"Dog_Idle_{i}"); // Idles
                         break;
                     case ID.Frog_B:
+                    case ID.Frog_G:
                     case ID.Frog:
                     case ID.Spooky:
                         name = $"{_Type}_Idle_{i}"; // Idles
@@ -168,14 +170,14 @@ namespace Desktop_Frens
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
                     // Halt | Run/Idle Alt cycles
-                    if ((_Type == ID.Spooky || _Type == ID.Frog_B || _Type == ID.Frog || _Type == ID.Dog)
+                    if ((_Type == ID.Spooky || _Type == ID.Frog_B || _Type == ID.Frog || _Type == ID.Dog || _Type == ID.Frog_G)
                         && _IsHalted) IdleFrenFrames();
 
                     else if (_Type == ID.Dog && _IsRun) RunUpdateFrenFrame(); // Run
                     else UpdateFrenFrame(); // Normal
 
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
-                    if ((_Type == ID.Frog || _Type == ID.Frog_B) && (_CurrentFrame == 7 || _CurrentFrame <= 2))
+                    if ((_Type == ID.Frog || _Type == ID.Frog_B || _Type == ID.Frog_G) && (_CurrentFrame == 7 || _CurrentFrame <= 2))
                         _MoveSpeed = _DefaultMove * 40; // Speed * 7~ 
                     else if (_Type == ID.Slug && (_CurrentFrame >= 5 || _CurrentFrame <= 1)) _MoveSpeed = _DefaultMove * 9;
                     else if (_Type == ID.Dog && _IsRun) _MoveSpeed = _DefaultMove * 3;
