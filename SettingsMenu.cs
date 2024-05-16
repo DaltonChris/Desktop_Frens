@@ -11,11 +11,10 @@ namespace Desktop_Frens
         // Colours
         private readonly Color _backgroundColour = Color.Black;
         private readonly Color _textColour = Color.Red;
-
+        readonly Font _Font;
         //Menu Strip and reference to the _mainWindow
         public ContextMenuStrip _menuStrip;
         readonly MainWindow _mainWindow;
-
         // flags for checked in menu
         readonly bool _isAllFrens = false;
         private bool _isSlugFren = false;
@@ -23,7 +22,6 @@ namespace Desktop_Frens
         private bool _isSpookyFren = false;
         private bool _isFrogFren = false;
         private bool _isBlueFrogFren = false;
-        readonly Font _Font;
 
         // Contructo
         public SettingsMenu(MainWindow mainWindow)
@@ -32,24 +30,20 @@ namespace Desktop_Frens
             _mainWindow = mainWindow;
             _menuStrip = CreateContextMenu(); // Initialize the context menu strip
         }
-
         // MenuStrip getter
         public ContextMenuStrip GetMenuStrip()
         {
             return _menuStrip;
         }
-
         static Font MakeFont()
         {
             // Define the font attributes
             FontStyle style = FontStyle.Bold;
             string familyName = "Consolas";
             float size = 12; // You can adjust the size as needed
-
-            Font customFont = new Font(familyName, size, style);
+            Font customFont = new (familyName, size, style);
             return customFont;
         }
-
         // Method to build the inital Context Menu
         private ContextMenuStrip CreateContextMenu()
         {
@@ -60,9 +54,8 @@ namespace Desktop_Frens
                 BackColor = Color.DarkRed,
                 ForeColor = _textColour,
                 Font = _Font,
-                Opacity = 0.75f,
+                Opacity = 0.80f,
                 ShowItemToolTips = true,
-
             };
             var settingsMenu = CreateSettingsMenuItem();
             var flipperMenu = CreateFlipItem();
@@ -79,12 +72,11 @@ namespace Desktop_Frens
                 if (item.DropDown is ToolStripDropDownMenu toolStrip)
                 {
                     toolStrip.AllowTransparency = true;
-                    toolStrip.Opacity = 0.75;
+                    toolStrip.Opacity = 0.80f;
                 }
             }
             return menuStrip;
         }
-
         // update menu flags -> check boxy bois
         void UpdateCheckboxes()
         {
@@ -138,7 +130,6 @@ namespace Desktop_Frens
             };
             return flipAllItem;
         }
-
         // Build the tool Strip items
         private ToolStripMenuItem CreateSettingsMenuItem()
         {
@@ -285,10 +276,8 @@ namespace Desktop_Frens
             changeScreenMenuItem.DropDownItems.Add(screen1MenuItem);
             changeScreenMenuItem.DropDownItems.Add(screen2MenuItem);
             changeScreenMenuItem.DropDownItems.Add(screen3MenuItem);
-
             return changeScreenMenuItem;
         }
-
         private ToolStripMenuItem CreateScreenChangeSubMenuItem(string text, string screenName)
         {
             var menuItem = new ToolStripMenuItem(text)
@@ -301,27 +290,16 @@ namespace Desktop_Frens
                 Image = (Image)ImageManager.GetImage("Screen", typeof(Image)),
                 //CheckOnClick = true,
             };
-
             menuItem.Click += (sender, e) =>
             {
                 _mainWindow.ChangeScreen(screenName);
             };
-
             return menuItem;
         }
-
-
-
-
     }
-
     public class MenuColorTable : ProfessionalColorTable
     {
-        public MenuColorTable()
-        {
-            UseSystemColors = false;
-        }
-
+        public MenuColorTable(){UseSystemColors = false;}
         public override Color ImageMarginGradientBegin => Color.DarkRed;
         public override Color ImageMarginGradientMiddle => Color.DarkRed;
         public override Color ImageMarginGradientEnd => Color.DarkRed;
@@ -350,6 +328,4 @@ namespace Desktop_Frens
         public override Color CheckBackground => Color.DarkRed;
         public override Color ButtonCheckedHighlight => Color.DarkRed;
     }
-
-
 }

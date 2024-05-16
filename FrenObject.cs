@@ -188,7 +188,6 @@ namespace Desktop_Frens
                         double currentX = Translate();
                         Canvas.SetLeft(_AnimatedSource, currentX);// Apply new position
                     }
-
                 }
             }
             catch (Exception ex)
@@ -216,7 +215,7 @@ namespace Desktop_Frens
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
             }
-            await Task.Delay(new Random().Next(3500, 12750)); // Delay range
+            await Task.Delay(new Random().Next(2500, 10750)); // Delay range
             _IsHalted = false; // Reset flag
             _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
         }
