@@ -277,9 +277,9 @@ namespace Desktop_Frens
             };
 
             // Add submenu items for changing to each screen
-            var screen1MenuItem = CreateScreenChangeSubMenuItem("Display - 1", "DISPLAY1");
+            var screen1MenuItem = CreateScreenChangeSubMenuItem("Display - 1", "DISPLAY3");
             var screen2MenuItem = CreateScreenChangeSubMenuItem("Display - 2", "DISPLAY2");
-            var screen3MenuItem = CreateScreenChangeSubMenuItem("Display - 3", "DISPLAY3");
+            var screen3MenuItem = CreateScreenChangeSubMenuItem("Display - 3", "DISPLAY1");
 
             // Add submenu items to the main change screen menu item
             changeScreenMenuItem.DropDownItems.Add(screen1MenuItem);
