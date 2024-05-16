@@ -1,12 +1,12 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-/* ############################################
+﻿/* ############################################
  * ### Dalton Christopher                   ###
  * ### Desktop-Frens - Windows - .NET8.0    ###
  * ### 05/2024                              ###
  * ############################################*/
+
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Desktop_Frens
 {
@@ -64,11 +64,11 @@ namespace Desktop_Frens
 
         void LoadFrenObjects()
         {
-            _Slug_Fren = new(FrenID.Slug, 6, this, 3.95, 95, this._AnimatedImg_1, 60, 60, -1); // -1
-            _Dog_Fren = new(FrenID.Dog, 7, this, 7.4, 75, _AnimatedImg_2, 85, 95, -5); // -5
-            _Spooky_Fren = new(FrenID.Spooky, 8, this, 5.9, 85, _AnimatedImg_3, 110, 110, -50); // -52
-            _Frog_Fren = new(FrenID.Frog, 7, this, 0.3, 135, _AnimatedImg_4, 75, 100, 10); //10  move-1.3
-            _Frog_B_Fren = new(FrenID.Frog_B, 7, this, 0.3, 135, _AnimatedImg_5, 95, 115, -5); // -5 move-2
+            _Slug_Fren = new(ID.Slug, 6, this, 0.4, 95, this._AnimatedImg_1, 50, 50, 11); // -1
+            _Dog_Fren = new(ID.Dog, 7, this, 7.4, 75, _AnimatedImg_2, 85, 95, -5); // -5
+            _Spooky_Fren = new(ID.Spooky, 8, this, 5.9, 85, _AnimatedImg_3, 110, 110, -50); // -52
+            _Frog_Fren = new(ID.Frog, 7, this, 0.3, 135, _AnimatedImg_4, 75, 100, 10); //10  move-1.3
+            _Frog_B_Fren = new(ID.Frog_B, 7, this, 0.3, 135, _AnimatedImg_5, 95, 115, -5); // -5 move-2
         }
 
         /// <summary>

@@ -3,7 +3,6 @@
  * ### Desktop-Frens - Windows - .NET8.0    ###
  * ### 05/2024                              ###
  * ############################################*/
-using System.Windows.Media.Imaging;
 
 namespace Desktop_Frens
 {

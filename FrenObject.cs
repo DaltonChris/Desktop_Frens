@@ -1,4 +1,9 @@
-﻿using System.Diagnostics;
+﻿/* ############################################
+ * ### Dalton Christopher                   ###
+ * ### Desktop-Frens - Windows - .NET8.0    ###
+ * ### 05/2024                              ###
+ * ############################################*/
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -6,14 +11,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Image = System.Windows.Controls.Image;
 
-/* ############################################
- * ### Dalton Christopher                   ###
- * ### Desktop-Frens - Windows - .NET8.0    ###
- * ### 05/2024                              ###
- * ############################################*/
 namespace Desktop_Frens
 {
-    public enum FrenID
+    public enum ID
     {
         Slug,
         Spooky,
@@ -24,7 +24,7 @@ namespace Desktop_Frens
 
     public class FrenObject
     {
-        readonly FrenID _Type; // frens type
+        readonly ID _Type; // frens type
         readonly int _SpriteCount = 6; // Amount of sprites in anim set
         int _CurrentFrame = 0; // active image frame
         double _MoveSpeed = 7.5; // move amount per tick
@@ -45,7 +45,7 @@ namespace Desktop_Frens
         double _TopOffsetAdjust;
 
         //Constructor
-        public FrenObject(FrenID type,int spriteCount, MainWindow mainWin, double moveSpeed, int animSpeed, Image image, int height, int width, int topOffset)
+        public FrenObject(ID type,int spriteCount, MainWindow mainWin, double moveSpeed, int animSpeed, Image image, int height, int width, int topOffset)
         {
             _Type = type;
             _SpriteCount = spriteCount;
@@ -101,15 +101,15 @@ namespace Desktop_Frens
                 string name;
                 switch (_Type)
                 {
-                    case FrenID.Dog:
+                    case ID.Dog:
                         name = $"Dog_{i}"; // Add each name
                         imageNames.Add(name);
                         imageNames.Add($"Dog_Run_{i}"); // Add Run name
                         imageNames.Add($"Dog_Idle_{i}"); // Idles
                         break;
-                    case FrenID.Frog_B:
-                    case FrenID.Frog:
-                    case FrenID.Spooky:
+                    case ID.Frog_B:
+                    case ID.Frog:
+                    case ID.Spooky:
                         name = $"{_Type}_Idle_{i}"; // Idles
                         imageNames.Add(name);
                         imageNames.Add($"{_Type}_{i}"); // Add each name
@@ -157,7 +157,7 @@ namespace Desktop_Frens
                 {
                     int FlipChance;
                     int runChance = new Random().Next(0, 225);
-                    int haltChance = new Random().Next(0, 215);
+                    int haltChance = new Random().Next(0, 285);
                     if (!_IsHalted)
                     {
                         FlipChance = new Random().Next(0, 310);
@@ -168,16 +168,17 @@ namespace Desktop_Frens
                     if (haltChance == 0) HaltFren();// If random halt chance = 0
 
                     // Halt | Run/Idle Alt cycles
-                    if ((_Type == FrenID.Spooky || _Type == FrenID.Frog_B || _Type == FrenID.Frog || _Type == FrenID.Dog)
+                    if ((_Type == ID.Spooky || _Type == ID.Frog_B || _Type == ID.Frog || _Type == ID.Dog)
                         && _IsHalted) IdleFrenFrames();
 
-                    else if (_Type == FrenID.Dog && _IsRun) RunUpdateFrenFrame(); // Run
+                    else if (_Type == ID.Dog && _IsRun) RunUpdateFrenFrame(); // Run
                     else UpdateFrenFrame(); // Normal
 
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
-                    if ((_Type == FrenID.Frog || _Type == FrenID.Frog_B) && (_CurrentFrame == 7 || _CurrentFrame <= 2))
+                    if ((_Type == ID.Frog || _Type == ID.Frog_B) && (_CurrentFrame == 7 || _CurrentFrame <= 2))
                         _MoveSpeed = _DefaultMove * 40; // Speed * 7~ 
-                    else if (_Type == FrenID.Dog && _IsRun) _MoveSpeed = _DefaultMove * 3;
+                    else if (_Type == ID.Slug && (_CurrentFrame >= 5 || _CurrentFrame <= 1)) _MoveSpeed = _DefaultMove * 9;
+                    else if (_Type == ID.Dog && _IsRun) _MoveSpeed = _DefaultMove * 3;
                     else
                         _MoveSpeed = _DefaultMove; // Normal Move speed
 
@@ -210,7 +211,7 @@ namespace Desktop_Frens
         {
             _IsHalted = true; // Halted flag
             _CurrentFrame = 0; // Reset the frame index
-            if (_Type == FrenID.Slug)
+            if (_Type == ID.Slug)
             {
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
@@ -234,7 +235,7 @@ namespace Desktop_Frens
             string haltName = $"{_Type}_Idle_{_CurrentFrame + 1}"; // Get image by name and frame
             var imageSource = _Images[haltName]; // Retrieve from array
             _AnimatedSource.Source = imageSource; // update image
-            if (_Type == FrenID.Dog && _TopOffset != _TopOffsetAdjust)
+            if (_Type == ID.Dog && _TopOffset != _TopOffsetAdjust)
             {
                 Canvas.SetTop(_AnimatedSource, _TopOffsetAdjust);
             }
