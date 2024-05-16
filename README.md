@@ -15,6 +15,8 @@
 - Added Dog Selection in hidden toolbar >MenuStrip . Sprites Sourced from https://benvictus.itch.io/pixel-dogs 
 
 ## Screenshots
+![Frens_Menu](https://github.com/DaltonChris/Desktop_Frens/assets/142439192/629d0363-fd02-47c0-884e-39bd163be9b3)
+
 ![Cropped_DesktopFren_Gif](https://github.com/DaltonChris/Desktop_Frens/assets/142439192/8638c259-c1f7-45d1-97a1-3be58367609a)
 
 ![OOP_We_got_more_Frens](https://github.com/DaltonChris/Desktop_Frens/assets/142439192/e7353fe6-27d9-4a73-a744-2895fdaba986)
