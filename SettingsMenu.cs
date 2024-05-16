@@ -18,16 +18,18 @@ namespace Desktop_Frens
         readonly MainWindow _mainWindow;
 
         // flags for checked in menu
-        bool _isAllFrens = false;
+        readonly bool _isAllFrens = false;
         private bool _isSlugFren = false;
         private bool _isDogFren = false;
         private bool _isSpookyFren = false;
         private bool _isFrogFren = false;
         private bool _isBlueFrogFren = false;
+        readonly Font _Font;
 
         // Contructo
         public SettingsMenu(MainWindow mainWindow)
         {
+            _Font = MakeFont();
             _mainWindow = mainWindow;
             _menuStrip = CreateContextMenu(); // Initialize the context menu strip
         }
@@ -38,13 +40,30 @@ namespace Desktop_Frens
             return _menuStrip;
         }
 
+        static Font MakeFont()
+        {
+            // Define the font attributes
+            FontStyle style = FontStyle.Bold;
+            string familyName = "Consolas";
+            float size = 12; // You can adjust the size as needed
+
+            Font customFont = new Font(familyName, size, style);
+            return customFont;
+        }
+
         // Method to build the inital Context Menu
         private ContextMenuStrip CreateContextMenu()
         {
             var menuStrip = new ContextMenuStrip
             {
                 RenderMode = ToolStripRenderMode.Professional,
-                Renderer = new ToolStripSystemRenderer()
+                Renderer = new ToolStripProfessionalRenderer(new MenuColorTable()),
+                BackColor = Color.DarkRed,
+                ForeColor = _textColour,
+                Font = _Font,
+                Opacity = 0.8f,
+                ShowItemToolTips = true,
+                
             };
             var settingsMenu = CreateSettingsMenuItem();
             var flipperMenu = CreateFlipItem();
@@ -100,8 +119,9 @@ namespace Desktop_Frens
             {
                 BackColor = _backgroundColour,
                 ForeColor = _textColour,
-                Padding = new Padding(0),
-                Margin = new Padding(0),
+                Padding = new Padding(2),
+                Margin = new Padding(1),
+                Font = _Font,
                 //Image = (Image)ImageManager.GetImage("Settings", typeof(Image))
             };
             flipAllItem.Click += (sender, e) =>
@@ -119,15 +139,16 @@ namespace Desktop_Frens
                 BackColor = _backgroundColour,
                 ForeColor = _textColour,
                 Padding = new Padding(0),
-                Margin = new Padding(0),
-                Image = (Image)ImageManager.GetImage("Settings", typeof(Image))
+                Margin = new Padding(1),
+                Image = (Image)ImageManager.GetImage("Settings", typeof(Image)),
+                Font = _Font,
             };
-            var option0MenuItem = CreateSubMenuItem("All - Frens", _isAllFrens);
-            var option1MenuItem = CreateSubMenuItem("Slug - Fren", _isSlugFren);
-            var option2MenuItem = CreateSubMenuItem("Dog - Fren", _isDogFren);
-            var option3MenuItem = CreateSubMenuItem("Spooky - Fren", _isSpookyFren);
-            var option4MenuItem = CreateSubMenuItem("Frog Pink - Fren", _isFrogFren);
-            var option5MenuItem = CreateSubMenuItem("Frog Blue - Fren", _isBlueFrogFren);
+            var option0MenuItem = CreateSubMenuItem("All - Frens", _isAllFrens, "Settings");
+            var option1MenuItem = CreateSubMenuItem("Slug - Fren", _isSlugFren, "Slug_3");
+            var option2MenuItem = CreateSubMenuItem("Dog - Fren", _isDogFren, "Dog_1");
+            var option3MenuItem = CreateSubMenuItem("Spooky - Fren", _isSpookyFren, "Spooky_Icon");
+            var option4MenuItem = CreateSubMenuItem("Frog Pink - Fren", _isFrogFren, "Frog_5");
+            var option5MenuItem = CreateSubMenuItem("Frog Blue - Fren", _isBlueFrogFren, "Frog_B_5");
 
             settingsMenu.DropDownItems.Add(option0MenuItem);
             settingsMenu.DropDownItems.Add(option1MenuItem);
@@ -143,7 +164,6 @@ namespace Desktop_Frens
             option3MenuItem.Click += (sender, e) => SetSpookyFren();
             option4MenuItem.Click += (sender, e) => SetFrogFren();
             option5MenuItem.Click += (sender, e) => SetBlueFrogFren();
-
             return settingsMenu;
         }
         public void AllEnabled()
@@ -204,15 +224,16 @@ namespace Desktop_Frens
             UpdateCheckboxes();
         }
         // Sub Menu builder
-        private ToolStripMenuItem CreateSubMenuItem(string text, bool isChecked)
+        private ToolStripMenuItem CreateSubMenuItem(string text, bool isChecked, String image)
         {
             var menuItem = new ToolStripMenuItem(text)
             {
                 BackColor = _backgroundColour,
                 ForeColor = _textColour,
                 Checked = isChecked,
-                Margin = new Padding(0)
-
+                Margin = new Padding(1),
+                Image = (Image)ImageManager.GetImage(image, typeof(Image)),
+                
             };
 
             return menuItem;
@@ -224,9 +245,10 @@ namespace Desktop_Frens
             {
                 BackColor = _backgroundColour,
                 ForeColor = _textColour,
-                Padding = new Padding(0),
+                Padding = new Padding(2),
                 Margin = new Padding(0),
-                Image = (Image)ImageManager.GetImage("Exit", typeof(Image))
+                Image = (Image)ImageManager.GetImage("Exit", typeof(Image)),
+                Font = _Font,
             };
             exitMenuItem.Click += (sender, e) =>
             {
@@ -235,34 +257,123 @@ namespace Desktop_Frens
             return exitMenuItem;
         }
 
-        // Muh custim drippy colours lelmayo
-        public class CustomColorTable : ProfessionalColorTable //Colour overrides..
-        {
-            public override Color ToolStripBorder
-            {
-                get { return Color.FromArgb(100, 0, 0); }
-            }
-            public override Color ToolStripDropDownBackground
-            {
-                get { return Color.FromArgb(64, 64, 64); }
-            }
-            public override Color ToolStripGradientBegin
-            {
-                get { return Color.FromArgb(64, 64, 64); }
-            }
-            public override Color ToolStripGradientEnd
-            {
-                get { return Color.FromArgb(64, 64, 64); }
-            }
-            public override Color ToolStripGradientMiddle
-            {
-                get { return Color.FromArgb(64, 64, 64); }
-            }
-            public override Color MenuItemBorder
-            {
-                get { return Color.FromArgb(100, 0, 0); }
-            }
-        }
 
+
+    }
+
+    public class MenuColorTable : ProfessionalColorTable
+    {
+        public MenuColorTable()
+        {
+            UseSystemColors = false;
+        }
+        public override Color ImageMarginGradientBegin
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ImageMarginGradientMiddle
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ImageMarginGradientEnd
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripBorder
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color StatusStripBorder
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color MenuBorder
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color MenuItemBorder
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color MenuItemSelected
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color MenuItemSelectedGradientBegin
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color MenuItemSelectedGradientEnd
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color MenuStripGradientBegin
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color MenuStripGradientEnd
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripContentPanelGradientEnd
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripContentPanelGradientBegin
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripGradientBegin
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripGradientMiddle
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripGradientEnd
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripPanelGradientBegin
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripPanelGradientEnd
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ToolStripDropDownBackground
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ButtonCheckedHighlightBorder
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ImageMarginRevealedGradientBegin
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ImageMarginRevealedGradientMiddle
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ImageMarginRevealedGradientEnd
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color CheckSelectedBackground
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color CheckBackground
+        {
+            get { return Color.DarkRed; }
+        }
+        public override Color ButtonCheckedHighlight
+        {
+            get { return Color.DarkRed; }
+        }
     }
 }

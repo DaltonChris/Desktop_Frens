@@ -64,13 +64,14 @@ namespace Desktop_Frens
         {
             _IsActive = false; // set flag
             _AnimatedSource.Source = null; // Null image
+            _Timer.Tick -= UpdateFren;
+            _Timer.Interval = TimeSpan.Zero;
         }
         public void SetActive()
         {
             _IsActive = true; // Set flag
             if (_Timer != null)
             {
-                // animation speed (interval of calls) (movealso)
                 _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed);
                 _Timer.Tick += UpdateFren; // Call Translate fren each tick interval
                 _Timer.Start(); // start timer
@@ -123,19 +124,22 @@ namespace Desktop_Frens
 
         void FlipFren()
         {
-            // set scale to opposite
             ScaleTransform currentTransform = (ScaleTransform)_AnimatedSource.RenderTransform;
-            ScaleTransform scaleTransform = new(1, 1);
-            if (currentTransform == scaleTransform){
-                _MoveRight = true; // Change direction
-                ScaleTransform flipTransform = new(-1, 1);
+
+            if (currentTransform.ScaleX == 1) // If the current scale is the default (1, 1)
+            {
+                _MoveRight = true; // Set the direction to move right
+                ScaleTransform flipTransform = new ScaleTransform(-1, 1);
                 _AnimatedSource.RenderTransform = flipTransform;
             }
-            else{
-                _MoveRight = false; // Change direction
-                _AnimatedSource.RenderTransform = null;
+            else 
+            {
+                _MoveRight = false; // Set the direction to move left
+                ScaleTransform scaleTransform = new ScaleTransform(1, 1);
+                _AnimatedSource.RenderTransform = scaleTransform;
             }
         }
+
         void UpdateFren(object? sender, EventArgs e)
         {
             try

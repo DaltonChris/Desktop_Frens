@@ -733,6 +733,16 @@ namespace Desktop_Frens {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Spooky_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Spooky_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Spooky_Idle_1 {
             get {
                 object obj = ResourceManager.GetObject("Spooky_Idle_1", resourceCulture);
