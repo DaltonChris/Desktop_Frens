@@ -69,9 +69,9 @@ namespace Desktop_Frens
         }
         public void SetActive()
         {
-            _IsActive = true; // Set flag
             if (_Timer != null)
             {
+                _IsActive = true; // Set flag
                 _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed);
                 _Timer.Tick += UpdateFren; // Call Translate fren each tick interval
                 _Timer.Start(); // start timer
@@ -100,12 +100,6 @@ namespace Desktop_Frens
                 if (_Name == "Frog_B" || _Name == "Frog" || _Name == "Spooky")
                 {
                     imageNames.Add($"{_Name}_Idle_{i}"); // Idles
-                }
-            }
-            if(_Name == "Frog_B" || _Name == "Frog" || _Name == "Spooky")
-            {
-                for (int i = 1; i <= _SpriteCount; i++){
-                    imageNames.Add($"{_Name}_Idle_{i}"); // Add each name
                 }
             }
             // To array

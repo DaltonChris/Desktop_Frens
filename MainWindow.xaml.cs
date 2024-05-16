@@ -1,7 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
-using System.Runtime.InteropServices;
 /* ############################################
  * ### Dalton Christopher                   ###
  * ### Desktop-Frens - Windows - .NET8.0    ###
@@ -40,7 +39,6 @@ namespace Desktop_Frens
                 // Init Frens
                 LoadFrenObjects();
 
-
                 // Initialize NotifyIcon
                 if (TaskIcon != null)
                 {
@@ -48,11 +46,8 @@ namespace Desktop_Frens
                     TaskIcon.Icon = (Icon)ImageManager.GetImage("slug_icon", typeof(Icon));
                     TaskIcon.Visible = true;
                     TaskIcon.Text = "Desktop Fren";
-
-
                     // Create context menu for NotifyIcon
                     var settingsMenu = new SettingsMenu(this);
-
                     // Assign the context menu to TaskIcon
                     TaskIcon.ContextMenuStrip = settingsMenu._menuStrip;
                     settingsMenu.AllEnabled();
@@ -66,9 +61,6 @@ namespace Desktop_Frens
             }
         }
 
-        /// <summary>
-        /// Inits the Fren objects Using Fren Contructor
-        /// </summary>
         void LoadFrenObjects()
         {
             _Slug_Fren = new("Slug", 6, this, 3.95, 88, this._AnimatedImg_1, 60, 60, -1); // -1
@@ -101,7 +93,7 @@ namespace Desktop_Frens
             _Spooky_Fren.PublicFlip();
         }
 
-        void MenuClick()
+        static void MenuClick()
         {
             // Simulate right mouse button down event
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
