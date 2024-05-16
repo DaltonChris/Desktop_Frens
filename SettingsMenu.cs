@@ -47,8 +47,12 @@ namespace Desktop_Frens
                 Renderer = new ToolStripSystemRenderer()
             };
             var settingsMenu = CreateSettingsMenuItem();
+            var flipperMenu = CreateFlipItem();
+
             var exitMenuItem = CreateExitMenuItem();
+            
             menuStrip.Items.Add(settingsMenu);
+            menuStrip.Items.Add(flipperMenu);
             menuStrip.Items.Add(exitMenuItem);
 
             return menuStrip;
@@ -88,6 +92,23 @@ namespace Desktop_Frens
                     break; // Exit the loop after updating settings submenu
                 }
             }
+        }
+
+        ToolStripMenuItem CreateFlipItem()
+        {
+            var flipAllItem = new ToolStripMenuItem("Flip")
+            {
+                BackColor = _backgroundColour,
+                ForeColor = _textColour,
+                Padding = new Padding(0),
+                Margin = new Padding(0),
+                //Image = (Image)ImageManager.GetImage("Settings", typeof(Image))
+            };
+            flipAllItem.Click += (sender, e) =>
+            {
+                _mainWindow.FlipFrens();
+            };
+            return flipAllItem;
         }
 
         // Build the tool Strip items

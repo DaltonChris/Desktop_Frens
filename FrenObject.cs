@@ -20,9 +20,10 @@ namespace Desktop_Frens
         double _MoveSpeed = 7.5; // move amount per tick
         readonly double _DefaultMove; // Dupe to keep rate
         bool _IsActive = false; // flag
-        bool MoveRight = true; // direction flag
-        bool IsHalted = false; // halt flag
-        bool IsRun = false; // Run flag
+        bool _MoveRight = true; // direction flag
+        bool _IsHalted = false; // halt flag
+        bool _IsRun = false; // Run flag
+        int _FlipOffset;
         readonly int _AnimationSpeed; // anim rate (ms) tick time
         readonly Dictionary<string, BitmapImage> _Images = []; // Image dict
         readonly DispatcherTimer _Timer = new(); // timer
@@ -115,18 +116,23 @@ namespace Desktop_Frens
             }
         }
 
+        public void PublicFlip()
+        {
+            FlipFren();
+        }
+
         void FlipFren()
         {
             // set scale to opposite
             ScaleTransform currentTransform = (ScaleTransform)_AnimatedSource.RenderTransform;
             ScaleTransform scaleTransform = new(1, 1);
             if (currentTransform == scaleTransform){
-                MoveRight = true; // Change direction
+                _MoveRight = true; // Change direction
                 ScaleTransform flipTransform = new(-1, 1);
                 _AnimatedSource.RenderTransform = flipTransform;
             }
             else{
-                MoveRight = false; // Change direction
+                _MoveRight = false; // Change direction
                 _AnimatedSource.RenderTransform = null;
             }
         }
@@ -139,7 +145,7 @@ namespace Desktop_Frens
                     int FlipChance;
                     int runChance = new Random().Next(0, 225);
                     int haltChance = new Random().Next(0, 275);
-                    if (!IsHalted) { 
+                    if (!_IsHalted) { 
                         FlipChance = new Random().Next(0, 350);
                         if (FlipChance == 0) FlipFren();
                     }
@@ -149,15 +155,15 @@ namespace Desktop_Frens
 
                     // Hault | Run/Idle Alt cycles
                     if ((_Name == "Spooky" || _Name == "Frog_B" || _Name == "Frog") 
-                        && IsHalted) IdleFrenFrames();
-                    else if (_Name == "Dog" && IsHalted) HaltedUpdateFrenFrame();
-                    else if (_Name == "Dog" && IsRun) RunUpdateFrenFrame(); // Run
+                        && _IsHalted) IdleFrenFrames();
+                    else if (_Name == "Dog" && _IsHalted) HaltedUpdateFrenFrame();
+                    else if (_Name == "Dog" && _IsRun) RunUpdateFrenFrame(); // Run
                     else UpdateFrenFrame(); // Normal
 
                     // (If is Frog and between last frame or 1-3 : Speed up To simulate A hop
                     if ((_Name == "Frog" || _Name == "Frog_B") && (_CurrentFrame == 7 || _CurrentFrame <= 2))
                         _MoveSpeed = _DefaultMove * 40; // Speed * 7~ 
-                    else if (_Name == "Dog" && IsRun) _MoveSpeed = _DefaultMove * 3;
+                    else if (_Name == "Dog" && _IsRun) _MoveSpeed = _DefaultMove * 3;
                     else
                         _MoveSpeed = _DefaultMove; // Normal Move speed
 
@@ -176,23 +182,23 @@ namespace Desktop_Frens
 
         async void RunFren()
         {
-            IsRun = true;
+            _IsRun = true;
             _MoveSpeed = _DefaultMove * 20; // Set the faster speed for running
             _CurrentFrame = 0; // Reset the frame index
             await Task.Delay(new Random().Next(2500, 7500)); // Delay range for running
-            IsRun = false;
+            _IsRun = false;
             _MoveSpeed = _DefaultMove; // Revert to the original move speed
         }
         async void HaltFren()
         {
-            IsHalted = true; // Halted flag
+            _IsHalted = true; // Halted flag
             _CurrentFrame = 0; // Reset the frame index
             if (_Name == "Slug") {
                 double animationInterval = _AnimationSpeed * 10; // Slow anim at halt
                 _Timer.Interval = TimeSpan.FromMilliseconds(animationInterval); // animation speed
             }
             await Task.Delay(new Random().Next(3500, 8750)); // Delay range
-            IsHalted = false; // Reset flag
+            _IsHalted = false; // Reset flag
             _Timer.Interval = TimeSpan.FromMilliseconds(_AnimationSpeed); // animation speed
         }
 
@@ -229,8 +235,8 @@ namespace Desktop_Frens
         double Translate()
         {                    // Get current position
             double currentX = Canvas.GetLeft(_AnimatedSource);
-            if (MoveRight && !IsHalted) currentX = MoveFrenRight(currentX);
-            else if (!IsHalted) currentX = MoveFrenLeft(currentX); // else if not halted
+            if (_MoveRight && !_IsHalted) currentX = MoveFrenRight(currentX);
+            else if (!_IsHalted) currentX = MoveFrenLeft(currentX); // else if not halted
             return currentX;
         }
         double MoveFrenRight(double currentX)
@@ -238,7 +244,7 @@ namespace Desktop_Frens
             currentX += _MoveSpeed; // Move Postition (positive)
             if (currentX >= _MainWindow.Width + 150)
             {
-                MoveRight = false; // Change direction
+                _MoveRight = false; // Change direction
                 _AnimatedSource.RenderTransform = null; // flip 
             }
             return currentX;
@@ -248,7 +254,7 @@ namespace Desktop_Frens
             currentX -= _MoveSpeed; // Move position (Negative)
             if (currentX <= -50)
             {
-                MoveRight = true; // Change direction // Reset the image flip
+                _MoveRight = true; // Change direction // Reset the image flip
                 _AnimatedSource.RenderTransformOrigin = new System.Windows.Point(0, 0); // Set point
                 ScaleTransform flipTransform = new(-1, 1); // Reverse scale (x)
                 _AnimatedSource.RenderTransform = flipTransform; // Flip image using scale
