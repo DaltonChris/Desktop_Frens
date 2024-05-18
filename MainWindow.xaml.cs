@@ -88,13 +88,13 @@ namespace Desktop_Frens
 
         public void FlipFrens()
         {
-            _Slug_Fren.PublicFlip();
-            _Dog_Fren.PublicFlip();
-            _Slug_Fren.PublicFlip();
-            _Frog_B_Fren.PublicFlip();
-            _Frog_Fren.PublicFlip();
-            _Spooky_Fren.PublicFlip();
-            _Frog_G_Fren.PublicFlip();
+            _Slug_Fren?.PublicFlip();
+            _Dog_Fren?.PublicFlip();
+            _Slug_Fren?.PublicFlip();
+            _Frog_B_Fren?.PublicFlip();
+            _Frog_Fren?.PublicFlip();
+            _Spooky_Fren?.PublicFlip();
+            _Frog_G_Fren?.PublicFlip();
         }
 
         static void MenuClick()
