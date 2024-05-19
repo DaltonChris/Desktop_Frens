@@ -53,7 +53,6 @@ namespace Desktop_Frens
                     // Assign the context menu to TaskIcon
                     TaskIcon.ContextMenuStrip = settingsMenu._menuStrip;
                     settingsMenu.AllEnabled();
-
                     TaskIcon.Click += (s, e) => MenuClick();
                 }
             }
@@ -85,7 +84,6 @@ namespace Desktop_Frens
             else
                 fren.SetActive();
         }
-
         public void FlipFrens()
         {
             _Slug_Fren?.PublicFlip();
@@ -117,15 +115,12 @@ namespace Desktop_Frens
             var targetScreen = Screen.AllScreens.FirstOrDefault(screen => screen.DeviceName.EndsWith(screenName));
             if (targetScreen != null)
             {
-
                 this.Left = targetScreen.Bounds.Left - 25;
                 if(screenName == "DISPLAY3")this.Top = targetScreen.Bounds.Top + 25;
                 else if (screenName == "DISPLAY2") this.Top = targetScreen.Bounds.Top + 15;
                 else if (screenName == "DISPLAY1") this.Top = targetScreen.Bounds.Top + 15;
-
                 this.Width = targetScreen.WorkingArea.Width;
                 this.Height = targetScreen.WorkingArea.Height;
-
                 // Position the canvas at the bottom corner
                 MainCanvas.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                 MainCanvas.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
